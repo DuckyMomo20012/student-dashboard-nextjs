@@ -1,0 +1,41 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")
+}
+
+model Student {
+  id          String     @id @db.NVarChar(20)
+  name        String     @db.NVarChar(100)
+  dob         DateTime?  @db.DateTime
+  address     String?    @db.NVarChar(200)
+  class       Classroom? @relation(fields: [classId], references: [id])
+  classId     String?    @db.VarChar(20)
+  nameCompany String     @db.NVarChar(100)
+  password    Bytes      @db.VarBinary
+}
+
+model Staff {
+  id          String     @id @db.VarChar(20)
+  name        String     @db.NVarChar(100)
+  email       String?    @db.VarChar(20)
+  salary      Bytes?     @db.VarBinary
+  nameCompany String     @db.NVarChar(100)
+  class       Classroom? @relation(fields: [classId], references: [id])
+  classId     String     @db.VarChar(20)
+  password    Bytes      @db.VarBinary
+}
+
+model Classroom {
+  id      String    @id @db.VarChar(20)
+  name    String    @db.NVarChar(100)
+  staffId String    @db.VarChar(20)
+  student Student[]
+  staff   Staff[]
+}

@@ -27,7 +27,7 @@ const HeroTitle = () => {
         </Text>
 
         <Group className="mt-48px <md:mt-24px">
-          <Link href="/">
+          <Link href="/account/login">
             <Button
               className="h-54px px-38px <md:(h-54px px-18px flex-1)"
               gradient={{ from: 'blue', to: 'cyan' }}
