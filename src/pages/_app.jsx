@@ -1,12 +1,15 @@
 import 'windi.css';
 
 import { CustomMantineProvider } from '@provider/CustomMantineProvider.jsx';
+import { CustomQueryClientProvider } from '@provider/CustomQueryClientProvider.jsx';
 
 function MyApp({ Component, pageProps }) {
   return (
-    <CustomMantineProvider>
-      <Component {...pageProps} />
-    </CustomMantineProvider>
+    <CustomQueryClientProvider>
+      <CustomMantineProvider>
+        <Component {...pageProps} />
+      </CustomMantineProvider>
+    </CustomQueryClientProvider>
   );
 }
 

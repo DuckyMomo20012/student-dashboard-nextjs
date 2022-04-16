@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,32 +7,31 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Student {
-  id          String     @id @db.NVarChar(20)
-  name        String     @db.NVarChar(100)
-  dob         DateTime?  @db.DateTime
-  address     String?    @db.NVarChar(200)
-  class       Classroom? @relation(fields: [classId], references: [id])
-  classId     String?    @db.VarChar(20)
-  nameCompany String     @db.NVarChar(100)
-  password    Bytes      @db.VarBinary
+model LOP {
+  MALOP    String     @id(map: "PK__LOP__7A3DE21198309077") @db.VarChar(20)
+  TENLOP   String     @db.NVarChar(100)
+  MANV     String?    @db.VarChar(20)
+  NHANVIEN NHANVIEN?  @relation(fields: [MANV], references: [MANV], onDelete: NoAction, onUpdate: NoAction, map: "FK__LOP__MANV__04E4BC85")
+  SINHVIEN SINHVIEN[]
 }
 
-model Staff {
-  id          String     @id @db.VarChar(20)
-  name        String     @db.NVarChar(100)
-  email       String?    @db.VarChar(20)
-  salary      Bytes?     @db.VarBinary
-  nameCompany String     @db.NVarChar(100)
-  class       Classroom? @relation(fields: [classId], references: [id])
-  classId     String     @db.VarChar(20)
-  password    Bytes      @db.VarBinary
+model NHANVIEN {
+  MANV    String  @id(map: "PK__NHANVIEN__603F511427F69F55") @db.VarChar(20)
+  HOTEN   String  @db.NVarChar(100)
+  EMAIL   String? @db.VarChar(20)
+  LUONG   Bytes?
+  TENDN   String  @db.NVarChar(100)
+  MATKHAU Bytes   @db.VarBinary(20)
+  LOP     LOP[]
 }
 
-model Classroom {
-  id      String    @id @db.VarChar(20)
-  name    String    @db.NVarChar(100)
-  staffId String    @db.VarChar(20)
-  student Student[]
-  staff   Staff[]
+model SINHVIEN {
+  MASV     String    @id(map: "PK__SINHVIEN__60228A284785EE16") @db.NVarChar(20)
+  HOTEN    String    @db.NVarChar(100)
+  NGAYSINH DateTime? @db.DateTime
+  DIACHI   String?   @db.NVarChar(200)
+  MALOP    String?   @db.VarChar(20)
+  TENDN    String    @db.NVarChar(100)
+  MATKHAU  Bytes     @db.VarBinary(16)
+  LOP      LOP?      @relation(fields: [MALOP], references: [MALOP], onDelete: NoAction, onUpdate: NoAction, map: "FK__SINHVIEN__MALOP__03F0984C")
 }

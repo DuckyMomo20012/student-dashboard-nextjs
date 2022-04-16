@@ -1,29 +1,71 @@
 import {
-  TextInput,
-  PasswordInput,
   Anchor,
-  Paper,
-  Title,
-  Text,
-  Container,
   Button,
+  Container,
+  Modal,
+  Paper,
+  PasswordInput,
+  Text,
+  TextInput,
+  Title,
+  Group,
+  ThemeIcon,
 } from '@mantine/core';
 import { useForm } from 'react-hook-form';
+import { Icon } from '@iconify/react';
 
 import Link from 'next/link';
-import prisma from '@lib/prisma.js';
-// import { getUserAuth } from '@/features/auth/api/getUser.js';
+import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { sha1 } from 'hash-wasm';
 
-const Login = ({ users }) => {
+async function fetchUsers() {
+  const data = await fetch('/api/users');
+  const users = await data.json();
+  return users;
+}
+
+const Login = () => {
+  const router = useRouter();
   const { register, handleSubmit } = useForm();
+  const [opened, setOpened] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  function onSubmit(data) {
-    console.log(data);
-    console.log(users);
-  }
+  const onSubmit = async (data) => {
+    const users = await fetchUsers();
+    const hashPassword = await sha1(data.password);
+    if (users.HOTEN === data.username && users.MATKHAU === hashPassword) {
+      setIsLoggedIn(true);
+    }
+    setOpened(true);
+  };
 
   return (
     <Container my={40} size={420}>
+      <Modal
+        onClose={() => {
+          setOpened(false);
+          if (isLoggedIn) router.push('/');
+        }}
+        opened={opened}
+        withCloseButton={false}
+      >
+        {isLoggedIn ? (
+          <Group>
+            <ThemeIcon color="green" radius="xl" size="xl" variant="light">
+              <Icon icon="ic:twotone-check-circle" width={24} />
+            </ThemeIcon>
+            <Text>You are logged in</Text>
+          </Group>
+        ) : (
+          <Group>
+            <ThemeIcon color="red" radius="xl" size="xl" variant="light">
+              <Icon icon="ic:baseline-error-outline" width="24" />
+            </ThemeIcon>
+            <Text>You are not logged in</Text>
+          </Group>
+        )}
+      </Modal>
       <Title align="center" className="font-black">
         Welcome back!
       </Title>
@@ -41,6 +83,7 @@ const Login = ({ users }) => {
             placeholder="you@mantine.dev"
             required
             {...register('username')}
+            id="username"
           />
           <PasswordInput
             label="Password"
@@ -48,6 +91,7 @@ const Login = ({ users }) => {
             placeholder="Your password"
             required
             {...register('password')}
+            id="password"
           />
           <Button fullWidth mt="xl" type="submit">
             Sign in
@@ -57,17 +101,5 @@ const Login = ({ users }) => {
     </Container>
   );
 };
-
-export async function getStaticProps() {
-  const users = await prisma.staff.findUnique({
-    where: {
-      id: 'NV01',
-    },
-    select: { name: true, password: true },
-  });
-  return {
-    users: { users },
-  };
-}
 
 export default Login;
