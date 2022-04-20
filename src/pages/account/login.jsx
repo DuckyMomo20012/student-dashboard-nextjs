@@ -19,8 +19,8 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { sha1 } from 'hash-wasm';
 
-async function fetchUsers() {
-  const data = await fetch('/api/users');
+async function fetchUsers(userMail) {
+  const data = await fetch(`/api/users/${userMail}`);
   const users = await data.json();
   return users;
 }
@@ -32,9 +32,9 @@ const Login = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const onSubmit = async (data) => {
-    const users = await fetchUsers();
+    const user = await fetchUsers(data.email);
     const hashPassword = await sha1(data.password);
-    if (users.HOTEN === data.username && users.MATKHAU === hashPassword) {
+    if (user.email === data.email && user.password === hashPassword) {
       setIsLoggedIn(true);
     }
     setOpened(true);
@@ -82,8 +82,8 @@ const Login = () => {
             label="Email"
             placeholder="you@mantine.dev"
             required
-            {...register('username')}
-            id="username"
+            {...register('email')}
+            id="email"
           />
           <PasswordInput
             label="Password"

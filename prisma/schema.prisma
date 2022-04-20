@@ -7,31 +7,37 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model LOP {
-  MALOP    String     @id(map: "PK__LOP__7A3DE21198309077") @db.VarChar(20)
-  TENLOP   String     @db.NVarChar(100)
-  MANV     String?    @db.VarChar(20)
-  NHANVIEN NHANVIEN?  @relation(fields: [MANV], references: [MANV], onDelete: NoAction, onUpdate: NoAction, map: "FK__LOP__MANV__04E4BC85")
-  SINHVIEN SINHVIEN[]
+model Classroom {
+  id        String    @id(map: "PK__LOP__7A3DE211D25227C2") @map("MALOP") @db.VarChar(20)
+  nameClass String    @map("TENLOP") @db.NVarChar(100)
+  idStaff   String?   @map("MANV") @db.VarChar(20)
+  staffs    Staff?    @relation(fields: [idStaff], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK__LOP__MANV__55F4C372")
+  students  Student[]
+
+  @@map("LOP")
 }
 
-model NHANVIEN {
-  MANV    String  @id(map: "PK__NHANVIEN__603F511427F69F55") @db.VarChar(20)
-  HOTEN   String  @db.NVarChar(100)
-  EMAIL   String? @db.VarChar(20)
-  LUONG   Bytes?
-  TENDN   String  @db.NVarChar(100)
-  MATKHAU Bytes   @db.VarBinary(20)
-  LOP     LOP[]
+model Staff {
+  id          String      @id(map: "PK__NHANVIEN__603F51148A0C2BFD") @map("MANV") @db.VarChar(20)
+  name        String      @map("HOTEN") @db.NVarChar(100)
+  email       String?     @map("EMAIL") @db.VarChar(20)
+  salary      Bytes?      @map("LUONG")
+  nameCompany String      @map("TENDN") @db.NVarChar(100)
+  password    Bytes       @map("MATKHAU") @db.VarBinary(20)
+  classrooms  Classroom[]
+
+  @@map("NHANVIEN")
 }
 
-model SINHVIEN {
-  MASV     String    @id(map: "PK__SINHVIEN__60228A284785EE16") @db.NVarChar(20)
-  HOTEN    String    @db.NVarChar(100)
-  NGAYSINH DateTime? @db.DateTime
-  DIACHI   String?   @db.NVarChar(200)
-  MALOP    String?   @db.VarChar(20)
-  TENDN    String    @db.NVarChar(100)
-  MATKHAU  Bytes     @db.VarBinary(16)
-  LOP      LOP?      @relation(fields: [MALOP], references: [MALOP], onDelete: NoAction, onUpdate: NoAction, map: "FK__SINHVIEN__MALOP__03F0984C")
+model Student {
+  id          String     @id(map: "PK__SINHVIEN__60228A284C072285") @map("MASV") @db.NVarChar(20)
+  name        String     @map("HOTEN") @db.NVarChar(100)
+  dob         DateTime?  @map("NGAYSINH") @db.DateTime
+  address     String?    @map("DIACHI") @db.NVarChar(200)
+  idClassroom String?    @map("MALOP") @db.VarChar(20)
+  nameCompany String     @map("TENDN") @db.NVarChar(100)
+  password    Bytes      @map("MATKHAU") @db.VarBinary(16)
+  classrooms  Classroom? @relation(fields: [idClassroom], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK__SINHVIEN__MALOP__55009F39")
+
+  @@map("SINHVIEN")
 }
