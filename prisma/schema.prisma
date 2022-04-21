@@ -34,10 +34,10 @@ model Student {
   name        String     @map("HOTEN") @db.NVarChar(100)
   dob         DateTime?  @map("NGAYSINH") @db.DateTime
   address     String?    @map("DIACHI") @db.NVarChar(200)
-  idClassroom String?    @map("MALOP") @db.VarChar(20)
   nameCompany String     @map("TENDN") @db.NVarChar(100)
   password    Bytes      @map("MATKHAU") @db.VarBinary(16)
   classrooms  Classroom? @relation(fields: [idClassroom], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK__SINHVIEN__MALOP__55009F39")
+  idClassroom String?    @map("MALOP") @db.VarChar(20)
 
   @@map("SINHVIEN")
 }

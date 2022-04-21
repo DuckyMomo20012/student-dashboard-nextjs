@@ -17,13 +17,11 @@ const HeroTitle = () => {
           >
             fully featured
           </Text>{' '}
-          React components and hooks library
+          Student management dashboard
         </h1>
 
         <Text className="text-24px <md:text-18px mt-24px" color="dimmed">
-          Build fully functional accessible web applications with ease - Mantine
-          includes more than 100 customizable components and hooks to cover you
-          in any situation
+          Connect and edit your database seamlessly
         </Text>
 
         <Group className="mt-48px <md:mt-24px">
@@ -42,7 +40,7 @@ const HeroTitle = () => {
             className="h-54px px-38px <md:(h-54px px-18px flex-1) border-dark-900 dark:(border-transparent bg-dark-600 hover:!bg-dark-600) border-2 bg-transparent hover:!bg-gray-50"
             color={theme.colorScheme === 'dark' ? 'gray' : 'dark'}
             component="a"
-            href="https://github.com/mantinedev/mantine"
+            href="https://github.com/DuckyMomo20012/student-dashboard-nextjs"
             size="xl"
             variant="outline"
           >
