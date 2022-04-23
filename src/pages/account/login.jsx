@@ -1,28 +1,31 @@
+import { Icon } from '@iconify/react';
 import {
   Anchor,
   Button,
   Container,
+  Group,
   Modal,
   Paper,
   PasswordInput,
   Text,
   TextInput,
-  Title,
-  Group,
   ThemeIcon,
+  Title,
 } from '@mantine/core';
-import { useForm } from 'react-hook-form';
-import { Icon } from '@iconify/react';
-
-import Link from 'next/link';
-import { useState } from 'react';
-import { useRouter } from 'next/router';
+import { setUser } from '@store/slice/userSlice.js';
+import axios from 'axios';
 import { sha1 } from 'hash-wasm';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useMutation, useQuery } from 'react-query';
+import { useDispatch } from 'react-redux';
 
 async function fetchUsers(userMail) {
-  const data = await fetch(`/api/users/${userMail}`);
-  const users = await data.json();
-  return users;
+  console.log('userMail', userMail);
+  const users = await axios.get(`/api/users/${userMail}`);
+  return users.data;
 }
 
 const Login = () => {
@@ -30,12 +33,18 @@ const Login = () => {
   const { register, handleSubmit } = useForm();
   const [opened, setOpened] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const dispatch = useDispatch();
+
+  const mutation = useMutation((userMail) => {
+    return fetchUsers(userMail);
+  });
 
   const onSubmit = async (data) => {
-    const user = await fetchUsers(data.email);
+    const user = await mutation.mutateAsync(data.email);
     const hashPassword = await sha1(data.password);
     if (user.email === data.email && user.password === hashPassword) {
       setIsLoggedIn(true);
+      dispatch(setUser(user));
     }
     setOpened(true);
   };
@@ -45,7 +54,7 @@ const Login = () => {
       <Modal
         onClose={() => {
           setOpened(false);
-          if (isLoggedIn) router.push('/');
+          if (isLoggedIn) router.push('/dashboard');
         }}
         opened={opened}
         withCloseButton={false}

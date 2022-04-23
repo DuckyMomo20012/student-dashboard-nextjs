@@ -1,12 +1,17 @@
 import prisma from '@lib/prisma.js';
 
-async function handle(req, res) {
+async function getOneUser(req, res) {
   const { userMail } = req.query;
   const user = await prisma.staff.findFirst({
     where: {
       email: userMail,
     },
-    select: { email: true, password: true },
+    select: {
+      email: true,
+      id: true,
+      name: true,
+      password: true,
+    },
   });
   if (user) {
     res.status(200).json({ ...user, password: user.password.toString('hex') });
@@ -19,4 +24,4 @@ async function handle(req, res) {
   }
 }
 
-export default handle;
+export default getOneUser;

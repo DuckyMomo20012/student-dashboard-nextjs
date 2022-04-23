@@ -1,15 +1,21 @@
+import {
+  CustomMantineProvider,
+  CustomQueryClientProvider,
+  CustomReduxProvider,
+} from '@provider/index.js';
 import 'windi.css';
 
-import { CustomMantineProvider } from '@provider/CustomMantineProvider.jsx';
-import { CustomQueryClientProvider } from '@provider/CustomQueryClientProvider.jsx';
-
 function MyApp({ Component, pageProps }) {
-  return (
-    <CustomQueryClientProvider>
-      <CustomMantineProvider>
-        <Component {...pageProps} />
-      </CustomMantineProvider>
-    </CustomQueryClientProvider>
+  const getLayout = Component.getLayout || ((page) => page);
+
+  return getLayout(
+    <CustomReduxProvider>
+      <CustomQueryClientProvider>
+        <CustomMantineProvider>
+          <Component {...pageProps} />
+        </CustomMantineProvider>
+      </CustomQueryClientProvider>
+    </CustomReduxProvider>,
   );
 }
 

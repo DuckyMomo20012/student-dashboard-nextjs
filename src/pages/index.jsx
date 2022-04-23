@@ -1,4 +1,4 @@
-import { Container, Text, Button, Group, useMantineTheme } from '@mantine/core';
+import { Button, Container, Group, Text, useMantineTheme } from '@mantine/core';
 import Link from 'next/link';
 
 const HeroTitle = () => {
