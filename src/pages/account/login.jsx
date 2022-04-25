@@ -23,7 +23,6 @@ import { useMutation, useQuery } from 'react-query';
 import { useDispatch } from 'react-redux';
 
 async function fetchUsers(userMail) {
-  console.log('userMail', userMail);
   const users = await axios.get(`/api/users/${userMail}`);
   return users.data;
 }

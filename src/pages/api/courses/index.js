@@ -1,17 +1,23 @@
 import prisma from '@lib/prisma.js';
 
-async function getAllCourse(req, res) {
+async function getAllCourseOneStaff(req, res) {
   const { user: userId } = req.query;
-  const courses = await prisma.course.findMany({
+  const majorCourseList = await prisma.major.findMany({
     where: {
-      id: userId,
+      idStaff: userId,
     },
     select: {
       id: true,
-      nameCourse: true,
+      nameMajor: true,
+      courses: {
+        select: {
+          id: true,
+          nameCourse: true,
+        },
+      },
     },
   });
-  res.status(200).json([...courses]);
+  res.status(200).json([...majorCourseList]);
 }
 
-export default getAllCourse;
+export default getAllCourseOneStaff;

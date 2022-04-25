@@ -8,8 +8,8 @@ export const navLinkSlice = createSlice({
   name: 'navLink',
   initialState,
   reducers: {
-    setLink: (state, param) => {
-      const { payload } = param;
+    setLink: (state, action) => {
+      const { payload } = action;
       state.value = payload;
     },
   },

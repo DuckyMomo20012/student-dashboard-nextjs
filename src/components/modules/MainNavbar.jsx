@@ -40,7 +40,14 @@ function MainNavbar() {
       <Navbar.Section grow className="flex">
         <div className="basis-60px dark:(bg-dark-700 border-r-dark-700) border-r-1 flex flex-shrink-0 flex-grow-0 flex-col items-center border-solid border-r-gray-300 bg-white">
           <div className="w-1/1 h-60px border-b-1 dark:border-b-dark-700 mb-24px pt-16px box-border flex justify-center border-solid border-b-gray-300">
-            <Image src="/mantine-small.svg" alt="logo" width={24} height={24} />
+            <Link href="/" passHref>
+              <Image
+                src="/mantine-small.svg"
+                alt="logo"
+                width={24}
+                height={24}
+              />
+            </Link>
           </div>
           {mainLinks}
         </div>
