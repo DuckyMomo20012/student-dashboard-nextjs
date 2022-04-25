@@ -1,5 +1,5 @@
 import { Icon } from '@iconify/react';
-import { Navbar, Tooltip, UnstyledButton } from '@mantine/core';
+import { Anchor, Navbar, Tooltip, UnstyledButton } from '@mantine/core';
 import { setLink } from '@store/slice/navLinkSlice.js';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -41,12 +41,14 @@ function MainNavbar() {
         <div className="basis-60px dark:(bg-dark-700 border-r-dark-700) border-r-1 flex flex-shrink-0 flex-grow-0 flex-col items-center border-solid border-r-gray-300 bg-white">
           <div className="w-1/1 h-60px border-b-1 dark:border-b-dark-700 mb-24px pt-16px box-border flex justify-center border-solid border-b-gray-300">
             <Link href="/" passHref>
-              <Image
-                src="/mantine-small.svg"
-                alt="logo"
-                width={24}
-                height={24}
-              />
+              <Anchor>
+                <Image
+                  src="/mantine-small.svg"
+                  alt="logo"
+                  width={24}
+                  height={24}
+                />
+              </Anchor>
             </Link>
           </div>
           {mainLinks}
