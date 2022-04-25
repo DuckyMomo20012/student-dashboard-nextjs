@@ -1,10 +1,12 @@
 import prisma from '@lib/prisma.js';
 
 async function getAllCourseOneStaff(req, res) {
-  const { user: userId } = req.query;
+  const { username } = req.query;
   const majorCourseList = await prisma.major.findMany({
     where: {
-      idStaff: userId,
+      staffs: {
+        name: username,
+      },
     },
     select: {
       id: true,

@@ -12,18 +12,21 @@ import {
   ThemeIcon,
   Title,
 } from '@mantine/core';
-import { setUser } from '@store/slice/userSlice.js';
 import axios from 'axios';
 import { sha1 } from 'hash-wasm';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useMutation, useQuery } from 'react-query';
-import { useDispatch } from 'react-redux';
+import { useMutation } from 'react-query';
+import slugify from 'slugify';
 
 async function fetchUsers(userMail) {
-  const users = await axios.get(`/api/users/${userMail}`);
+  const users = await axios.get(`/api/users`, {
+    params: {
+      usermail: userMail,
+    },
+  });
   return users.data;
 }
 
@@ -31,8 +34,7 @@ const Login = () => {
   const router = useRouter();
   const { register, handleSubmit } = useForm();
   const [opened, setOpened] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const dispatch = useDispatch();
+  const [user, setUser] = useState(null);
 
   const mutation = useMutation((userMail) => {
     return fetchUsers(userMail);
@@ -42,8 +44,7 @@ const Login = () => {
     const user = await mutation.mutateAsync(data.email);
     const hashPassword = await sha1(data.password);
     if (user.email === data.email && user.password === hashPassword) {
-      setIsLoggedIn(true);
-      dispatch(setUser(user));
+      setUser(user);
     }
     setOpened(true);
   };
@@ -53,12 +54,15 @@ const Login = () => {
       <Modal
         onClose={() => {
           setOpened(false);
-          if (isLoggedIn) router.push('/dashboard');
+          if (user) {
+            const userName = slugify(user.name.toLowerCase());
+            router.push(`/${userName}/dashboard`);
+          }
         }}
         opened={opened}
         withCloseButton={false}
       >
-        {isLoggedIn ? (
+        {user ? (
           <Group>
             <ThemeIcon color="green" radius="xl" size="xl" variant="light">
               <Icon icon="ic:twotone-check-circle" width={24} />
@@ -74,6 +78,7 @@ const Login = () => {
           </Group>
         )}
       </Modal>
+
       <Title align="center" className="font-black">
         Welcome back!
       </Title>

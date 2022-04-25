@@ -1,12 +1,6 @@
+import { DOMAIN } from '@constant/index.js';
 import { AppShell } from '@layout/AppShell';
-import {
-  Accordion,
-  Center,
-  Container,
-  Group,
-  Loader,
-  Text,
-} from '@mantine/core';
+import { Center, Container, Group, Loader } from '@mantine/core';
 import { DataGrid } from '@module/DataGrid.jsx';
 import { SubNavbar } from '@module/index.js';
 import { formatDate } from '@util/formatDate.js';
@@ -16,10 +10,10 @@ import { useMutation, useQuery } from 'react-query';
 import { useSelector } from 'react-redux';
 
 async function fetchCourses({ queryKey }) {
-  const [_key, userId] = queryKey;
+  const [_key, userName] = queryKey;
   const majorCourseList = await axios.get('/api/courses', {
     params: {
-      user: userId,
+      username: userName,
     },
   });
   return majorCourseList.data;
@@ -30,15 +24,15 @@ async function fetchAllStudentOneCourse(courseId) {
   return students.data;
 }
 
-const Dashboard = () => {
+const Dashboard = ({ userName, courses }) => {
   const [activeCourseId, setActiveCourseId] = useState('');
   const activeMainLink = useSelector((state) => state.navLink.value);
-  const { id: userId } = useSelector((state) => state.user.value);
   const { data: majorCourseList, refetch: refetchCourseList } = useQuery(
-    ['majorCourses', userId],
+    ['majorCourses', userName],
     fetchCourses,
     {
       retry: false,
+      initialData: courses,
     },
   );
 
@@ -48,9 +42,9 @@ const Dashboard = () => {
     return fetchAllStudentOneCourse(courseId);
   });
 
-  async function handleActiveCourseClick(idSubItem) {
-    setActiveCourseId(idSubItem);
-    const students = await mutation.mutateAsync(idSubItem);
+  async function handleActiveCourseClick(activeCourseId) {
+    setActiveCourseId(activeCourseId);
+    const students = await mutation.mutateAsync(activeCourseId);
     setStudents(students);
   }
 
@@ -119,3 +113,27 @@ Dashboard.getLayout = function getLayout(page) {
 };
 
 export default Dashboard;
+
+export async function getStaticPaths() {
+  return {
+    // We don't have to fetch all users, because we only use one user
+    paths: [],
+    // Since we don't statically generate pages, so we will wait for 'html' to
+    // be generated
+    fallback: 'blocking',
+  };
+}
+
+export async function getStaticProps({ userName }) {
+  const res = await axios.get(`${DOMAIN}/api/courses`, {
+    params: {
+      username: userName,
+    },
+  });
+  const courses = res.data;
+  return {
+    props: {
+      courses,
+    },
+  };
+}

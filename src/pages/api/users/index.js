@@ -1,10 +1,11 @@
 import prisma from '@lib/prisma.js';
 
 async function getOneUser(req, res) {
-  const { userMail } = req.query;
+  // Request query params
+  const { usermail } = req.query;
   const user = await prisma.staff.findFirst({
     where: {
-      email: userMail,
+      email: usermail,
     },
     select: {
       email: true,
