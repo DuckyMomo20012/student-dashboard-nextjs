@@ -8,6 +8,9 @@ First, install dependencies:
 yarn
 ```
 
+> If you have error: "node" is incompatible... Then add flag:
+> `--ignore-engines`. E.g: `yarn add --ignore-engines PACKAGE_NAME`
+
 Then, generate Prisma client
 
 ```bash
