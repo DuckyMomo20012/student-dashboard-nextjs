@@ -1,6 +1,8 @@
+import { DOMAIN } from '@constant/index.js';
 import { Icon } from '@iconify/react';
-import { Anchor, Navbar, Tooltip, UnstyledButton } from '@mantine/core';
+import { Anchor, Center, Navbar, Tooltip, UnstyledButton } from '@mantine/core';
 import { setLink } from '@store/slice/navLinkSlice.js';
+import { signOut } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,6 +11,11 @@ const mainLinksMockdata = [
   { icon: 'ic:outline-home', label: 'Home' },
   { icon: 'ic:outline-table-rows', label: 'Dashboard' },
 ];
+
+function handleLogOutClick() {
+  signOut({ callbackUrl: `${DOMAIN}/` });
+}
+
 function MainNavbar() {
   const activeMainLink = useSelector((state) => state.navLink.value);
   const dispatch = useDispatch();
@@ -53,6 +60,18 @@ function MainNavbar() {
           </div>
           {mainLinks}
         </div>
+      </Navbar.Section>
+      <Navbar.Section className="mb-4">
+        <Center>
+          <UnstyledButton
+            onClick={handleLogOutClick}
+            className={
+              'w-44px h-44px dark:(text-dark-50 hover:bg-dark-500) hover:(bg-gray-100) flex items-center justify-center rounded-md text-gray-700'
+            }
+          >
+            <Icon icon="ic:outline-logout" width={24} height={24} />
+          </UnstyledButton>
+        </Center>
       </Navbar.Section>
     </Navbar>
   );

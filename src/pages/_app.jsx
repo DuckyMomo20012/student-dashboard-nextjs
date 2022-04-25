@@ -3,18 +3,21 @@ import {
   CustomQueryClientProvider,
   CustomReduxProvider,
 } from '@provider/index.js';
+import { SessionProvider } from 'next-auth/react';
 import 'windi.css';
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const getLayout = Component.getLayout || ((page) => page);
 
   return getLayout(
     <CustomReduxProvider>
-      <CustomQueryClientProvider>
-        <CustomMantineProvider>
-          <Component {...pageProps} />
-        </CustomMantineProvider>
-      </CustomQueryClientProvider>
+      <SessionProvider session={session}>
+        <CustomQueryClientProvider>
+          <CustomMantineProvider>
+            <Component {...pageProps} />
+          </CustomMantineProvider>
+        </CustomQueryClientProvider>
+      </SessionProvider>
     </CustomReduxProvider>,
   );
 }
