@@ -42,6 +42,7 @@ const Login = () => {
   const onSubmit = async (data) => {
     const { email, password } = data;
     setOverlayVisible(true);
+    // Sign in using next-auth function api
     signIn('credentials', { email, password, redirect: false });
   };
 

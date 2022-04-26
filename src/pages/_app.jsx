@@ -1,4 +1,5 @@
 import {
+  AuthGuard,
   CustomMantineProvider,
   CustomQueryClientProvider,
   CustomReduxProvider,
@@ -15,7 +16,14 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
         <CustomQueryClientProvider>
           <CustomMantineProvider>
             <NextNProgress />
-            <Component {...pageProps} />
+            {/* Guarding pages */}
+            {Component.auth ? (
+              <AuthGuard>
+                <Component {...pageProps} />
+              </AuthGuard>
+            ) : (
+              <Component {...pageProps} />
+            )}
           </CustomMantineProvider>
         </CustomQueryClientProvider>
       </SessionProvider>

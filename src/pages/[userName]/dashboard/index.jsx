@@ -1,11 +1,11 @@
-import { DOMAIN } from '@constant/index.js';
 import { AppShell } from '@layout/AppShell';
-import { Center, Container, Group, Loader } from '@mantine/core';
+import { Center, Container, Group, Loader, Stack, Text } from '@mantine/core';
 import { DataGrid } from '@module/DataGrid.jsx';
 import { SubNavbar } from '@module/index.js';
 import { formatDate } from '@util/formatDate.js';
 import axios from 'axios';
-import { useMemo, useState } from 'react';
+import { useSession } from 'next-auth/react';
+import { useEffect, useMemo, useState } from 'react';
 import { useMutation, useQuery } from 'react-query';
 import { useSelector } from 'react-redux';
 
@@ -24,19 +24,28 @@ async function fetchAllStudentOneCourse(courseId) {
   return students.data;
 }
 
-const Dashboard = ({ userName, courses }) => {
+const Dashboard = () => {
   const [activeCourseId, setActiveCourseId] = useState('');
   const activeMainLink = useSelector((state) => state.navLink.value);
-  const { data: majorCourseList, refetch: refetchCourseList } = useQuery(
+  const [students, setStudents] = useState(null);
+  const [userName, setUserName] = useState(null);
+  const { data: session, status: sessionStatus } = useSession();
+  const { data: majorCourseList, refetch: refetchCourses } = useQuery(
     ['majorCourses', userName],
     fetchCourses,
     {
       retry: false,
-      initialData: courses,
+      enabled: false,
     },
   );
 
-  const [students, setStudents] = useState(null);
+  useEffect(() => {
+    const {
+      user: { name: userNameSession },
+    } = session;
+    setUserName(userNameSession);
+    refetchCourses();
+  }, [session, userName]);
 
   const mutation = useMutation((courseId) => {
     return fetchAllStudentOneCourse(courseId);
@@ -99,8 +108,13 @@ const Dashboard = ({ userName, courses }) => {
       <Container p="md" className="w-1/2" fluid>
         {mutation.isSuccess && <DataGrid columns={columns} data={data} />}
         {mutation.isLoading && (
-          <Center className="w-1/1">
-            <Loader className="h-48px w-48px" />
+          <Center className="w-1/1 h-1/1">
+            <Stack>
+              <Text>Loading data...</Text>
+              <Center>
+                <Loader className="h-48px w-48px" />
+              </Center>
+            </Stack>
           </Center>
         )}
       </Container>
@@ -112,28 +126,6 @@ Dashboard.getLayout = function getLayout(page) {
   return <AppShell>{page}</AppShell>;
 };
 
+Dashboard.auth = true;
+
 export default Dashboard;
-
-export async function getStaticPaths() {
-  return {
-    // We don't have to fetch all users, because we only use one user
-    paths: [],
-    // Since we don't statically generate pages, so we will wait for 'html' to
-    // be generated
-    fallback: 'blocking',
-  };
-}
-
-export async function getStaticProps({ userName }) {
-  const res = await axios.get(`${DOMAIN}/api/courses`, {
-    params: {
-      username: userName,
-    },
-  });
-  const courses = res.data;
-  return {
-    props: {
-      courses,
-    },
-  };
-}
