@@ -1,4 +1,5 @@
 import { MantineProvider } from '@mantine/core';
+import { CustomColorSchemeProvider } from './CustomColorSchemeProvider.jsx';
 
 const slate = [
   '#f8fafc',
@@ -315,7 +316,7 @@ const theme = {
   },
   defaultRadius: 'md',
   black: '#333',
-  white: '#F5F5F5',
+  white: '#FAFAFA',
   primaryColor: 'rose',
   fontSize: {
     xs: '.75rem',
@@ -369,9 +370,11 @@ const theme = {
 
 const CustomMantineProvider = ({ children }) => {
   return (
-    <MantineProvider theme={theme} withGlobalStyles withNormalizeCSS>
-      {children}
-    </MantineProvider>
+    <CustomColorSchemeProvider>
+      <MantineProvider theme={theme} withGlobalStyles withNormalizeCSS>
+        {children}
+      </MantineProvider>
+    </CustomColorSchemeProvider>
   );
 };
 

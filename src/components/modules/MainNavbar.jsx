@@ -26,6 +26,8 @@ function handleLogOutClick() {
 function MainNavbar() {
   const activeMainLink = useSelector((state) => state.navLink.value);
   const dispatch = useDispatch();
+  const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+  const dark = colorScheme === 'dark';
 
   const mainLinks = mainLinksMockdata.map((link) => (
     <Tooltip
@@ -50,12 +52,12 @@ function MainNavbar() {
 
   return (
     <Navbar
-      className="border-r-1 dark:(border-r-dark-700) border-solid border-r-gray-300"
+      className="border-r-1 dark:(border-r-dark-700) border-solid border-r-gray-300 bg-white"
       width={{ base: 60 }}
     >
       <Navbar.Section className="flex" grow>
         <Box className="basis-60px dark:(bg-dark-700) flex flex-shrink-0 flex-grow-0 flex-col items-center">
-          <Box className="w-1/1 h-60px border-b-1 dark:border-b-dark-700 mb-24px pt-16px box-border flex justify-center border-solid border-b-gray-300">
+          <Box className="w-1/1 h-60px border-b-1 dark:border-dark-700 mb-24px pt-16px box-border flex justify-center border-solid border-gray-300">
             <Link href="/" passHref>
               <Anchor>
                 <Image
@@ -69,6 +71,22 @@ function MainNavbar() {
           </Box>
           {mainLinks}
         </Box>
+      </Navbar.Section>
+      <Navbar.Section className="mb-4">
+        <Center>
+          <UnstyledButton
+            className={
+              'w-44px h-44px dark:(text-dark-50 hover:bg-dark-500) hover:(bg-gray-100) flex items-center justify-center rounded-md text-gray-700'
+            }
+            onClick={() => toggleColorScheme()}
+          >
+            <Icon
+              height={24}
+              icon={dark ? 'ic:outline-dark-mode' : 'ic:outline-light-mode'}
+              width={24}
+            />
+          </UnstyledButton>
+        </Center>
       </Navbar.Section>
       <Navbar.Section className="mb-4">
         <Center>

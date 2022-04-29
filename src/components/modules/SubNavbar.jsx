@@ -23,9 +23,9 @@ const SubNavbar = ({
               withArrow
             >
               <Text
-                className={`border-box dark:(text-dark-50 bg-dark-500 text-white) px-16px text-14px mr-16px h-44px leading-11 hover:(bg-gray-100 text-black) block truncate rounded-md py-0 font-medium text-gray-700 no-underline${
+                className={`border-box dark:(text-dark-50 bg-dark-500 text-white) px-16px text-14px mr-16px h-44px leading-11 hover:(bg-gray-100 text-black) block truncate rounded-tr-md rounded-br-md py-0 font-medium text-gray-700 no-underline${
                   activeSubLink === idSubItem &&
-                  'dark:(border-l-blue-700 bg-blue-700) !hover:(border-l-blue-500) !hover:(bg-blue-50) !hover:(text-blue-700) border-l-blue-500 bg-blue-50 text-blue-700'
+                  'dark:(border-l-blue-700 bg-blue-700) !hover:(border-l-blue-500) !hover:(bg-blue-500) !hover:(text-white) border-l-blue-500 bg-blue-500 text-white'
                 }`}
                 onClick={() => {
                   onActiveSubLinkClick(idSubItem);
@@ -43,9 +43,9 @@ const SubNavbar = ({
   return (
     <Navbar width={{ base: 200 }}>
       <Navbar.Section className="" grow>
-        <Box className="h-1/1 flex-1 bg-gray-50 dark:bg-gray-600">
+        <Box className="h-1/1 flex-1 bg-gray-100 dark:bg-gray-600">
           <Title
-            className="dark:(bg-dark-700 border-b-dark-700) p-16px pt-18px h-60px border-b-1 box-border border-solid border-b-gray-300"
+            className="dark:(bg-dark-700 border-b-dark-700) p-16px pt-18px h-60px border-b-1 box-border border-solid border-b-gray-300 bg-white"
             order={4}
           >
             {heading}
