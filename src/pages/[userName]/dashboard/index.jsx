@@ -98,14 +98,14 @@ const Dashboard = () => {
   }, [students, mutation.isSuccess]);
 
   return (
-    <Group grow direction="col" spacing={0}>
+    <Group direction="col" grow spacing={0}>
       <SubNavbar
+        activeSubLink={activeCourseId}
         heading={activeMainLink}
         links={links}
-        activeSubLink={activeCourseId}
         onActiveSubLinkClick={handleActiveCourseClick}
       ></SubNavbar>
-      <Container p="md" className="w-1/2" fluid>
+      <Container className="w-1/2" fluid p="md">
         {mutation.isSuccess && <DataGrid columns={columns} data={data} />}
         {mutation.isLoading && (
           <Center className="w-1/1 h-1/1">

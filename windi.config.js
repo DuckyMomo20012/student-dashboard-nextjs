@@ -3,6 +3,7 @@ export default {
     // ...
   },
   attributify: true,
+  darkMode: 'class',
   extract: {
     exclude: ['node_modules', '.git', '.next/**/*'],
     include: ['**/*.{jsx,css}'],
@@ -25,6 +26,7 @@ export default {
   },
   theme: {
     extend: {
+      colors: { white: '#FAFAFA', black: '#333' },
       fontFamily: {
         sans: ['Inter', 'ui-sans-serif', 'system-ui'],
         serif: ['Roboto Slab', 'ui-serif', 'Georgia'],

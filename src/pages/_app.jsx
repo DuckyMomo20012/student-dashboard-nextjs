@@ -10,7 +10,7 @@ import 'windi.css';
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const getLayout = Component.getLayout || ((page) => page);
-  return getLayout(
+  return (
     <CustomReduxProvider>
       <SessionProvider session={session}>
         <CustomQueryClientProvider>
@@ -18,16 +18,14 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
             <NextNProgress />
             {/* Guarding pages */}
             {Component.auth ? (
-              <AuthGuard>
-                <Component {...pageProps} />
-              </AuthGuard>
+              <AuthGuard>{getLayout(<Component {...pageProps} />)}</AuthGuard>
             ) : (
-              <Component {...pageProps} />
+              getLayout(<Component {...pageProps} />)
             )}
           </CustomMantineProvider>
         </CustomQueryClientProvider>
       </SessionProvider>
-    </CustomReduxProvider>,
+    </CustomReduxProvider>
   );
 }
 
