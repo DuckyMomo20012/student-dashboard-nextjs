@@ -1,13 +1,24 @@
-import { Button, Container, Group, Text, useMantineTheme } from '@mantine/core';
+import {
+  Box,
+  Button,
+  Container,
+  Group,
+  Text,
+  Title,
+  useMantineTheme,
+} from '@mantine/core';
 import Link from 'next/link';
 
 const HeroTitle = () => {
   const theme = useMantineTheme();
 
   return (
-    <div className="dark:bg-dark-800 relative border bg-white">
+    <Box className="dark:bg-dark-800 relative border">
       <Container className="pt-200px pb-120px <md:py-80px relative" size={700}>
-        <h1 className="text-62px leading-1.1 <md:(text-42px leading-1.2) dark:color-light-50 m-0 bg-transparent p-0 font-black">
+        <Title
+          className="text-62px leading-1.1 <md:(text-42px leading-1.2) dark:color-light-50 m-0 bg-transparent p-0 font-black"
+          order={1}
+        >
           A{' '}
           <Text
             component="span"
@@ -18,7 +29,7 @@ const HeroTitle = () => {
             fully featured
           </Text>{' '}
           Student management dashboard
-        </h1>
+        </Title>
 
         <Text className="text-24px <md:text-18px mt-24px" color="dimmed">
           Connect and edit your database seamlessly
@@ -48,7 +59,7 @@ const HeroTitle = () => {
           </Button>
         </Group>
       </Container>
-    </div>
+    </Box>
   );
 };
 

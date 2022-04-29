@@ -6,7 +6,7 @@ function DataGrid({ columns, data }) {
     useTable({ columns, data });
 
   return (
-    <Table {...getTableProps()} striped highlightOnHover fontSize="md">
+    <Table {...getTableProps()} fontSize="md" highlightOnHover striped>
       <thead>
         {headerGroups.map((headerGroup) => (
           <tr {...headerGroup.getHeaderGroupProps()}>

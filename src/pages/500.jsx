@@ -1,12 +1,12 @@
-import { Button, Container, Group, Text, Title } from '@mantine/core';
+import { Box, Button, Container, Group, Text, Title } from '@mantine/core';
 
 function ServerError() {
   return (
-    <div className="pt-80px pb-120px bg-blue-600">
+    <Box className="pt-80px pb-120px h-screen bg-blue-600 ">
       <Container>
-        <div className="text-200px mb-36px <sm:text-120px text-center font-black text-blue-300">
+        <Box className="text-200px mb-36px <sm:text-120px text-center font-black text-blue-300">
           500
-        </div>
+        </Box>
         <Title className="text-38px text-light-900 <sm:text-32px text-center font-black">
           Something bad just happened...
         </Title>
@@ -24,7 +24,7 @@ function ServerError() {
           </Button>
         </Group>
       </Container>
-    </div>
+    </Box>
   );
 }
 

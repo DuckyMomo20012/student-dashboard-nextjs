@@ -5,12 +5,12 @@ import { CustomReduxProvider } from '@provider/index.js';
 const AppShell = ({ children }) => {
   return (
     <MantineAppShell
-      padding={0}
       navbar={
         <CustomReduxProvider>
           <MainNavbar />
         </CustomReduxProvider>
       }
+      padding={0}
     >
       {children}
     </MantineAppShell>

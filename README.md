@@ -19,6 +19,10 @@ npx prisma generate
 
 Go to `.env` file to edit connection string
 
+NOTE: Ensure you have enable **TCP/IP** protocol
+([Guide](https://www.ibm.com/docs/en/sss/3.1.1?topic=install-enabling-sql-server-express-communication-over-tcpip)), or you can use other
+connection string
+
 ```
 DATABASE_URL="sqlserver://localhost:1433;database=DATABASE;username=USER;password=PASSWORD;trustServerCertificate=true;"
 ```

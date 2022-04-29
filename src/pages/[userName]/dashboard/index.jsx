@@ -1,7 +1,6 @@
 import { AppShell } from '@layout/AppShell';
 import { Center, Container, Group, Loader, Stack, Text } from '@mantine/core';
-import { DataGrid } from '@module/DataGrid.jsx';
-import { SubNavbar } from '@module/index.js';
+import { DataGrid, SubNavbar } from '@module/index.js';
 import { formatDate } from '@util/formatDate.js';
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
@@ -75,13 +74,26 @@ const Dashboard = () => {
   const columns = useMemo(() => {
     if (mutation.isSuccess) {
       // Use first data to get num of columns
-      const columns = Object.keys(students[0]?.student);
-      return columns.map((colName) => {
+      const columnNums = Object.keys(students[0]?.student);
+      const columns = columnNums.map((colName) => {
+        if (colName === 'dob') {
+          return {
+            Header: colName,
+            accessor: colName,
+            Cell: ({ value: date }) => formatDate(new Date(date)),
+          };
+        }
         return {
           Header: colName,
           accessor: colName,
+          Header: (context) => {
+            console.log('context', context);
+
+            return <h1>Hello</h1>;
+          },
         };
       });
+      return columns;
     }
   }, [students, mutation.isSuccess]);
 
@@ -90,9 +102,7 @@ const Dashboard = () => {
       // map data base on 'columns' not from data, because in 'columns' we may
       // remove some columns
       return students.map(({ student }) => {
-        const { dob } = student;
-        dob = formatDate(new Date(dob));
-        return { ...student, dob };
+        return { ...student };
       });
     }
   }, [students, mutation.isSuccess]);
