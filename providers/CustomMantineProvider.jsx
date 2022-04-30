@@ -352,7 +352,7 @@ const theme = {
     fontFamily:
       'Barlow, ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"',
   },
-  lineHeight: 1,
+  lineHeight: 1.55,
   loader: 'oval',
   shadows: {
     xs: '0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)', // Base Mantine
