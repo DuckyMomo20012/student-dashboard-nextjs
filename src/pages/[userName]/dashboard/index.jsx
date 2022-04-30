@@ -1,6 +1,14 @@
 import { Cell, Header } from '@element/DataGrid/index.js';
 import { AppShell } from '@layout/AppShell';
-import { Center, Group, Loader, Stack, Text } from '@mantine/core';
+import {
+  Box,
+  Center,
+  Group,
+  Loader,
+  ScrollArea,
+  Stack,
+  Text,
+} from '@mantine/core';
 import { DataGrid, SubNavbar } from '@module/index.js';
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
@@ -37,7 +45,6 @@ const Dashboard = () => {
       enabled: false,
     },
   );
-
   useEffect(() => {
     const {
       user: { name: userNameSession },
@@ -97,7 +104,7 @@ const Dashboard = () => {
           accessor: 'menu',
           columnType: 'menu',
           Header,
-          disableResizing: true,
+          disableResizing: false,
         },
       ];
       return columns;
@@ -122,8 +129,14 @@ const Dashboard = () => {
         links={links}
         onActiveSubLinkClick={handleActiveCourseClick}
       />
-      <Stack className="max-w-100vmax flex-grow" justify="start" p="md">
-        {mutation.isSuccess && <DataGrid columns={columns} data={data} />}
+      <Stack className="relative flex-grow" justify="start">
+        {mutation.isSuccess && (
+          <Box className="absolute inset-0">
+            <ScrollArea className="w-1/1">
+              <DataGrid columns={columns} data={data} />
+            </ScrollArea>
+          </Box>
+        )}
         {mutation.isLoading && (
           <Center className="w-1/1 h-1/1">
             <Stack>

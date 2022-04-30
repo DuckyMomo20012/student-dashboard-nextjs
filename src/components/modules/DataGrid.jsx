@@ -1,7 +1,7 @@
-import { ScrollArea, Table } from '@mantine/core';
+import { Table } from '@mantine/core';
 import { useMemo } from 'react';
 import {
-  useFlexLayout,
+  useBlockLayout,
   useResizeColumns,
   useSortBy,
   useTable,
@@ -21,39 +21,37 @@ function DataGrid({ columns, data }) {
       { columns, data, manualSortBy: false, defaultColumn },
       useSortBy,
       useResizeColumns,
-      useFlexLayout,
+      useBlockLayout,
     );
 
   return (
-    <ScrollArea className="w-1/1">
-      <Table {...getTableProps()} fontSize="md" highlightOnHover striped>
-        <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps()}>{column.render('Header')}</th>
-              ))}
+    <Table {...getTableProps()} fontSize="md" highlightOnHover striped>
+      <thead>
+        {headerGroups.map((headerGroup) => (
+          <tr {...headerGroup.getHeaderGroupProps()}>
+            {headerGroup.headers.map((column) => (
+              <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+            ))}
+          </tr>
+        ))}
+      </thead>
+      <tbody {...getTableBodyProps()}>
+        {rows.map((row) => {
+          prepareRow(row);
+          return (
+            <tr {...row.getRowProps()}>
+              {row.cells.map((cell) => {
+                return (
+                  <td {...cell.getCellProps()} className="relative">
+                    {cell.render('Cell')}
+                  </td>
+                );
+              })}
             </tr>
-          ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {rows.map((row) => {
-            prepareRow(row);
-            return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map((cell) => {
-                  return (
-                    <td {...cell.getCellProps()} className="relative">
-                      {cell.render('Cell')}
-                    </td>
-                  );
-                })}
-              </tr>
-            );
-          })}
-        </tbody>
-      </Table>
-    </ScrollArea>
+          );
+        })}
+      </tbody>
+    </Table>
   );
 }
 

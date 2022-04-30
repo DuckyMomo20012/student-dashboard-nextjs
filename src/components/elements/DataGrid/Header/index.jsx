@@ -87,10 +87,7 @@ const typeLabels = {
 };
 
 const Header = ({ column }) => {
-  // console.log('column', column);
   const { columnType, id, disableResizing } = column;
-  console.log('column', column);
-
   const type = typeLabels[columnType];
 
   return (

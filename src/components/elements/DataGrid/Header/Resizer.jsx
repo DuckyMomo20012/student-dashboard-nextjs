@@ -1,7 +1,6 @@
 import { Box } from '@mantine/core';
 
 const Resizer = ({ column, ...others }) => {
-  console.log(others);
   return (
     <Box
       {...others}

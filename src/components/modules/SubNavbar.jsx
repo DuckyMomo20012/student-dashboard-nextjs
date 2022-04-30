@@ -42,7 +42,7 @@ const SubNavbar = ({
 
   return (
     <Navbar width={{ base: 200 }}>
-      <Navbar.Section className="" grow>
+      <Navbar.Section grow>
         <Box className="h-1/1 flex-1 bg-gray-100 dark:bg-gray-600">
           <Title
             className="dark:(bg-dark-700 border-b-dark-700) p-16px pt-18px h-60px border-b-1 box-border border-solid border-b-gray-300 bg-white"
