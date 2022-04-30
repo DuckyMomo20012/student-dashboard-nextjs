@@ -7,6 +7,7 @@ import {
   Navbar,
   Tooltip,
   UnstyledButton,
+  useMantineColorScheme,
 } from '@mantine/core';
 import { setLink } from '@store/slice/navLinkSlice.js';
 import { signOut } from 'next-auth/react';
@@ -55,7 +56,7 @@ function MainNavbar() {
       className="border-r-1 dark:(border-r-dark-700) border-solid border-r-gray-300 bg-white"
       width={{ base: 60 }}
     >
-      <Navbar.Section className="flex" grow>
+      <Navbar.Section className="w-60px flex" grow>
         <Box className="basis-60px dark:(bg-dark-700) flex flex-shrink-0 flex-grow-0 flex-col items-center">
           <Box className="w-1/1 h-60px border-b-1 dark:border-dark-700 mb-24px pt-16px box-border flex justify-center border-solid border-gray-300">
             <Link href="/" passHref>

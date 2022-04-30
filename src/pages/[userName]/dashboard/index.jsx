@@ -1,7 +1,7 @@
+import { Cell, Header } from '@element/DataGrid/index.js';
 import { AppShell } from '@layout/AppShell';
-import { Center, Container, Group, Loader, Stack, Text } from '@mantine/core';
+import { Center, Group, Loader, Stack, Text } from '@mantine/core';
 import { DataGrid, SubNavbar } from '@module/index.js';
-import { formatDate } from '@util/formatDate.js';
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import { useEffect, useMemo, useState } from 'react';
@@ -44,7 +44,7 @@ const Dashboard = () => {
     } = session;
     setUserName(userNameSession);
     refetchCourses();
-  }, [session, userName]);
+  }, [session, userName, refetchCourses]);
 
   const mutation = useMutation((courseId) => {
     return fetchAllStudentOneCourse(courseId);
@@ -75,24 +75,31 @@ const Dashboard = () => {
     if (mutation.isSuccess) {
       // Use first data to get num of columns
       const columnNums = Object.keys(students[0]?.student);
-      const columns = columnNums.map((colName) => {
+      let columns = columnNums.map((colName) => {
         if (colName === 'dob') {
           return {
-            Header: colName,
             accessor: colName,
-            Cell: ({ value: date }) => formatDate(new Date(date)),
+            columnType: 'date',
+            Cell,
+            Header,
           };
         }
         return {
-          Header: colName,
           accessor: colName,
-          Header: (context) => {
-            console.log('context', context);
-
-            return <h1>Hello</h1>;
-          },
+          columnType: 'text',
+          Cell,
+          Header,
         };
       });
+      columns = [
+        ...columns,
+        {
+          accessor: 'menu',
+          columnType: 'menu',
+          Header,
+          disableResizing: true,
+        },
+      ];
       return columns;
     }
   }, [students, mutation.isSuccess]);
@@ -108,14 +115,14 @@ const Dashboard = () => {
   }, [students, mutation.isSuccess]);
 
   return (
-    <Group direction="col" grow spacing={0}>
+    <Group className="flex-nowrap items-stretch" direction="row" spacing={0}>
       <SubNavbar
         activeSubLink={activeCourseId}
         heading={activeMainLink}
         links={links}
         onActiveSubLinkClick={handleActiveCourseClick}
-      ></SubNavbar>
-      <Container className="w-1/2" fluid p="md">
+      />
+      <Stack className="max-w-100vmax flex-grow" justify="start" p="md">
         {mutation.isSuccess && <DataGrid columns={columns} data={data} />}
         {mutation.isLoading && (
           <Center className="w-1/1 h-1/1">
@@ -127,7 +134,7 @@ const Dashboard = () => {
             </Stack>
           </Center>
         )}
-      </Container>
+      </Stack>
     </Group>
   );
 };
