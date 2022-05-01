@@ -7,7 +7,7 @@ const HeaderMenu = ({ shrink = false, control, column }) => {
   const [opened, handlers] = useDisclosure(false);
   return (
     <Menu
-      className={!shrink && 'w-1/1'}
+      className={`h-1/1 ${shrink === false ? 'w-1/1' : ''}`}
       control={control}
       gutter={4}
       onClose={handlers.close}

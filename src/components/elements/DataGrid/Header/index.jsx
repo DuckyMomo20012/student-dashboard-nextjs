@@ -1,6 +1,5 @@
 import { Icon } from '@iconify/react';
-import { Divider, Group, Menu, Text, UnstyledButton } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
+import { Box } from '@mantine/core';
 import { HeaderLabel } from './Label.jsx';
 import { HeaderMenu } from './Menu.jsx';
 import { Resizer } from './Resizer.jsx';
@@ -84,19 +83,28 @@ const typeLabels = {
     color: 'red',
     shrink: true,
   },
+  add: {
+    name: 'Add',
+    icon: 'ic:outline-add',
+    color: 'red',
+    shrink: true,
+  },
 };
 
 const Header = ({ column }) => {
-  const { columnType, id, disableResizing } = column;
+  const { columnType, id: nameColumn, disableResizing } = column;
   const type = typeLabels[columnType];
 
   return (
     <>
-      <HeaderMenu
-        column={column}
-        control={<HeaderLabel {...type} label={id} />}
-        shrink={type.shrink}
-      />
+      <Box className="h-1/1 flex items-center">
+        {type.name === 'Menu' && <HeaderLabel {...typeLabels.add} />}
+        <HeaderMenu
+          column={column}
+          control={<HeaderLabel {...type} label={nameColumn} />}
+          shrink={type.shrink}
+        />
+      </Box>
       {!disableResizing && (
         <Resizer {...column.getResizerProps()} column={column} />
       )}

@@ -104,7 +104,9 @@ const Dashboard = () => {
           accessor: 'menu',
           columnType: 'menu',
           Header,
-          disableResizing: false,
+          disableResizing: true,
+          minWidth: 0,
+          width: 0,
         },
       ];
       return columns;
@@ -131,10 +133,8 @@ const Dashboard = () => {
       />
       <Stack className="relative flex-grow" justify="start">
         {mutation.isSuccess && (
-          <Box className="absolute inset-0">
-            <ScrollArea className="w-1/1">
-              <DataGrid columns={columns} data={data} />
-            </ScrollArea>
+          <Box className="p-20px absolute inset-0">
+            <DataGrid columns={columns} data={data} />
           </Box>
         )}
         {mutation.isLoading && (

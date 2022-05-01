@@ -1,4 +1,4 @@
-import { Table } from '@mantine/core';
+import { ScrollArea, Table } from '@mantine/core';
 import { useMemo } from 'react';
 import {
   useBlockLayout,
@@ -11,8 +11,8 @@ function DataGrid({ columns, data }) {
   const defaultColumn = useMemo(
     () => ({
       minWidth: 100,
-      width: 250,
-      maxWidth: 400,
+      // width: 250,
+      // maxWidth: 400,
     }),
     [],
   );
@@ -25,33 +25,46 @@ function DataGrid({ columns, data }) {
     );
 
   return (
-    <Table {...getTableProps()} fontSize="md" highlightOnHover striped>
-      <thead>
-        {headerGroups.map((headerGroup) => (
-          <tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map((column) => (
-              <th {...column.getHeaderProps()}>{column.render('Header')}</th>
-            ))}
-          </tr>
-        ))}
-      </thead>
-      <tbody {...getTableBodyProps()}>
-        {rows.map((row) => {
-          prepareRow(row);
-          return (
-            <tr {...row.getRowProps()}>
-              {row.cells.map((cell) => {
-                return (
-                  <td {...cell.getCellProps()} className="relative">
-                    {cell.render('Cell')}
-                  </td>
-                );
-              })}
+    <ScrollArea className="w-1/1">
+      <Table {...getTableProps()} fontSize="md" highlightOnHover striped>
+        <thead>
+          {headerGroups.map((headerGroup) => (
+            <tr {...headerGroup.getHeaderGroupProps()} className="!w-1/1">
+              {headerGroup.headers.map((column) => (
+                <th
+                  {...column.getHeaderProps()}
+                  className="last:min-w-min last:flex-grow"
+                >
+                  {column.render('Header')}
+                </th>
+              ))}
             </tr>
-          );
-        })}
-      </tbody>
-    </Table>
+          ))}
+        </thead>
+        <tbody {...getTableBodyProps()}>
+          {rows.map((row) => {
+            prepareRow(row);
+            return (
+              <tr
+                {...row.getRowProps()}
+                className="!w-1/1 !last-of-type:border-b-1"
+              >
+                {row.cells.map((cell) => {
+                  return (
+                    <td
+                      {...cell.getCellProps()}
+                      className="border-r border-l border-solid last:flex-grow"
+                    >
+                      {cell.render('Cell')}
+                    </td>
+                  );
+                })}
+              </tr>
+            );
+          })}
+        </tbody>
+      </Table>
+    </ScrollArea>
   );
 }
 
