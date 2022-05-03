@@ -10,11 +10,13 @@ import {
   useSortBy,
   useTable,
 } from 'react-table';
-import { useCallback, useMemo } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
-import cloneDeep from 'lodash/cloneDeep';
+import { reorderColumns } from '@util/reorderColumns.js';
 
 function DataGrid({ columns, data }) {
+  const [records, setRecords] = useState(data);
+
   const defaultColumn = useMemo(
     () => ({
       minWidth: 100,
@@ -32,7 +34,7 @@ function DataGrid({ columns, data }) {
     setColumnOrder,
     visibleColumns,
   } = useTable(
-    { columns, data, manualSortBy: false, defaultColumn },
+    { columns, data: records, manualSortBy: false, defaultColumn },
     useSortBy,
     useResizeColumns,
     useBlockLayout,
@@ -56,22 +58,24 @@ function DataGrid({ columns, data }) {
 
       if (source.droppableId === 'thead') {
         const columns = visibleColumns;
-        let updatedColumns = cloneDeep(visibleColumns);
-        updatedColumns.splice(source.index, 1);
-        const destinationCol = visibleColumns.filter(
-          (col) => `${col.id}-head` === draggableId,
+        const updatedColumns = reorderColumns(
+          columns,
+          source.index,
+          destination.index,
         );
-        updatedColumns.splice(destination.index, 0, ...destinationCol);
-        updatedColumns = updatedColumns.map((col, index) => {
-          return {
-            ...col,
-            index,
-          };
-        });
         setColumnOrder(updatedColumns.map((col) => col.id));
       }
+
+      if (source.droppableId === 'tbody') {
+        const updatedRecords = reorderColumns(
+          records,
+          source.index,
+          destination.index,
+        );
+        setRecords(updatedRecords);
+      }
     },
-    [visibleColumns, setColumnOrder],
+    [visibleColumns, setColumnOrder, records],
   );
 
   return (
@@ -94,7 +98,6 @@ function DataGrid({ columns, data }) {
                       ref={providedDrop.innerRef}
                       {...providedDrop.droppableProps}
                     >
-                      {/* NOTE: Always use draggableId for key prop */}
                       {headerGroup.headers.map((column, indexCol) => {
                         return (
                           <RowHead

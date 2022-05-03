@@ -90,7 +90,6 @@ const Dashboard = () => {
             Cell,
             columnType: 'date',
             Header,
-            index,
           };
         }
         return {
@@ -98,7 +97,6 @@ const Dashboard = () => {
           Cell,
           columnType: 'text',
           Header,
-          index,
         };
       });
       columns = [
@@ -108,7 +106,6 @@ const Dashboard = () => {
           columnType: 'menu',
           disableResizing: true,
           Header,
-          index: columns.length,
           isDragDisabled: true,
           minWidth: 0,
           width: 0,

@@ -4,7 +4,7 @@ import { RowMenu } from './Menu.jsx';
 const RowBody = ({ draggableId, index, row }) => {
   // NOTE: We don't merge style from getRowProps with draggableProps because we want full width row!!!
   return (
-    <Draggable draggableId={draggableId} index={index}>
+    <Draggable draggableId={draggableId} index={index} key={draggableId}>
       {(provided) => {
         return (
           <tr
