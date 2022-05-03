@@ -1,4 +1,3 @@
-import { Icon } from '@iconify/react';
 import { Box } from '@mantine/core';
 import { HeaderLabel } from './Label.jsx';
 import { HeaderMenu } from './Menu.jsx';
@@ -91,13 +90,13 @@ const typeLabels = {
   },
 };
 
-const Header = ({ column }) => {
+const Header = ({ column, dragHandleProps }) => {
   const { columnType, id: nameColumn, disableResizing } = column;
   const type = typeLabels[columnType];
-
+  const handlerProp = type.name !== 'Menu' ? dragHandleProps : {};
   return (
     <>
-      <Box className="h-1/1 flex items-center">
+      <Box className="h-1/1 flex items-center" {...handlerProp}>
         {type.name === 'Menu' && <HeaderLabel {...typeLabels.add} />}
         <HeaderMenu
           column={column}

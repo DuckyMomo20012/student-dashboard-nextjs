@@ -1,4 +1,3 @@
-import { Icon } from '@iconify/react';
 import {
   Center,
   Group,
@@ -8,9 +7,11 @@ import {
   Text,
   ThemeIcon,
 } from '@mantine/core';
-import { getSession, useSession } from 'next-auth/react';
-import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+
+import { Icon } from '@iconify/react';
+import { useRouter } from 'next/router';
+import { useSession } from 'next-auth/react';
 
 const AuthGuard = ({ children }) => {
   const [opened, setOpened] = useState(false);

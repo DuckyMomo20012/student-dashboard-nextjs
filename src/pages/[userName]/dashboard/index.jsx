@@ -1,5 +1,3 @@
-import { Cell, Header } from '@element/DataGrid/index.js';
-import { AppShell } from '@layout/AppShell';
 import {
   Box,
   Center,
@@ -9,12 +7,15 @@ import {
   Stack,
   Text,
 } from '@mantine/core';
+import { Cell, Header } from '@element/DataGrid/index.js';
 import { DataGrid, SubNavbar } from '@module/index.js';
-import axios from 'axios';
-import { useSession } from 'next-auth/react';
 import { useEffect, useMemo, useState } from 'react';
 import { useMutation, useQuery } from 'react-query';
+
+import { AppShell } from '@layout/AppShell';
+import axios from 'axios';
 import { useSelector } from 'react-redux';
+import { useSession } from 'next-auth/react';
 
 async function fetchCourses({ queryKey }) {
   const [_key, userName] = queryKey;
@@ -82,20 +83,22 @@ const Dashboard = () => {
     if (mutation.isSuccess) {
       // Use first data to get num of columns
       const columnNums = Object.keys(students[0]?.student);
-      let columns = columnNums.map((colName) => {
+      let columns = columnNums.map((colName, index) => {
         if (colName === 'dob') {
           return {
             accessor: colName,
-            columnType: 'date',
             Cell,
+            columnType: 'date',
             Header,
+            index,
           };
         }
         return {
           accessor: colName,
-          columnType: 'text',
           Cell,
+          columnType: 'text',
           Header,
+          index,
         };
       });
       columns = [
@@ -103,8 +106,10 @@ const Dashboard = () => {
         {
           accessor: 'menu',
           columnType: 'menu',
-          Header,
           disableResizing: true,
+          Header,
+          index: columns.length,
+          isDragDisabled: true,
           minWidth: 0,
           width: 0,
         },
@@ -114,13 +119,12 @@ const Dashboard = () => {
   }, [students, mutation.isSuccess]);
 
   const data = useMemo(() => {
-    if (mutation.isSuccess) {
-      // map data base on 'columns' not from data, because in 'columns' we may
-      // remove some columns
-      return students.map(({ student }) => {
-        return { ...student };
-      });
+    if (!mutation.isSuccess) {
+      return;
     }
+    // map data base on 'columns' not from data, because in 'columns' we may
+    // remove some columns
+    return students.map(({ student }) => ({ ...student }));
   }, [students, mutation.isSuccess]);
 
   return (
@@ -133,7 +137,7 @@ const Dashboard = () => {
       />
       <Stack className="relative flex-grow" justify="start">
         {mutation.isSuccess && (
-          <Box className="p-20px absolute inset-0">
+          <Box className="absolute inset-0">
             <DataGrid columns={columns} data={data} />
           </Box>
         )}

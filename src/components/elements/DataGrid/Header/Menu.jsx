@@ -1,5 +1,6 @@
-import { Icon } from '@iconify/react';
 import { Divider, Menu } from '@mantine/core';
+
+import { Icon } from '@iconify/react';
 import { useDisclosure } from '@mantine/hooks';
 
 const HeaderMenu = ({ shrink = false, control, column }) => {
