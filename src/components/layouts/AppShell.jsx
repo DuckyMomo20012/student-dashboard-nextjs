@@ -1,5 +1,5 @@
 import { AppShell as MantineAppShell } from '@mantine/core';
-import { DoubleNavbar as MainNavbar } from '@module/MainNavbar.jsx';
+import { MainNavbar } from '@module/MainNavbar.jsx';
 import { CustomReduxProvider } from '@provider/index.js';
 
 const AppShell = ({ children }) => {

@@ -1,4 +1,4 @@
-import { Accordion, Navbar, Text, Title, Tooltip } from '@mantine/core';
+import { Accordion, Box, Navbar, Text, Title, Tooltip } from '@mantine/core';
 
 const SubNavbar = ({
   heading,
@@ -11,7 +11,11 @@ const SubNavbar = ({
     const { idItem, labelItem, subItemList } = item;
     return (
       // Loop each item then loop subitem
-      <Accordion.Item key={idItem} label={labelItem}>
+      <Accordion.Item
+        className=""
+        key={idItem}
+        label={<Text className="truncate">{labelItem}</Text>}
+      >
         {subItemList?.map(({ idSubItem, labelSubItem }) => {
           return (
             <Tooltip
@@ -23,7 +27,7 @@ const SubNavbar = ({
               withArrow
             >
               <Text
-                className={`border-box dark:(text-dark-50 bg-dark-500 text-white) px-16px text-14px mr-16px h-44px leading-11 hover:(bg-gray-100 text-black) block truncate rounded-tr-md rounded-br-md py-0 font-medium text-gray-700 no-underline${
+                className={`border-box dark:(text-dark-50 bg-dark-500 text-white) text-14px leading-11 hover:(bg-gray-100 text-black) block h-11 truncate rounded-r-md px-4 py-0 font-medium text-gray-700 ${
                   activeSubLink === idSubItem &&
                   'dark:(border-l-blue-700 bg-blue-700) !hover:(border-l-blue-500) !hover:(bg-blue-500) !hover:(text-white) border-l-blue-500 bg-blue-500 text-white'
                 }`}
@@ -42,17 +46,23 @@ const SubNavbar = ({
 
   return (
     <Navbar width={{ base: 200 }}>
-      <Navbar.Section className="" grow>
-        <div className="h-1/1 flex-1 bg-gray-100 dark:bg-gray-600">
-          <Title
-            className="dark:(bg-dark-700 border-b-dark-700) p-16px pt-18px h-60px border-b-1 box-border border-solid border-b-gray-300 bg-white"
-            order={4}
-          >
-            {heading}
-          </Title>
-
-          <Accordion>{accordionItems}</Accordion>
-        </div>
+      <Navbar.Section>
+        <Title
+          className="dark:(bg-dark-700 border-b-dark-700) p-16px pt-18px h-60px border-b-1 box-border border-solid border-b-gray-300 bg-white"
+          order={4}
+        >
+          {heading}
+        </Title>
+      </Navbar.Section>
+      <Navbar.Section className="bg-gray-100 dark:bg-gray-600" grow>
+        <Accordion
+          className="w-200px"
+          disableIconRotation={true}
+          iconPosition="right"
+          offsetIcon={false}
+        >
+          {accordionItems}
+        </Accordion>
       </Navbar.Section>
       {children}
     </Navbar>

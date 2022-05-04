@@ -1,10 +1,8 @@
 import { createGetInitialProps } from '@mantine/next';
 import Document, { Head, Html, Main, NextScript } from 'next/document';
 
-const _getInitialProps = createGetInitialProps();
-
 export default class _Document extends Document {
-  static getInitialProps = _getInitialProps;
+  static getInitialProps = createGetInitialProps();
 
   render() {
     return (

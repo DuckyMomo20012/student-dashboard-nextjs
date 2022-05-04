@@ -1,3 +1,44 @@
+import range from 'lodash/range';
+
+const dynamicColor = (prop) => {
+  const colors = [
+    'pink',
+    'rose',
+    'red',
+    'orange',
+    'yellow',
+    'amber',
+    'lime',
+    'green',
+    'emerald',
+    'teal',
+    'cyan',
+    'sky',
+    'blue',
+    'indigo',
+    'purple',
+    'violet',
+    'fuchsia',
+    'gray',
+    'slate',
+    'stone',
+    'neutral',
+    'zinc',
+    'light',
+    'darker',
+    'dark',
+  ];
+  const result = colors.map((color) => `${prop}-${color}-50`);
+  result.push(
+    ...colors.flatMap((color) => {
+      return range(100, 1000, 100).map((num) => {
+        return `${prop}-${color}-${num}`;
+      });
+    }),
+  );
+  return result;
+};
+
 export default {
   alias: {
     // ...
@@ -24,6 +65,11 @@ export default {
   shortcuts: {
     // ...
   },
+  safelist: [
+    dynamicColor('bg'),
+    dynamicColor('text'),
+    dynamicColor('hover:bg'),
+  ],
   theme: {
     extend: {
       colors: { white: '#FAFAFA', black: '#333' },

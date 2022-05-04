@@ -1,13 +1,21 @@
-import { AppShell } from '@layout/AppShell';
-import { Center, Container, Group, Loader, Stack, Text } from '@mantine/core';
-import { DataGrid } from '@module/DataGrid.jsx';
-import { SubNavbar } from '@module/index.js';
-import { formatDate } from '@util/formatDate.js';
-import axios from 'axios';
-import { useSession } from 'next-auth/react';
+import {
+  Box,
+  Center,
+  Group,
+  Loader,
+  ScrollArea,
+  Stack,
+  Text,
+} from '@mantine/core';
+import { Cell, Header } from '@element/DataGrid/index.js';
+import { DataGrid, SubNavbar } from '@module/index.js';
 import { useEffect, useMemo, useState } from 'react';
 import { useMutation, useQuery } from 'react-query';
+
+import { AppShell } from '@layout/AppShell';
+import axios from 'axios';
 import { useSelector } from 'react-redux';
+import { useSession } from 'next-auth/react';
 
 async function fetchCourses({ queryKey }) {
   const [_key, userName] = queryKey;
@@ -38,14 +46,13 @@ const Dashboard = () => {
       enabled: false,
     },
   );
-
   useEffect(() => {
     const {
       user: { name: userNameSession },
     } = session;
     setUserName(userNameSession);
     refetchCourses();
-  }, [session, userName]);
+  }, [session, userName, refetchCourses]);
 
   const mutation = useMutation((courseId) => {
     return fetchAllStudentOneCourse(courseId);
@@ -75,38 +82,62 @@ const Dashboard = () => {
   const columns = useMemo(() => {
     if (mutation.isSuccess) {
       // Use first data to get num of columns
-      const columns = Object.keys(students[0]?.student);
-      return columns.map((colName) => {
+      const columnNums = Object.keys(students[0]?.student);
+      let columns = columnNums.map((colName, index) => {
+        if (colName === 'dob') {
+          return {
+            accessor: colName,
+            Cell,
+            columnType: 'date',
+            Header,
+          };
+        }
         return {
-          Header: colName,
           accessor: colName,
+          Cell,
+          columnType: 'text',
+          Header,
         };
       });
+      columns = [
+        ...columns,
+        {
+          accessor: 'menu',
+          columnType: 'menu',
+          disableResizing: true,
+          Header,
+          isDragDisabled: true,
+          minWidth: 0,
+          width: 0,
+        },
+      ];
+      return columns;
     }
   }, [students, mutation.isSuccess]);
 
   const data = useMemo(() => {
-    if (mutation.isSuccess) {
-      // map data base on 'columns' not from data, because in 'columns' we may
-      // remove some columns
-      return students.map(({ student }) => {
-        const { dob } = student;
-        dob = formatDate(new Date(dob));
-        return { ...student, dob };
-      });
+    if (!mutation.isSuccess) {
+      return;
     }
+    // map data base on 'columns' not from data, because in 'columns' we may
+    // remove some columns
+    return students.map(({ student }) => ({ ...student }));
   }, [students, mutation.isSuccess]);
 
   return (
-    <Group direction="col" grow spacing={0}>
+    <Group className="flex-nowrap items-stretch" direction="row" spacing={0}>
       <SubNavbar
         activeSubLink={activeCourseId}
         heading={activeMainLink}
         links={links}
         onActiveSubLinkClick={handleActiveCourseClick}
-      ></SubNavbar>
-      <Container className="w-1/2" fluid p="md">
-        {mutation.isSuccess && <DataGrid columns={columns} data={data} />}
+      />
+      <Stack className="relative flex-grow" justify="start">
+        {mutation.isSuccess && (
+          <Box className="absolute inset-0">
+            <DataGrid columns={columns} data={data} />
+          </Box>
+        )}
         {mutation.isLoading && (
           <Center className="w-1/1 h-1/1">
             <Stack>
@@ -117,7 +148,7 @@ const Dashboard = () => {
             </Stack>
           </Center>
         )}
-      </Container>
+      </Stack>
     </Group>
   );
 };
