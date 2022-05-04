@@ -91,13 +91,21 @@ const typeLabels = {
 };
 
 const Header = ({ column, dragHandleProps }) => {
-  const { columnType, id: nameColumn, disableResizing } = column;
+  const {
+    columnType,
+    id: nameColumn,
+    disableResizing,
+    isDragDisabled,
+  } = column;
   const type = typeLabels[columnType];
-  const handlerProp = type.name !== 'Menu' ? dragHandleProps : {};
+  const handlerProp = !isDragDisabled && dragHandleProps;
+
   return (
     <>
       <Box className="h-1/1 flex items-center" {...handlerProp}>
-        {type.name === 'Menu' && <HeaderLabel {...typeLabels.add} />}
+        {columnType === 'menu' && (
+          <HeaderLabel {...typeLabels.add} onClick="" />
+        )}
         <HeaderMenu
           column={column}
           control={<HeaderLabel {...type} label={nameColumn} />}

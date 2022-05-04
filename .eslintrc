@@ -39,6 +39,7 @@
         "object": true
       }
     ],
+    "no-param-reassign": ["off"],
     "prettier/prettier": [
       "error",
       {

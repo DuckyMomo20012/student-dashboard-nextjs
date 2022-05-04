@@ -5,16 +5,16 @@ const initialState = {
 };
 
 export const navLinkSlice = createSlice({
-  name: 'navLink',
+  name: 'activeNavLink',
   initialState,
   reducers: {
-    setLink: (state, action) => {
+    updateActiveLink: (state, action) => {
       const { payload } = action;
       state.value = payload;
     },
   },
 });
 
-export const { setLink } = navLinkSlice.actions;
+export const { updateActiveLink } = navLinkSlice.actions;
 
 export default navLinkSlice.reducer;

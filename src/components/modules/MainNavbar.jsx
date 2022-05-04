@@ -1,7 +1,4 @@
-import { DOMAIN } from '@constant/index.js';
-import { Icon } from '@iconify/react';
 import {
-  Box,
   Center,
   Navbar,
   Stack,
@@ -9,11 +6,14 @@ import {
   UnstyledButton,
   useMantineColorScheme,
 } from '@mantine/core';
-import { setLink } from '@store/slice/navLinkSlice.js';
-import { signOut } from 'next-auth/react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { DOMAIN } from '@constant/index.js';
+import { Icon } from '@iconify/react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useDispatch, useSelector } from 'react-redux';
+import { signOut } from 'next-auth/react';
+import { updateActiveLink } from '@store/slice/navLinkSlice.js';
 
 const mainLinksMockdata = [
   { icon: 'ic:outline-home', label: 'Home' },
@@ -25,7 +25,7 @@ function handleLogOutClick() {
 }
 
 function MainNavbar() {
-  const activeMainLink = useSelector((state) => state.navLink.value);
+  const activeMainLink = useSelector((state) => state.activeNavLink.value);
   const dispatch = useDispatch();
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const dark = colorScheme === 'dark';
@@ -45,7 +45,7 @@ function MainNavbar() {
             : ''
         }`}
         key={link.label}
-        onClick={() => dispatch(setLink(link.label))}
+        onClick={() => dispatch(updateActiveLink(link.label))}
       >
         <Center>
           <Icon height={24} icon={link.icon} width={24} />

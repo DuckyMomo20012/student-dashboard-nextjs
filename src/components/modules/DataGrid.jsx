@@ -10,12 +10,16 @@ import {
   useSortBy,
   useTable,
 } from 'react-table';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { reorderColumns } from '@util/reorderColumns.js';
+import { updateData } from '@store/slice/tableSlice.js';
 
 function DataGrid({ columns, data }) {
-  const [records, setRecords] = useState(data);
+  // const [records, setRecords] = useState(data);
+  const records = useSelector((state) => state.table.data);
+  const dispatch = useDispatch();
 
   const defaultColumn = useMemo(
     () => ({
@@ -43,7 +47,7 @@ function DataGrid({ columns, data }) {
 
   const onDragEnd = useCallback(
     (result) => {
-      const { destination, source, draggableId } = result;
+      const { destination, source } = result;
 
       if (!destination) {
         return;
@@ -57,9 +61,8 @@ function DataGrid({ columns, data }) {
       }
 
       if (source.droppableId === 'thead') {
-        const columns = visibleColumns;
         const updatedColumns = reorderColumns(
-          columns,
+          visibleColumns,
           source.index,
           destination.index,
         );
@@ -72,10 +75,10 @@ function DataGrid({ columns, data }) {
           source.index,
           destination.index,
         );
-        setRecords(updatedRecords);
+        dispatch(updateData(updatedRecords));
       }
     },
-    [visibleColumns, setColumnOrder, records],
+    [visibleColumns, setColumnOrder, records, dispatch],
   );
 
   return (

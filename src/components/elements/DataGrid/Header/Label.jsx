@@ -1,10 +1,11 @@
-import { Icon } from '@iconify/react';
 import { Center, Group, Text } from '@mantine/core';
+
+import { Icon } from '@iconify/react';
 import { forwardRef } from 'react';
 
 // eslint-disable-next-line react/display-name
 const HeaderLabel = forwardRef(
-  ({ color, label, shrink = false, icon, ...others }, ref) => {
+  ({ color, label, shrink = false, icon, onClick, ...others }, ref) => {
     return (
       <Center
         className={`h-1/1 rounded-md hover:bg-${color}-50 px-2 py-1`}

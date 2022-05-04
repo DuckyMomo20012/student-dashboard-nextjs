@@ -1,20 +1,14 @@
-import {
-  Box,
-  Center,
-  Group,
-  Loader,
-  ScrollArea,
-  Stack,
-  Text,
-} from '@mantine/core';
+import { Box, Center, Group, Loader, Stack, Text } from '@mantine/core';
 import { Cell, Header } from '@element/DataGrid/index.js';
 import { DataGrid, SubNavbar } from '@module/index.js';
+import { updateColumn, updateData } from '@store/slice/tableSlice.js';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useMemo, useState } from 'react';
 import { useMutation, useQuery } from 'react-query';
 
 import { AppShell } from '@layout/AppShell';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import omit from 'lodash/omit';
 import { useSession } from 'next-auth/react';
 
 async function fetchCourses({ queryKey }) {
@@ -34,10 +28,10 @@ async function fetchAllStudentOneCourse(courseId) {
 
 const Dashboard = () => {
   const [activeCourseId, setActiveCourseId] = useState('');
-  const activeMainLink = useSelector((state) => state.navLink.value);
+  const activeMainLink = useSelector((state) => state.activeNavLink.value);
   const [students, setStudents] = useState(null);
   const [userName, setUserName] = useState(null);
-  const { data: session, status: sessionStatus } = useSession();
+  const { data: session } = useSession();
   const { data: majorCourseList, refetch: refetchCourses } = useQuery(
     ['majorCourses', userName],
     fetchCourses,
@@ -54,14 +48,16 @@ const Dashboard = () => {
     refetchCourses();
   }, [session, userName, refetchCourses]);
 
+  const dispatch = useDispatch();
+
   const mutation = useMutation((courseId) => {
     return fetchAllStudentOneCourse(courseId);
   });
 
-  async function handleActiveCourseClick(activeCourseId) {
-    setActiveCourseId(activeCourseId);
-    const students = await mutation.mutateAsync(activeCourseId);
-    setStudents(students);
+  async function handleActiveCourseClick(activeLink) {
+    setActiveCourseId(activeLink);
+    const dataStudent = await mutation.mutateAsync(activeLink);
+    setStudents(dataStudent);
   }
 
   const links = majorCourseList?.map((major) => {
@@ -80,49 +76,47 @@ const Dashboard = () => {
   });
 
   const columns = useMemo(() => {
-    if (mutation.isSuccess) {
-      // Use first data to get num of columns
-      const columnNums = Object.keys(students[0]?.student);
-      let columns = columnNums.map((colName, index) => {
-        if (colName === 'dob') {
-          return {
-            accessor: colName,
-            Cell,
-            columnType: 'date',
-            Header,
-          };
-        }
-        return {
-          accessor: colName,
-          Cell,
-          columnType: 'text',
-          Header,
-        };
-      });
-      columns = [
-        ...columns,
-        {
-          accessor: 'menu',
-          columnType: 'menu',
-          disableResizing: true,
-          Header,
-          isDragDisabled: true,
-          minWidth: 0,
-          width: 0,
-        },
-      ];
-      return columns;
+    if (!mutation.isSuccess) {
+      return [];
     }
-  }, [students, mutation.isSuccess]);
+    // Use first data to get num of columns
+    const numColumn = Object.keys(students[0]?.student);
+    const columnProps = numColumn.map((colName) => {
+      let attr = {
+        accessor: colName,
+        Cell,
+        columnType: 'text',
+        Header,
+      };
+      if (colName === 'dob') {
+        attr = { ...attr, columnType: 'date' };
+      }
+      return attr;
+    });
+    columnProps.push({
+      accessor: 'menu',
+      columnType: 'menu',
+      disableResizing: true,
+      Header,
+      isDragDisabled: true,
+      minWidth: 0,
+      width: 0,
+    });
+    const cols = columnProps.map((col) => omit(col, ['Header', 'Cell']));
+    dispatch(updateColumn(cols));
+    return columnProps;
+  }, [students, mutation.isSuccess, dispatch]);
 
   const data = useMemo(() => {
     if (!mutation.isSuccess) {
-      return;
+      return [];
     }
     // map data base on 'columns' not from data, because in 'columns' we may
     // remove some columns
-    return students.map(({ student }) => ({ ...student }));
-  }, [students, mutation.isSuccess]);
+    const datas = students.map(({ student }) => ({ ...student }));
+    dispatch(updateData(datas));
+    return datas;
+  }, [students, mutation.isSuccess, dispatch]);
 
   return (
     <Group className="flex-nowrap items-stretch" direction="row" spacing={0}>
