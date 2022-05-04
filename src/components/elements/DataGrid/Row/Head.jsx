@@ -4,7 +4,7 @@ const RowHead = ({ column, draggableId, index }) => {
   // NOTE: draggableProps will **empty** 'style' prop so we have to merge both styles
   // We don't want 'Resizer' in Header component to draggable
   const { style: headerStyle, ...headerProps } = column.getHeaderProps();
-  const { isDragDisabled, isDropDisabled } = column;
+  const { isDragDisabled } = column;
   // NOTE: key for Draggable is REQUIRED!
   // NOTE: ALWAYS use draggableId for key prop
 
@@ -13,22 +13,22 @@ const RowHead = ({ column, draggableId, index }) => {
       draggableId={draggableId}
       index={index}
       isDragDisabled={isDragDisabled}
-      isDropDisabled={isDropDisabled}
       key={draggableId}
     >
-      {(provided) => {
+      {(providedEnabled) => {
         const { style: draggableStyle, ...draggableProps } =
-          provided.draggableProps;
+          providedEnabled.draggableProps;
+
         return (
           <th
-            className="group relative last:min-w-min last:flex-grow "
-            ref={provided.innerRef}
+            className="group relative last:min-w-min last:flex-grow"
+            ref={providedEnabled.innerRef}
             {...draggableProps}
             {...headerProps}
             style={{ ...headerStyle, ...draggableStyle }}
           >
             {column.render('Header', {
-              dragHandleProps: provided.dragHandleProps,
+              dragHandleProps: providedEnabled.dragHandleProps,
             })}
           </th>
         );

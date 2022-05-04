@@ -85,33 +85,51 @@ function DataGrid({ columns, data }) {
           <Table {...getTableProps()} fontSize="md">
             <thead>
               {headerGroups.map((headerGroup, indexHeader) => (
-                <Droppable
-                  direction="horizontal"
-                  droppableId="thead"
+                <tr
                   key={indexHeader}
-                  type="thead"
+                  {...headerGroup.getHeaderGroupProps()}
+                  className="!children:border-none !w-full"
                 >
-                  {(providedDrop) => (
-                    <tr
-                      {...headerGroup.getHeaderGroupProps()}
-                      className="!children:border-none !w-full"
-                      ref={providedDrop.innerRef}
-                      {...providedDrop.droppableProps}
+                  <>
+                    <Droppable
+                      direction="horizontal"
+                      droppableId="thead"
+                      type="thead"
                     >
-                      {headerGroup.headers.map((column, indexCol) => {
-                        return (
-                          <RowHead
-                            column={column}
-                            draggableId={`${column.id}-head`}
-                            index={indexCol}
-                            key={`${column.id}-head`}
-                          />
-                        );
-                      })}
-                      {providedDrop.placeholder}
-                    </tr>
-                  )}
-                </Droppable>
+                      {(providedDrop) => (
+                        <div
+                          className="!children:border-none flex"
+                          ref={providedDrop.innerRef}
+                          {...providedDrop.droppableProps}
+                        >
+                          {headerGroup.headers
+                            .slice(0, -1)
+                            .map((column, indexCol) => {
+                              return (
+                                <RowHead
+                                  column={column}
+                                  draggableId={`${column.id}-head`}
+                                  index={indexCol}
+                                  key={`${column.id}-head`}
+                                />
+                              );
+                            })}
+                          {providedDrop.placeholder}
+                        </div>
+                      )}
+                    </Droppable>
+                    {headerGroup.headers.slice(-1).map((column, indexCol) => {
+                      return (
+                        <th
+                          className="group relative last:min-w-min last:flex-grow"
+                          key={indexCol}
+                        >
+                          {column.render('Header')}
+                        </th>
+                      );
+                    })}
+                  </>
+                </tr>
               ))}
             </thead>
             <Droppable droppableId="tbody" type="tbody">
