@@ -1,5 +1,5 @@
 import { Box, Center, Group, Loader, Stack, Text } from '@mantine/core';
-import { Cell, Header } from '@element/DataGrid/index.js';
+import { CellBody, Header } from '@element/DataGrid/index.js';
 import { DataGrid, SubNavbar } from '@module/index.js';
 import { updateColumn, updateData } from '@store/slice/tableSlice.js';
 import { useDispatch, useSelector } from 'react-redux';
@@ -84,7 +84,7 @@ const Dashboard = () => {
     const columnProps = numColumn.map((colName) => {
       let attr = {
         accessor: colName,
-        Cell,
+        Cell: CellBody,
         columnType: 'text',
         Header,
       };
@@ -133,7 +133,7 @@ const Dashboard = () => {
           </Box>
         )}
         {mutation.isLoading && (
-          <Center className="w-1/1 h-1/1">
+          <Center className="h-full w-full">
             <Stack>
               <Text>Loading data...</Text>
               <Center>

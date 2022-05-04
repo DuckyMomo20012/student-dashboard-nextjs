@@ -1,10 +1,11 @@
 import { Box, Text } from '@mantine/core';
+
 import { formatDate } from '@util/formatDate.js';
 
-const Cell = ({ value, cell }) => {
+const CellBody = ({ value, cell }) => {
   const { columnType } = cell.column;
   let colValue = value;
-  if (columnType === 'date') {
+  if (value && columnType === 'date') {
     colValue = formatDate(new Date(value));
   }
   return (
@@ -14,4 +15,4 @@ const Cell = ({ value, cell }) => {
   );
 };
 
-export { Cell };
+export { CellBody };

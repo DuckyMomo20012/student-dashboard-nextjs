@@ -33,7 +33,7 @@ const AuthGuard = ({ children }) => {
 
   if (status === 'loading') {
     return (
-      <Center className="w-1/1 h-1/1">
+      <Center className="h-full w-full">
         <Stack>
           <Text>Loading user...</Text>
           <Center>

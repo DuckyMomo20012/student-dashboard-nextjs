@@ -2,6 +2,7 @@ import { Box } from '@mantine/core';
 import { HeaderLabel } from './Label.jsx';
 import { HeaderMenu } from './Menu.jsx';
 import { Resizer } from './Resizer.jsx';
+import { useDispatch } from 'react-redux';
 
 const typeLabels = {
   id: {
@@ -76,17 +77,19 @@ const typeLabels = {
     color: 'stone',
     shrink: false,
   },
-  menu: {
-    name: 'Menu',
-    icon: 'ic:outline-menu',
-    color: 'red',
-    shrink: true,
-  },
   add: {
     name: 'Add',
     icon: 'ic:outline-add',
     color: 'red',
     shrink: true,
+    isLabelHidden: true,
+  },
+  menu: {
+    name: 'Menu',
+    icon: 'ic:outline-more-horiz',
+    color: 'red',
+    shrink: false,
+    isLabelHidden: true,
   },
 };
 
@@ -98,14 +101,17 @@ const Header = ({ column, dragHandleProps }) => {
     isDragDisabled,
   } = column;
   const type = typeLabels[columnType];
-  const handlerProp = !isDragDisabled && dragHandleProps;
+  const handlerProps = !isDragDisabled && dragHandleProps;
+  const dispatch = useDispatch();
+
+  const handleAddColumn = () => {
+    // dispatch();
+  };
 
   return (
     <>
-      <Box className="h-1/1 flex items-center" {...handlerProp}>
-        {columnType === 'menu' && (
-          <HeaderLabel {...typeLabels.add} onClick="" />
-        )}
+      <Box className="flex h-full items-center" {...handlerProps}>
+        {columnType === 'menu' && <HeaderLabel {...typeLabels.add} />}
         <HeaderMenu
           column={column}
           control={<HeaderLabel {...type} label={nameColumn} />}

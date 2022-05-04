@@ -19,7 +19,7 @@ const SubNavbar = ({
         {subItemList?.map(({ idSubItem, labelSubItem }) => {
           return (
             <Tooltip
-              className="w-1/1"
+              className="w-full"
               key={idSubItem}
               label={labelSubItem}
               position="right"

@@ -58,7 +58,7 @@ function MainNavbar() {
     <Navbar className="gap-4 bg-white" width={{ base: 60 }}>
       <Navbar.Section className="w-60px">
         <Link href="/" passHref>
-          <UnstyledButton className="w-1/1 h-60px box-border border-b border-r border-solid border-gray-300">
+          <UnstyledButton className="h-60px box-border w-full border-b border-r border-solid border-gray-300">
             <Center>
               <Image
                 alt="logo"

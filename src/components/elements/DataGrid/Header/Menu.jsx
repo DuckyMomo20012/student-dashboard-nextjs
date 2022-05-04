@@ -8,7 +8,7 @@ const HeaderMenu = ({ shrink = false, control, column }) => {
   const [opened, handlers] = useDisclosure(false);
   return (
     <Menu
-      className={`h-1/1 ${shrink === false ? 'w-1/1' : ''}`}
+      className={`h-full ${shrink === false ? 'w-full' : ''}`}
       control={control}
       gutter={4}
       onClose={handlers.close}
@@ -18,6 +18,7 @@ const HeaderMenu = ({ shrink = false, control, column }) => {
       position="bottom"
       radius="md"
       spacing="md"
+      // trigger="hover"
       withArrow={false}
     >
       <Menu.Item

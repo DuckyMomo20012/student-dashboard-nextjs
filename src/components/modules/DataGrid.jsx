@@ -1,8 +1,9 @@
 /* eslint-disable no-useless-return */
 
 import { Box, ScrollArea, Table } from '@mantine/core';
+import { CellHeader, HeaderLabel, RowBody } from '@element/DataGrid/index.js';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import { RowBody, RowHead } from '@element/DataGrid/index.js';
+import { addLastRow, updateData } from '@store/slice/tableSlice.js';
 import {
   useBlockLayout,
   useColumnOrder,
@@ -14,7 +15,6 @@ import { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { reorderColumns } from '@util/reorderColumns.js';
-import { updateData } from '@store/slice/tableSlice.js';
 
 function DataGrid({ columns, data }) {
   // const [records, setRecords] = useState(data);
@@ -82,7 +82,7 @@ function DataGrid({ columns, data }) {
   );
 
   return (
-    <ScrollArea className="w-1/1">
+    <ScrollArea className="w-full">
       <DragDropContext onDragEnd={onDragEnd}>
         <Box className="!px-100px relative">
           <Table {...getTableProps()} fontSize="md">
@@ -97,7 +97,7 @@ function DataGrid({ columns, data }) {
                     <Droppable
                       direction="horizontal"
                       droppableId="thead"
-                      type="thead"
+                      type="TABLE_HEADER"
                     >
                       {(providedDrop) => (
                         <div
@@ -109,7 +109,7 @@ function DataGrid({ columns, data }) {
                             .slice(0, -1)
                             .map((column, indexCol) => {
                               return (
-                                <RowHead
+                                <CellHeader
                                   column={column}
                                   draggableId={`${column.id}-head`}
                                   index={indexCol}
@@ -121,42 +121,47 @@ function DataGrid({ columns, data }) {
                         </div>
                       )}
                     </Droppable>
-                    {headerGroup.headers.slice(-1).map((column, indexCol) => {
-                      return (
-                        <th
-                          className="group relative last:min-w-min last:flex-grow"
-                          key={indexCol}
-                        >
-                          {column.render('Header')}
-                        </th>
-                      );
-                    })}
+                    <th className="w-full">
+                      {headerGroup.headers
+                        .slice(-1)
+                        .map((column) => column.render('Header'))}
+                    </th>
                   </>
                 </tr>
               ))}
             </thead>
-            <Droppable droppableId="tbody" type="tbody">
-              {(providedDrop) => (
-                <tbody
-                  {...getTableBodyProps()}
-                  ref={providedDrop.innerRef}
-                  {...providedDrop.droppableProps}
-                >
-                  {rows.map((row) => {
-                    prepareRow(row);
-                    return (
-                      <RowBody
-                        draggableId={`${row.id}-row`}
-                        index={row.index}
-                        key={`${row.index}-row`}
-                        row={row}
-                      />
-                    );
-                  })}
-                  {providedDrop.placeholder}
-                </tbody>
-              )}
-            </Droppable>
+            <tbody>
+              <Droppable droppableId="tbody" type="TABLE_BODY">
+                {(providedDrop) => (
+                  <div
+                    {...getTableBodyProps()}
+                    ref={providedDrop.innerRef}
+                    {...providedDrop.droppableProps}
+                  >
+                    {rows.map((row) => {
+                      prepareRow(row);
+                      return (
+                        <RowBody
+                          draggableId={`${row.id}-row`}
+                          index={row.index}
+                          key={`${row.index}-row`}
+                          row={row}
+                        />
+                      );
+                    })}
+                    {providedDrop.placeholder}
+                  </div>
+                )}
+              </Droppable>
+              <tr
+                className="flex border"
+                onClick={() => dispatch(addLastRow())}
+              >
+                <td className="!children:p-0 flex-grow">
+                  <HeaderLabel color="red" icon="ic:outline-add" label="New" />
+                </td>
+              </tr>
+            </tbody>
           </Table>
         </Box>
       </DragDropContext>
