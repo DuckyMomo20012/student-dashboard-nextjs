@@ -12,8 +12,8 @@ const RowBody = ({ draggableId, index, row }) => {
           <tr
             className="!first-of-type:border-t !last-of-type:border-b hover:children:opacity-100 relative flex !bg-white"
             ref={provided.innerRef}
-            // {...row.getRowProps()}
             {...provided.draggableProps}
+            // {...row.getRowProps()}
           >
             <RowHandler
               dragHandleProps={provided.dragHandleProps}

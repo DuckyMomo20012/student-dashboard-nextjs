@@ -2,6 +2,7 @@ import { Box } from '@mantine/core';
 import { HeaderLabel } from './Label.jsx';
 import { HeaderMenu } from './Menu.jsx';
 import { Resizer } from './Resizer.jsx';
+import { addColumn } from '@store/slice/tableSlice.js';
 import { useDispatch } from 'react-redux';
 
 const typeLabels = {
@@ -104,14 +105,19 @@ const Header = ({ column, dragHandleProps }) => {
   const handlerProps = !isDragDisabled && dragHandleProps;
   const dispatch = useDispatch();
 
-  const handleAddColumn = () => {
-    // dispatch();
+  const handleAddColumnClick = () => {
+    dispatch(addColumn());
   };
 
   return (
     <>
       <Box className="flex h-full items-center" {...handlerProps}>
-        {columnType === 'menu' && <HeaderLabel {...typeLabels.add} />}
+        {columnType === 'menu' && (
+          <HeaderLabel
+            {...typeLabels.add}
+            onAddColumnClick={handleAddColumnClick}
+          />
+        )}
         <HeaderMenu
           column={column}
           control={<HeaderLabel {...type} label={nameColumn} />}

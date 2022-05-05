@@ -84,9 +84,7 @@ const Dashboard = () => {
     const columnProps = numColumn.map((colName) => {
       let attr = {
         accessor: colName,
-        Cell: CellBody,
         columnType: 'text',
-        Header,
       };
       if (colName === 'dob') {
         attr = { ...attr, columnType: 'date' };
@@ -97,13 +95,11 @@ const Dashboard = () => {
       accessor: 'menu',
       columnType: 'menu',
       disableResizing: true,
-      Header,
       isDragDisabled: true,
       minWidth: 0,
       width: 0,
     });
-    const cols = columnProps.map((col) => omit(col, ['Header', 'Cell']));
-    dispatch(updateColumn(cols));
+    dispatch(updateColumn(columnProps));
     return columnProps;
   }, [students, mutation.isSuccess, dispatch]);
 
@@ -129,7 +125,7 @@ const Dashboard = () => {
       <Stack className="relative flex-grow" justify="start">
         {mutation.isSuccess && (
           <Box className="absolute inset-0">
-            <DataGrid columns={columns} data={data} />
+            <DataGrid />
           </Box>
         )}
         {mutation.isLoading && (

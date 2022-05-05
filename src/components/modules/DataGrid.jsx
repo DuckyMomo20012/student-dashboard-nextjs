@@ -1,7 +1,13 @@
 /* eslint-disable no-useless-return */
 
 import { Box, ScrollArea, Table } from '@mantine/core';
-import { CellHeader, HeaderLabel, RowBody } from '@element/DataGrid/index.js';
+import {
+  CellBody,
+  CellHeader,
+  Header,
+  HeaderLabel,
+  RowBody,
+} from '@element/DataGrid/index.js';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { addLastRow, updateData } from '@store/slice/tableSlice.js';
 import {
@@ -16,14 +22,17 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { reorderColumns } from '@util/reorderColumns.js';
 
-function DataGrid({ columns, data }) {
+function DataGrid() {
   // const [records, setRecords] = useState(data);
   const records = useSelector((state) => state.table.data);
+  const columns = useSelector((state) => state.table.columns);
   const dispatch = useDispatch();
 
   const defaultColumn = useMemo(
     () => ({
       minWidth: 100,
+      Cell: CellBody,
+      Header,
       // width: 250,
       // maxWidth: 400,
     }),
@@ -38,7 +47,12 @@ function DataGrid({ columns, data }) {
     setColumnOrder,
     visibleColumns,
   } = useTable(
-    { columns, data: records, manualSortBy: false, defaultColumn },
+    {
+      columns,
+      data: records,
+      manualSortBy: false,
+      defaultColumn,
+    },
     useSortBy,
     useResizeColumns,
     useBlockLayout,

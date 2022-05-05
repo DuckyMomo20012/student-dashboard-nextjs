@@ -7,12 +7,13 @@ import { forwardRef } from 'react';
 // open popper
 // eslint-disable-next-line react/display-name
 const HeaderLabel = forwardRef(
-  ({ color, label, icon, isLabelHidden, ...others }, ref) => {
+  ({ color, label, icon, isLabelHidden, onAddColumnClick, ...others }, ref) => {
     return (
       <Center
         className={`h-full rounded-md hover:bg-${color}-50 px-2 py-1`}
         ref={ref}
         {...others}
+        onClick={onAddColumnClick}
       >
         <Group
           className={`w-full text-${color}-700 flex-nowrap items-center`}

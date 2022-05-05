@@ -1,6 +1,7 @@
-import cloneDeep from 'lodash/cloneDeep';
+import { BASE_COL_NAME, BASE_COL_TYPE } from '@constant/index.js';
+
+import { consecutiveInsert } from '@util/consecutiveInsert.js';
 import { createSlice } from '@reduxjs/toolkit';
-import zipObject from 'lodash/zipObject';
 
 const initialState = {
   columns: [],
@@ -12,38 +13,34 @@ export const tableSlice = createSlice({
   initialState,
   reducers: {
     addColumn: (state) => {
-      // First we first if there w
-      // const colName = 'property';
-      // state.columns.forEach((col) => {
-      //   if (col.accessor === colName) {
-      //   }
-      // });
-      // state.columns.push({ accessor: colName, columnType: 'text' });
-      // state.data.forEach((record) => {
-      //   // record['pro']
-      // });
+      const columns = [...state.columns];
+      const dup = columns
+        .filter((col) => col.accessor.includes(BASE_COL_NAME))
+        .map((col) => col.accessor);
+      const newColName = consecutiveInsert(dup, BASE_COL_NAME, ' ');
+
+      state.columns.splice(-1, 0, {
+        accessor: newColName,
+        columnType: BASE_COL_TYPE,
+      });
+
+      state.data = state.data.map((row) => ({ ...row, [newColName]: '' }));
     },
     updateColumn: (state, action) => {
-      state.columns = cloneDeep(action.payload);
+      state.columns = [...action.payload];
     },
     updateData: (state, action) => {
-      state.data = cloneDeep(action.payload);
+      state.data = [...action.payload];
     },
     addRowBelow: (state, action) => {
       const { payload: indexRow } = action;
-      const numCol = Object.keys(state.data[0]);
-      const newRow = zipObject(numCol, Array(numCol.length).fill(''));
+      const nameCol = Object.keys(state.data[0]);
+      const newRow = Object.fromEntries(nameCol.map((name) => [name, '']));
       state.data.splice(indexRow + 1, 0, newRow);
     },
-    addRowAbove: (state, action) => {
-      const { payload: indexRow } = action;
-      const numCol = Object.keys(state.data[0]);
-      const newRow = zipObject(numCol, Array(numCol.length).fill(''));
-      state.data.splice(indexRow, 0, newRow);
-    },
     addLastRow: (state) => {
-      const numCol = Object.keys(state.data[0]);
-      const newRow = zipObject(numCol, Array(numCol.length).fill(''));
+      const nameCol = Object.keys(state.data[0]);
+      const newRow = Object.fromEntries(nameCol.map((name) => [name, '']));
       state.data.push(newRow);
     },
   },
