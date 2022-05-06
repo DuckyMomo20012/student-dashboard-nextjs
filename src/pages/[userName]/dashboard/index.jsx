@@ -1,14 +1,12 @@
 import { Box, Center, Group, Loader, Stack, Text } from '@mantine/core';
-import { CellBody, Header } from '@element/DataGrid/index.js';
 import { DataGrid, SubNavbar } from '@module/index.js';
 import { updateColumn, updateData } from '@store/slice/tableSlice.js';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useMutation, useQuery } from 'react-query';
 
 import { AppShell } from '@layout/AppShell';
 import axios from 'axios';
-import omit from 'lodash/omit';
 import { useSession } from 'next-auth/react';
 
 async function fetchCourses({ queryKey }) {
@@ -28,9 +26,11 @@ async function fetchAllStudentOneCourse(courseId) {
 
 const Dashboard = () => {
   const [activeCourseId, setActiveCourseId] = useState('');
-  const activeMainLink = useSelector((state) => state.activeNavLink.value);
   const [students, setStudents] = useState(null);
   const [userName, setUserName] = useState(null);
+  const [courseLinks, setCourseLinks] = useState([]);
+  const activeMainLink = useSelector((state) => state.activeNavLink.value);
+  const dispatch = useDispatch();
   const { data: session } = useSession();
   const { data: majorCourseList, refetch: refetchCourses } = useQuery(
     ['majorCourses', userName],
@@ -47,12 +47,61 @@ const Dashboard = () => {
     setUserName(userNameSession);
     refetchCourses();
   }, [session, userName, refetchCourses]);
-
-  const dispatch = useDispatch();
-
   const mutation = useMutation((courseId) => {
     return fetchAllStudentOneCourse(courseId);
   });
+
+  const data = useSelector((state) => state.table.data);
+  const columns = useSelector((state) => state.table.columns);
+
+  useEffect(() => {
+    if (mutation.isSuccess) {
+      // Use first data to get num of columns
+      const numColumn = Object.keys(students[0]?.student);
+      const columnProps = numColumn.map((colName) => {
+        let attr = {
+          accessor: colName,
+          columnType: 'text',
+        };
+        if (colName === 'dob') {
+          attr = { ...attr, columnType: 'date' };
+        }
+        return attr;
+      });
+      columnProps.push({
+        accessor: 'menu',
+        columnType: 'menu',
+        disableResizing: true,
+        isDragDisabled: true,
+        minWidth: 84,
+        width: 0,
+      });
+
+      const dataStudent = students.map(({ student }) => ({ ...student }));
+
+      dispatch(updateData(dataStudent));
+      dispatch(updateColumn(columnProps));
+    }
+  }, [students, mutation.isSuccess, dispatch]);
+
+  useEffect(() => {
+    const links = majorCourseList?.map((major) => {
+      const { id: majorId, nameMajor, courses } = major;
+      const subItemList = courses.map(({ id, nameCourse }) => {
+        return {
+          idSubItem: id,
+          labelSubItem: nameCourse,
+        };
+      });
+      return {
+        idItem: majorId,
+        labelItem: nameMajor,
+        subItemList,
+      };
+    });
+
+    setCourseLinks(links);
+  }, [majorCourseList]);
 
   async function handleActiveCourseClick(activeLink) {
     setActiveCourseId(activeLink);
@@ -60,72 +109,18 @@ const Dashboard = () => {
     setStudents(dataStudent);
   }
 
-  const links = majorCourseList?.map((major) => {
-    const { id: majorId, nameMajor, courses } = major;
-    const subItemList = courses.map(({ id, nameCourse }) => {
-      return {
-        idSubItem: id,
-        labelSubItem: nameCourse,
-      };
-    });
-    return {
-      idItem: majorId,
-      labelItem: nameMajor,
-      subItemList,
-    };
-  });
-
-  const columns = useMemo(() => {
-    if (!mutation.isSuccess) {
-      return [];
-    }
-    // Use first data to get num of columns
-    const numColumn = Object.keys(students[0]?.student);
-    const columnProps = numColumn.map((colName) => {
-      let attr = {
-        accessor: colName,
-        columnType: 'text',
-      };
-      if (colName === 'dob') {
-        attr = { ...attr, columnType: 'date' };
-      }
-      return attr;
-    });
-    columnProps.push({
-      accessor: 'menu',
-      columnType: 'menu',
-      disableResizing: true,
-      isDragDisabled: true,
-      minWidth: 0,
-      width: 0,
-    });
-    dispatch(updateColumn(columnProps));
-    return columnProps;
-  }, [students, mutation.isSuccess, dispatch]);
-
-  const data = useMemo(() => {
-    if (!mutation.isSuccess) {
-      return [];
-    }
-    // map data base on 'columns' not from data, because in 'columns' we may
-    // remove some columns
-    const datas = students.map(({ student }) => ({ ...student }));
-    dispatch(updateData(datas));
-    return datas;
-  }, [students, mutation.isSuccess, dispatch]);
-
   return (
     <Group className="flex-nowrap items-stretch" direction="row" spacing={0}>
       <SubNavbar
         activeSubLink={activeCourseId}
         heading={activeMainLink}
-        links={links}
+        links={courseLinks}
         onActiveSubLinkClick={handleActiveCourseClick}
       />
       <Stack className="relative flex-grow" justify="start">
         {mutation.isSuccess && (
           <Box className="absolute inset-0">
-            <DataGrid />
+            <DataGrid columns={columns} data={data} />
           </Box>
         )}
         {mutation.isLoading && (

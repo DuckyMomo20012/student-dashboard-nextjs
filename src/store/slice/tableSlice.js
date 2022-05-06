@@ -1,6 +1,4 @@
-import { BASE_COL_NAME, BASE_COL_TYPE } from '@constant/index.js';
-
-import { consecutiveInsert } from '@util/consecutiveInsert.js';
+import { BASE_COL_TYPE } from '@constant/index.js';
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
@@ -12,14 +10,10 @@ export const tableSlice = createSlice({
   name: 'table',
   initialState,
   reducers: {
-    addColumn: (state) => {
-      const columns = [...state.columns];
-      const dup = columns
-        .filter((col) => col.accessor.includes(BASE_COL_NAME))
-        .map((col) => col.accessor);
-      const newColName = consecutiveInsert(dup, BASE_COL_NAME, ' ');
+    addColumn: (state, action) => {
+      const { newColName, indexCol } = action.payload;
 
-      state.columns.splice(-1, 0, {
+      state.columns.splice(indexCol, 0, {
         accessor: newColName,
         columnType: BASE_COL_TYPE,
       });

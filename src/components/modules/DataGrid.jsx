@@ -18,14 +18,11 @@ import {
   useTable,
 } from 'react-table';
 import { useCallback, useMemo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 
 import { reorderColumns } from '@util/reorderColumns.js';
+import { useDispatch } from 'react-redux';
 
-function DataGrid() {
-  // const [records, setRecords] = useState(data);
-  const records = useSelector((state) => state.table.data);
-  const columns = useSelector((state) => state.table.columns);
+function DataGrid({ columns, data }) {
   const dispatch = useDispatch();
 
   const defaultColumn = useMemo(
@@ -44,12 +41,12 @@ function DataGrid() {
     headerGroups,
     rows,
     prepareRow,
-    setColumnOrder,
     visibleColumns,
+    setColumnOrder,
   } = useTable(
     {
       columns,
-      data: records,
+      data,
       manualSortBy: false,
       defaultColumn,
     },
@@ -85,14 +82,14 @@ function DataGrid() {
 
       if (source.droppableId === 'tbody') {
         const updatedRecords = reorderColumns(
-          records,
+          data,
           source.index,
           destination.index,
         );
         dispatch(updateData(updatedRecords));
       }
     },
-    [visibleColumns, setColumnOrder, records, dispatch],
+    [setColumnOrder, visibleColumns, data, dispatch],
   );
 
   return (
@@ -121,13 +118,13 @@ function DataGrid() {
                         >
                           {headerGroup.headers
                             .slice(0, -1)
-                            .map((column, indexCol) => {
+                            .map((col, indexCol) => {
                               return (
                                 <CellHeader
-                                  column={column}
-                                  draggableId={`${column.id}-head`}
+                                  column={col}
+                                  draggableId={`${col.id}-head`}
                                   index={indexCol}
-                                  key={`${column.id}-head`}
+                                  key={`${col.id}-head`}
                                 />
                               );
                             })}
@@ -136,9 +133,12 @@ function DataGrid() {
                       )}
                     </Droppable>
                     <th className="w-full">
-                      {headerGroup.headers
-                        .slice(-1)
-                        .map((column) => column.render('Header'))}
+                      {headerGroup.headers.slice(-1).map((col) =>
+                        col.render('Header', {
+                          setColumnOrder,
+                          visibleColumns,
+                        }),
+                      )}
                     </th>
                   </>
                 </tr>
