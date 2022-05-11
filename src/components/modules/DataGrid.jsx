@@ -95,7 +95,7 @@ function DataGrid({ columns, data }) {
   return (
     <ScrollArea className="w-full">
       <DragDropContext onDragEnd={onDragEnd}>
-        <Box className="!px-100px relative">
+        <Box className="!px-25 relative py-4">
           <Table {...getTableProps()} fontSize="md">
             <thead>
               {headerGroups.map((headerGroup, indexHeader) => (

@@ -1,4 +1,3 @@
-import { Icon } from '@iconify/react';
 import {
   Anchor,
   Button,
@@ -14,11 +13,13 @@ import {
   Title,
 } from '@mantine/core';
 import { signIn, useSession } from 'next-auth/react';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+
+import { Icon } from '@iconify/react';
+import Link from 'next/link';
 import slugify from 'slugify';
+import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/router';
 
 const Login = () => {
   const router = useRouter();
@@ -37,9 +38,9 @@ const Login = () => {
         setOverlayVisible(false);
       }
     }
-  }, [session]);
+  }, [session, sessionStatus]);
 
-  const onSubmit = async (data) => {
+  const onSubmit = (data) => {
     const { email, password } = data;
     setOverlayVisible(true);
     // Sign in using next-auth function api
@@ -59,12 +60,12 @@ const Login = () => {
       </Text>
 
       <Paper
+        className="relative"
         mt={30}
         p={30}
         radius="md"
         shadow="md"
         withBorder
-        className="relative"
       >
         <form onSubmit={handleSubmit(onSubmit)}>
           <TextInput

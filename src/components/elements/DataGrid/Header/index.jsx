@@ -85,7 +85,7 @@ const typeLabels = {
     name: 'Add',
     icon: 'ic:outline-add',
     color: 'red',
-    shrink: true,
+    // shrink: true,
     isLabelHidden: true,
   },
   menu: {
@@ -109,7 +109,7 @@ const Header = ({
     disableResizing,
     isDragDisabled,
   } = column;
-  const type = typeLabels[columnType];
+  const { shrink, ...typeProps } = typeLabels[columnType];
   const handlerProps = !isDragDisabled && dragHandleProps;
   const columns = useSelector((state) => state.table.columns);
   const dispatch = useDispatch();
@@ -137,8 +137,8 @@ const Header = ({
         )}
         <HeaderMenu
           column={column}
-          control={<HeaderLabel {...type} label={nameColumn} />}
-          shrink={type.shrink}
+          control={<HeaderLabel {...typeProps} label={nameColumn} />}
+          shrink={shrink}
         />
       </Box>
       {!disableResizing && (

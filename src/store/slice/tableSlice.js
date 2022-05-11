@@ -37,10 +37,22 @@ export const tableSlice = createSlice({
       const newRow = Object.fromEntries(nameCol.map((name) => [name, '']));
       state.data.push(newRow);
     },
+    updateCellText: (state, action) => {
+      const { rowIdx, colIdx, value } = action.payload;
+
+      // eslint-disable-next-line prefer-template
+      state.data[rowIdx][colIdx] = '' + value;
+    },
   },
 });
 
-export const { addColumn, updateColumn, updateData, addRowBelow, addLastRow } =
-  tableSlice.actions;
+export const {
+  addColumn,
+  updateColumn,
+  updateData,
+  addRowBelow,
+  addLastRow,
+  updateCellText,
+} = tableSlice.actions;
 
 export default tableSlice.reducer;

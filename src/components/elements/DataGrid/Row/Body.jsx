@@ -13,16 +13,16 @@ const RowBody = ({ draggableId, index, row }) => {
             className="!first-of-type:border-t !last-of-type:border-b hover:children:opacity-100 relative flex !bg-white"
             ref={provided.innerRef}
             {...provided.draggableProps}
-            // {...row.getRowProps()}
           >
             <RowHandler
               dragHandleProps={provided.dragHandleProps}
               indexRow={index}
+              key="handler"
             />
             {row.cells.map((cell, indexCell) => (
               <td
                 {...cell.getCellProps()}
-                className="last:(flex-grow after:content-open-quote after:invisible) border"
+                className="!children:(w-full min-h-10) children:(px-10px py-7px) !flex items-center !p-0 last:flex-grow"
                 key={indexCell}
               >
                 {cell.render('Cell')}
