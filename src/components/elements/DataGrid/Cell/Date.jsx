@@ -2,14 +2,15 @@ import { Box, Text, TextInput } from '@mantine/core';
 import { useClickOutside, useMergedRef } from '@mantine/hooks';
 import { useMemo, useRef, useState } from 'react';
 
+import { formatDate } from '@util/formatDate.js';
 import { updateCellText } from '@store/slice/tableSlice.js';
 import { useDispatch } from 'react-redux';
 
-const CellText = ({ value, column, row, isDisabledEdit = false }) => {
+const CellDate = ({ value, column, row, isDisabledEdit = false }) => {
   const { id: rowIdx } = row;
   const { id: colIdx } = column;
   const initValue = useMemo(() => {
-    return value;
+    return formatDate(new Date(value));
   }, [value]);
 
   const dispatch = useDispatch();
@@ -47,4 +48,4 @@ const CellText = ({ value, column, row, isDisabledEdit = false }) => {
   );
 };
 
-export { CellText };
+export { CellDate };

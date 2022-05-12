@@ -2,7 +2,7 @@
 
 import { Box, ScrollArea, Table } from '@mantine/core';
 import {
-  CellText,
+  Cell,
   Header,
   HeaderDraggable,
   HeaderLabel,
@@ -28,7 +28,7 @@ function DataGrid({ columns, data }) {
   const defaultColumn = useMemo(
     () => ({
       minWidth: 100,
-      Cell: CellText,
+      Cell,
       Header,
       // width: 250,
       // maxWidth: 400,
