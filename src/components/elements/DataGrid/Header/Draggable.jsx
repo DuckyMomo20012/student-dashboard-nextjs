@@ -1,6 +1,6 @@
 import { Draggable } from 'react-beautiful-dnd';
 
-const CellHeader = ({ column, draggableId, index }) => {
+const HeaderDraggable = ({ column, draggableId, index }) => {
   // NOTE: draggableProps will **empty** 'style' prop so we have to merge both styles
   // We don't want 'Resizer' in Header component to draggable
   const { style: headerStyle, ...headerProps } = column.getHeaderProps();
@@ -36,4 +36,4 @@ const CellHeader = ({ column, draggableId, index }) => {
   );
 };
 
-export { CellHeader };
+export { HeaderDraggable };

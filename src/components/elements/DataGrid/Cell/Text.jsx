@@ -6,7 +6,7 @@ import { formatDate } from '@util/formatDate.js';
 import { updateCellText } from '@store/slice/tableSlice.js';
 import { useDispatch } from 'react-redux';
 
-const CellBody = ({ value, column, row, isDisabledEdit = false }) => {
+const CellText = ({ value, column, row, isDisabledEdit = false }) => {
   const { id: rowIdx } = row;
   const { columnType, id: colIdx } = column;
   const initValue = useMemo(() => {
@@ -51,4 +51,4 @@ const CellBody = ({ value, column, row, isDisabledEdit = false }) => {
   );
 };
 
-export { CellBody };
+export { CellText };

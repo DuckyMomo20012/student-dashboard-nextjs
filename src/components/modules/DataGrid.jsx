@@ -2,11 +2,11 @@
 
 import { Box, ScrollArea, Table } from '@mantine/core';
 import {
-  CellBody,
-  CellHeader,
+  CellText,
   Header,
+  HeaderDraggable,
   HeaderLabel,
-  RowBody,
+  RowDraggable,
 } from '@element/DataGrid/index.js';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { addLastRow, updateData } from '@store/slice/tableSlice.js';
@@ -28,7 +28,7 @@ function DataGrid({ columns, data }) {
   const defaultColumn = useMemo(
     () => ({
       minWidth: 100,
-      Cell: CellBody,
+      Cell: CellText,
       Header,
       // width: 250,
       // maxWidth: 400,
@@ -120,7 +120,7 @@ function DataGrid({ columns, data }) {
                             .slice(0, -1)
                             .map((col, indexCol) => {
                               return (
-                                <CellHeader
+                                <HeaderDraggable
                                   column={col}
                                   draggableId={`${col.id}-head`}
                                   index={indexCol}
@@ -155,7 +155,7 @@ function DataGrid({ columns, data }) {
                     {rows.map((row) => {
                       prepareRow(row);
                       return (
-                        <RowBody
+                        <RowDraggable
                           draggableId={`${row.id}-row`}
                           index={row.index}
                           key={`${row.index}-row`}
