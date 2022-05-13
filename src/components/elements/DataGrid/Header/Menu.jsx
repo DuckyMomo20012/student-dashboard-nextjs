@@ -21,7 +21,7 @@ const HeaderMenu = ({ shrink = false, control, column }) => {
       // trigger="hover"
       withArrow={false}
     >
-      <Menu.Item
+      {/* <Menu.Item
         className="hover:bg-gray-100"
         icon={<Icon icon="ic:outline-edit" />}
       >
@@ -33,7 +33,7 @@ const HeaderMenu = ({ shrink = false, control, column }) => {
       >
         Edit property
       </Menu.Item>
-      <Divider />
+      <Divider /> */}
       <Menu.Item
         className="hover:bg-gray-100"
         icon={<Icon icon="ic:outline-north" />}
@@ -52,7 +52,7 @@ const HeaderMenu = ({ shrink = false, control, column }) => {
       >
         Sort descending
       </Menu.Item>
-      <Menu.Item
+      {/* <Menu.Item
         className="hover:bg-gray-100"
         icon={<Icon icon="ic:outline-filter-list" />}
       >
@@ -70,7 +70,7 @@ const HeaderMenu = ({ shrink = false, control, column }) => {
         icon={<Icon icon="ic:outline-delete" />}
       >
         Delete property
-      </Menu.Item>
+      </Menu.Item> */}
     </Menu>
   );
 };
