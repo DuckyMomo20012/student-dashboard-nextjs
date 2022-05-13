@@ -10,7 +10,10 @@ const CellDate = ({ value, column, row, isDisabledEdit = false }) => {
   const { id: rowIdx } = row;
   const { id: colIdx } = column;
   const initValue = useMemo(() => {
-    return formatDate(new Date(value));
+    if (value) {
+      return formatDate(new Date(value));
+    }
+    return value;
   }, [value]);
 
   const dispatch = useDispatch();
