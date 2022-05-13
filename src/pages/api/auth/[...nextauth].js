@@ -1,8 +1,8 @@
+import CredentialsProvider from 'next-auth/providers/credentials';
 import { DOMAIN } from '@constant/index.js';
+import NextAuth from 'next-auth';
 import axios from 'axios';
 import { sha1 } from 'hash-wasm';
-import NextAuth from 'next-auth';
-import CredentialsProvider from 'next-auth/providers/credentials';
 
 async function fetchOneUser(userMail) {
   const user = await axios.get(`${DOMAIN}/api/users`, {

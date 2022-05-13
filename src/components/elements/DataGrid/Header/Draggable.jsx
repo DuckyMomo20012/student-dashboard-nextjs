@@ -1,6 +1,6 @@
 import { Draggable } from 'react-beautiful-dnd';
 
-const RowHead = ({ column, draggableId, index }) => {
+const HeaderDraggable = ({ column, draggableId, index }) => {
   // NOTE: draggableProps will **empty** 'style' prop so we have to merge both styles
   // We don't want 'Resizer' in Header component to draggable
   const { style: headerStyle, ...headerProps } = column.getHeaderProps();
@@ -21,7 +21,6 @@ const RowHead = ({ column, draggableId, index }) => {
 
         return (
           <th
-            className="group relative last:min-w-min last:flex-grow"
             ref={providedEnabled.innerRef}
             {...draggableProps}
             {...headerProps}
@@ -37,4 +36,4 @@ const RowHead = ({ column, draggableId, index }) => {
   );
 };
 
-export { RowHead };
+export { HeaderDraggable };

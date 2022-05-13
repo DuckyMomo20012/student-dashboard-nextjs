@@ -1,0 +1,482 @@
+[
+  {
+    "idStudent": "SV01",
+    "idCourse": "BMCSDL",
+    "mark": {
+      "$binary": {
+        "base64": "MwqPmcM1cx8ScD505hzoI2Ny7mk180HBhFRrjzrl8TLk1xpJbPmiN1vTIX9FrEcNg/Gu6BOKjE/wVHXIeVDRhQ==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV01",
+    "idCourse": "MMT",
+    "mark": {
+      "$binary": {
+        "base64": "Hhhy9vzlK77xl5/1WRJVQHCVb/3HZSc6DBYTKrxNr7Akl8E6GxCcK+kbe5fSuuK3GjWIA5uajuKSo2Mga+NAlA==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV02",
+    "idCourse": "BMCSDL",
+    "mark": {
+      "$binary": {
+        "base64": "iyhllagilooPpLoGDgHIOVItD9gI1jQ24zkKjsoYUDU0ZP8PaxVHC0d8HXvSC088J4TFYOVfX9IsQuvnGwveww==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV02",
+    "idCourse": "MMT",
+    "mark": {
+      "$binary": {
+        "base64": "lD/SpJMTzLWyaquNFSr2nW3Wx/3UH4dgcb8kWoqxPOZUjRZb1eXWo5vm19QTBQ6U8Wl17G48nPwuQTpL7bQghQ==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV03",
+    "idCourse": "BMCSDL",
+    "mark": {
+      "$binary": {
+        "base64": "LF59Ty7VbIzyexqXYDAvqZ3Re6v4fwqKiTXhzuZtIp25TdTV2ahHyN6eJvC+7W2hOaJdGVqvSjNHwXXK2GnCew==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV03",
+    "idCourse": "MMT",
+    "mark": {
+      "$binary": {
+        "base64": "620FwS5CUvsdjXbRfP683V8H0pBJO0wVjBUL4ar89BGbTnvb5tGZ4j67pF8UO/heR1/EWr7Mz5/gUQgYtXLAYA==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV04",
+    "idCourse": "BMCSDL",
+    "mark": {
+      "$binary": {
+        "base64": "G3g2iSaiY2Px/tuIc64AOXE41EPOvbHIIwIADDkwLaERzVJQVxwETLQKOrE4eu55W32HIeNS0BdWedwUtEGmhw==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV04",
+    "idCourse": "MMT",
+    "mark": {
+      "$binary": {
+        "base64": "GiNQro+Tk31WXoXETE7wKPt4NGDrLQcnVrRs68jBzL2RnqeUsh1Xf2XTgRkg9iRMKtaHTZXMIYdcrxD7mVT7wQ==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV05",
+    "idCourse": "BMCSDL",
+    "mark": {
+      "$binary": {
+        "base64": "FzoAAo51puDAeSEZ0MUMs85G/045MGOnSko7sQPV/BzVAw9jEGau/EmHIG9kUfUKeDINKqb9r6dV10LTnSp8fA==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV05",
+    "idCourse": "MMT",
+    "mark": {
+      "$binary": {
+        "base64": "RpI4nJD9+YnY6/o2UGE9v8s2yXEZXog+sG9ltgjLqnMvhHybJaOQuX1yET0iMtMnFMEHa/34BYU6R9RBIUVeWg==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV06",
+    "idCourse": "BMCSDL",
+    "mark": {
+      "$binary": {
+        "base64": "9F1cQ41YnZqTUeg8I/+jTuQqEcekWqokBJuqXx/po2h9ijodv/GD1eh0Z+/U82u1OZqd9Ri4D+hNEmCuseWTOg==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV06",
+    "idCourse": "MMT",
+    "mark": {
+      "$binary": {
+        "base64": "2SLG2lQg3IF3Jm4w+8bAreY4ZH/+W9U1RxJJ/DhyL4cPDa2ZDOCNX4SCZOoWLqnCzGpG57s1dkD+Wb1P6IllRg==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV07",
+    "idCourse": "BMCSDL",
+    "mark": {
+      "$binary": {
+        "base64": "rmOQ9P2iOmN9NSwhor8dUtbiOxDV83R/R8sERWbzRKJY5S/jQBxrXcqiYIXD4YaKTa/zGxxFrkEM4xJh3H0Khw==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV07",
+    "idCourse": "MMT",
+    "mark": {
+      "$binary": {
+        "base64": "NklVvf4TbKJLspRB//TY17R+gV28+hJLcI5JSqOHGtH6p/ezBZnVh0v44SUUVvrAsntBa7lcMq8jwrdQVfN1xQ==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV08",
+    "idCourse": "BMCSDL",
+    "mark": {
+      "$binary": {
+        "base64": "pOycIvXPM/I4VJUQlfuR8eBbCiIqRkYN8Me/q58L+YHRM04FDxxxfAwGFVTH1+Wd9IuwWfulPOHxxWrEK0XFaw==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV08",
+    "idCourse": "MMT",
+    "mark": {
+      "$binary": {
+        "base64": "iGwSZDgHNBrfuvojQiLFqzOb1tiLDzrBnkfgcXmUpDJ+ITsiFyMg3iTl4/Q+jwfAGeFLRKv5SRzQVSyOKWvyOA==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV09",
+    "idCourse": "MHUD",
+    "mark": {
+      "$binary": {
+        "base64": "uIT48J32mvTKFHvGGKwz2qNQJWRaKCq/LCnLAo0Z0tR2kF7lJ+I9poajRIXW3b2p7+a9SGebkqJIAm4uVfyXIg==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV09",
+    "idCourse": "NMHM",
+    "mark": {
+      "$binary": {
+        "base64": "06+vGtbD5yc+3ul/vHE4wvEZE86nanElcZJ8xvCnRSnmtUPYhSFnnh7LyqziyfhsCs+pJgLj+rqgpGBq1m3uLw==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV10",
+    "idCourse": "MHUD",
+    "mark": {
+      "$binary": {
+        "base64": "ICslLwgKaw+Pgy2gyIEQSgaFMrHBvGJsKFpnGX7rG0OsACMOdHcWjg8ZFKH4r5jC2n+ah5TZ9MrYQ1Qixu01Xg==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV10",
+    "idCourse": "NMHM",
+    "mark": {
+      "$binary": {
+        "base64": "2FVNeU37nW/LRRX2K9ufbo/I5WG+J7mNUFVdkdq/B67QO/BJC0++EI9DmZdrS2YVDpqfTV0bapnS4zslsNywsw==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV11",
+    "idCourse": "MHUD",
+    "mark": {
+      "$binary": {
+        "base64": "k7pv7nAZNdPcVmbtOVE6zgeC2EkftQ83WlEr5QqM2c5/oc0cQ+djnb7gYBICdyaFx/ILfTvpZszS8N/xvlammA==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV11",
+    "idCourse": "NMHM",
+    "mark": {
+      "$binary": {
+        "base64": "ppijCUiJSOELG9eu34k8rZkGyk8H4ew3bz2/J60D4J6Cb0z8ig3ImFnpQ4qDShHMf9tTRU3/7clwxBSKyTWZJw==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV12",
+    "idCourse": "MHUD",
+    "mark": {
+      "$binary": {
+        "base64": "0MHiTu13qQCPbJ2BGCRLjLX+ty8aS7CKooufNre2wmArlJoYuJN2/zwAve4DDm5OpJNAVxybZseOaSaRGQXGuA==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV12",
+    "idCourse": "NMHM",
+    "mark": {
+      "$binary": {
+        "base64": "2PBzMveyTiO/YXEewkQi5PcCbW5qX7FBt2Ae90lIM0eGJqZZTo9Cj4v6ngRSqAI5GCAsAs2TUq8W5TfAjIZ5bw==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV13",
+    "idCourse": "MHUD",
+    "mark": {
+      "$binary": {
+        "base64": "Lp/yMSFzFUB7nSDxvnK3bhcg0VAlqaMeD9MayLJKkArYHlG0rEsOJT7pQicG8FIDcqZ9BJVQkuqydu+uUtjHcQ==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV13",
+    "idCourse": "NMHM",
+    "mark": {
+      "$binary": {
+        "base64": "UW+JlJpgL8dMw/jbGTEp8m4LnpuC+rQCQ4EzfakGlHyhEEQ3sAZghisRkLG2ZtmroQLbBRV6G07cE3G3hinJeg==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV14",
+    "idCourse": "MHUD",
+    "mark": {
+      "$binary": {
+        "base64": "1No8VfAv1gFzwPhWh2k3vC+k1o6Te+bdUwFi6vV1m6kv4XycVrdAJcX2oX5mLEyG1LcIg7g4HRsgt/8ySXJGrg==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV14",
+    "idCourse": "NMHM",
+    "mark": {
+      "$binary": {
+        "base64": "G9cuTBwKH49kyWWYPk3ziSx99fo9olJmpfUb6E1+p9pTp7KpFTViNXtccLuChri4CrfgiQecgueb/LnFTkTStA==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV15",
+    "idCourse": "MHUD",
+    "mark": {
+      "$binary": {
+        "base64": "KRQUlPv97HKupzz1KrexxOBYx2b39wi/wxLq8xe10VjQP4EJWrlJuJqsx2wtVobsImsM0+pQ5OGzuVrxIXenDQ==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV15",
+    "idCourse": "NMHM",
+    "mark": {
+      "$binary": {
+        "base64": "2vQtzJu23H5QujjJvyZ+jXXfuixq3vhHbkAJ8zGFYL8ojMpKGY+HpWx2DLfrrdQMoMvPHwcXK6m4zH/rMgWaCw==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV16",
+    "idCourse": "MHUD",
+    "mark": {
+      "$binary": {
+        "base64": "Q6EwZlamtpAVPiCBwRROdw/5DeG74EHvgKYK/u5Z8IqslehWvs15rrdQ4mQ3vbcA0zzEBS3xnkv5N/Yx/asKHg==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV16",
+    "idCourse": "NMHM",
+    "mark": {
+      "$binary": {
+        "base64": "GikBPMnaZWaMjx6mlWChFYGenwXzOe0PN6vK0u4SXgApyX77XB30CMIsYoczhnOWwAbBmh4wdAdUJ3W0AxariQ==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV17",
+    "idCourse": "CSDL",
+    "mark": {
+      "$binary": {
+        "base64": "yjceyAOAiERNaNVOjYDN7+RfoUvq/WLVA0rESAWoY9gmjBPl8g4opinhHZ9EO6YbWOH64PiJ8bXoF3nSYlcKkw==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV17",
+    "idCourse": "HDH",
+    "mark": {
+      "$binary": {
+        "base64": "ub6oJA15C9Bj/9BqbndJH9oHA4Ls+5IEyHELv17LTJFxDD3nB0ckAtBHNFzEkDlDdUUuDkFDmIulMkodhMs5hA==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV18",
+    "idCourse": "CSDL",
+    "mark": {
+      "$binary": {
+        "base64": "saltyOZOy0R5VE5FUJqrBW7BsWus5Op27L+pNfEBDAJmugXRFYb6oWOwK93QJkqw7putOFFB4BtuuiIgJ0YbeA==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV18",
+    "idCourse": "HDH",
+    "mark": {
+      "$binary": {
+        "base64": "npG4TPK2fotjUzXq95miYAJVmMnm43F2nBoaNrBYQhMHtxHEZGpdtQvDDOVf6+0u8RNY9UEieBp294HUSabCDA==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV19",
+    "idCourse": "CSDL",
+    "mark": {
+      "$binary": {
+        "base64": "/zcIajurbtc93LpaWA5T+FL/E9m2kKpjQKMFclU2rDxR3CRrF5dVmVRkVpGA+fKS50I8ahpLZaI2IZIiokDjQw==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV19",
+    "idCourse": "HDH",
+    "mark": {
+      "$binary": {
+        "base64": "rumsMjtp43dQvv+/n2VMOJI4U6wIrD0dtXlcqZ34xZ71otOiNJv+AyA8wPbzcAaHM6C5V8jhg+tu3jkc/w/wfQ==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV20",
+    "idCourse": "CSDL",
+    "mark": {
+      "$binary": {
+        "base64": "Em4vPG2aKJJysPowGlxc635Wym1xNqz5d6xnVt2DRawrshMyYHcmnt2SkIFWqdqp57GHiZ10018P7kMkwBx1PQ==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV20",
+    "idCourse": "HDH",
+    "mark": {
+      "$binary": {
+        "base64": "K6JITUVgB2UcAKvKW8Z+jCCWjnSuYnJoNZ20D/ivcQWRY6NqOATBJpmf1WdKGVvtSAnrgDZPlAlaOFMLen3plQ==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV21",
+    "idCourse": "CSDL",
+    "mark": {
+      "$binary": {
+        "base64": "A6JOrExyBCRbZkF8GeljRl01HCURYSi6Wb7MZWs1iLB/hcZJWIe8cZWAZPopRIzlENgQ9w8Q6+3itFNFefYvCw==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV21",
+    "idCourse": "HDH",
+    "mark": {
+      "$binary": {
+        "base64": "BM6+0C7PcRiaB9sI812qj/xMo1O3R7tkE6XRLNTmF0aD8WLNIum8206QCQsTFclmTUus5BehWMofnVPSJ5fQGw==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV22",
+    "idCourse": "CSDL",
+    "mark": {
+      "$binary": {
+        "base64": "jEaPnd0AJrYfgV740CStBWKiBOA0EVXuhTSTnjDbIESazQHVpTKFUDdiMVtvE7WwLhgLlezm5LmC98kajljjhA==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV22",
+    "idCourse": "HDH",
+    "mark": {
+      "$binary": {
+        "base64": "8xInxD1u3AbeWau3aekk1t5+KMOz6ugWzk64dA0FN1uBq77JAPIIKWASTJe+G0iuezVdVw4m3gcqCNCp+Lkknw==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV23",
+    "idCourse": "CSDL",
+    "mark": {
+      "$binary": {
+        "base64": "9RqUy1ns+lEaeyvK2j/AGU2L9hmmvR7XXmGzkOxe5LetnBuXex3oxYLmSxARkOIOEFmkH82cT/+6qP+yfDFpbg==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV23",
+    "idCourse": "HDH",
+    "mark": {
+      "$binary": {
+        "base64": "5qA7AHlsYPZJhNasvEEMrRosVVCdQErNyp4U0d1TiCcgvRUbikZzkmM57Iqe4qyduMW80+0aQOLjh9vQgKGYWg==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV24",
+    "idCourse": "CSDL",
+    "mark": {
+      "$binary": {
+        "base64": "QwkZ4BeJPz/XDt0JZck5IZoxUlC/v6R3uhVxzLPyEjuHArssq76gj1WMks2v+1VBkGsAEMmFm4m3clI4WE2jmQ==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV24",
+    "idCourse": "HDH",
+    "mark": {
+      "$binary": {
+        "base64": "gylTHpnNTQI0ADn4nU0EKeuv5pmFyDG9ZeOZ7iyfduLjiw93A7heUVNOEQ8PqHtiR5uQPnzjHnVG+llzLJW4YA==",
+        "subType": "00"
+      }
+    }
+  }
+]

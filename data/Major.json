@@ -1,0 +1,13 @@
+[
+  {
+    "idMajor": "HTTT",
+    "nameMajor": "Hệ thống thông tin",
+    "idStaff": "NV03"
+  },
+  { "idMajor": "MMT", "nameMajor": "Mạng máy tính", "idStaff": "NV01" },
+  {
+    "idMajor": "TGMT",
+    "nameMajor": "Thị giác máy tính",
+    "idStaff": "NV02"
+  }
+]

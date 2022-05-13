@@ -1,8 +1,15 @@
 /* eslint-disable no-useless-return */
 
 import { Box, ScrollArea, Table } from '@mantine/core';
+import {
+  Cell,
+  Header,
+  HeaderDraggable,
+  HeaderLabel,
+  RowDraggable,
+} from '@element/DataGrid/index.js';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import { RowBody, RowHead } from '@element/DataGrid/index.js';
+import { addLastRow, updateData } from '@store/slice/tableSlice.js';
 import {
   useBlockLayout,
   useColumnOrder,
@@ -10,16 +17,19 @@ import {
   useSortBy,
   useTable,
 } from 'react-table';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo } from 'react';
 
 import { reorderColumns } from '@util/reorderColumns.js';
+import { useDispatch } from 'react-redux';
 
 function DataGrid({ columns, data }) {
-  const [records, setRecords] = useState(data);
+  const dispatch = useDispatch();
 
   const defaultColumn = useMemo(
     () => ({
       minWidth: 100,
+      Cell,
+      Header,
       // width: 250,
       // maxWidth: 400,
     }),
@@ -31,10 +41,15 @@ function DataGrid({ columns, data }) {
     headerGroups,
     rows,
     prepareRow,
-    setColumnOrder,
     visibleColumns,
+    setColumnOrder,
   } = useTable(
-    { columns, data: records, manualSortBy: false, defaultColumn },
+    {
+      columns,
+      data,
+      manualSortBy: false,
+      defaultColumn,
+    },
     useSortBy,
     useResizeColumns,
     useBlockLayout,
@@ -43,7 +58,7 @@ function DataGrid({ columns, data }) {
 
   const onDragEnd = useCallback(
     (result) => {
-      const { destination, source, draggableId } = result;
+      const { destination, source } = result;
 
       if (!destination) {
         return;
@@ -57,9 +72,8 @@ function DataGrid({ columns, data }) {
       }
 
       if (source.droppableId === 'thead') {
-        const columns = visibleColumns;
         const updatedColumns = reorderColumns(
-          columns,
+          visibleColumns,
           source.index,
           destination.index,
         );
@@ -68,20 +82,20 @@ function DataGrid({ columns, data }) {
 
       if (source.droppableId === 'tbody') {
         const updatedRecords = reorderColumns(
-          records,
+          data,
           source.index,
           destination.index,
         );
-        setRecords(updatedRecords);
+        dispatch(updateData(updatedRecords));
       }
     },
-    [visibleColumns, setColumnOrder, records],
+    [setColumnOrder, visibleColumns, data, dispatch],
   );
 
   return (
-    <ScrollArea className="w-1/1">
+    <ScrollArea className="w-full">
       <DragDropContext onDragEnd={onDragEnd}>
-        <Box className="!px-100px relative">
+        <Box className="!px-25 relative py-4">
           <Table {...getTableProps()} fontSize="md">
             <thead>
               {headerGroups.map((headerGroup, indexHeader) => (
@@ -94,7 +108,7 @@ function DataGrid({ columns, data }) {
                     <Droppable
                       direction="horizontal"
                       droppableId="thead"
-                      type="thead"
+                      type="TABLE_HEADER"
                     >
                       {(providedDrop) => (
                         <div
@@ -104,13 +118,13 @@ function DataGrid({ columns, data }) {
                         >
                           {headerGroup.headers
                             .slice(0, -1)
-                            .map((column, indexCol) => {
+                            .map((col, indexCol) => {
                               return (
-                                <RowHead
-                                  column={column}
-                                  draggableId={`${column.id}-head`}
+                                <HeaderDraggable
+                                  column={col}
+                                  draggableId={`${col.id}-head`}
                                   index={indexCol}
-                                  key={`${column.id}-head`}
+                                  key={`${col.id}-head`}
                                 />
                               );
                             })}
@@ -118,42 +132,50 @@ function DataGrid({ columns, data }) {
                         </div>
                       )}
                     </Droppable>
-                    {headerGroup.headers.slice(-1).map((column, indexCol) => {
-                      return (
-                        <th
-                          className="group relative last:min-w-min last:flex-grow"
-                          key={indexCol}
-                        >
-                          {column.render('Header')}
-                        </th>
-                      );
-                    })}
+                    <th className="w-full">
+                      {headerGroup.headers.slice(-1).map((col) =>
+                        col.render('Header', {
+                          setColumnOrder,
+                          visibleColumns,
+                        }),
+                      )}
+                    </th>
                   </>
                 </tr>
               ))}
             </thead>
-            <Droppable droppableId="tbody" type="tbody">
-              {(providedDrop) => (
-                <tbody
-                  {...getTableBodyProps()}
-                  ref={providedDrop.innerRef}
-                  {...providedDrop.droppableProps}
-                >
-                  {rows.map((row) => {
-                    prepareRow(row);
-                    return (
-                      <RowBody
-                        draggableId={`${row.id}-row`}
-                        index={row.index}
-                        key={`${row.index}-row`}
-                        row={row}
-                      />
-                    );
-                  })}
-                  {providedDrop.placeholder}
-                </tbody>
-              )}
-            </Droppable>
+            <tbody>
+              <Droppable droppableId="tbody" type="TABLE_BODY">
+                {(providedDrop) => (
+                  <div
+                    {...getTableBodyProps()}
+                    ref={providedDrop.innerRef}
+                    {...providedDrop.droppableProps}
+                  >
+                    {rows.map((row) => {
+                      prepareRow(row);
+                      return (
+                        <RowDraggable
+                          draggableId={`${row.id}-row`}
+                          index={row.index}
+                          key={`${row.index}-row`}
+                          row={row}
+                        />
+                      );
+                    })}
+                    {providedDrop.placeholder}
+                  </div>
+                )}
+              </Droppable>
+              <tr
+                className="flex border"
+                onClick={() => dispatch(addLastRow())}
+              >
+                <td className="!children:p-0 flex-grow">
+                  <HeaderLabel color="red" icon="ic:outline-add" label="New" />
+                </td>
+              </tr>
+            </tbody>
           </Table>
         </Box>
       </DragDropContext>

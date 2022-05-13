@@ -3,7 +3,7 @@ import prisma from '@lib/prisma.js';
 async function getOneCourse(req, res) {
   const { idCourse } = req.query;
   const course = await prisma.course.findFirst({
-    where: { id: idCourse },
+    where: { idCourse },
   });
   res.status(200).json(course);
 }

@@ -1,7 +1,4 @@
-import { DOMAIN } from '@constant/index.js';
-import { Icon } from '@iconify/react';
 import {
-  Box,
   Center,
   Navbar,
   Stack,
@@ -9,11 +6,14 @@ import {
   UnstyledButton,
   useMantineColorScheme,
 } from '@mantine/core';
-import { setLink } from '@store/slice/navLinkSlice.js';
-import { signOut } from 'next-auth/react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { DOMAIN } from '@constant/index.js';
+import { Icon } from '@iconify/react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useDispatch, useSelector } from 'react-redux';
+import { signOut } from 'next-auth/react';
+import { updateActiveLink } from '@store/slice/navLinkSlice.js';
 
 const mainLinksMockdata = [
   { icon: 'ic:outline-home', label: 'Home' },
@@ -25,7 +25,7 @@ function handleLogOutClick() {
 }
 
 function MainNavbar() {
-  const activeMainLink = useSelector((state) => state.navLink.value);
+  const activeMainLink = useSelector((state) => state.activeNavLink.value);
   const dispatch = useDispatch();
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const dark = colorScheme === 'dark';
@@ -39,13 +39,13 @@ function MainNavbar() {
       withArrow
     >
       <UnstyledButton
-        className={`dark:(text-dark-50 hover:bg-dark-500) hover:(bg-gray-100) h-11 w-11 rounded-md text-gray-700 ${
+        className={`dark:(text-dark-50 hover:bg-dark-500) hover:(bg-gray-100) h-11 w-11 rounded-md text-gray-600 ${
           link.label === activeMainLink
-            ? 'dark:(bg-blue-900 text-blue-400) !hover:(bg-blue-50) !hover:(text-blue-700) bg-blue-50 !text-blue-700'
+            ? 'dark:(bg-blue-900 text-blue-400) !hover:(bg-blue-50) !hover:(text-blue-600) bg-blue-50 !text-blue-600'
             : ''
         }`}
         key={link.label}
-        onClick={() => dispatch(setLink(link.label))}
+        onClick={() => dispatch(updateActiveLink(link.label))}
       >
         <Center>
           <Icon height={24} icon={link.icon} width={24} />
@@ -58,7 +58,7 @@ function MainNavbar() {
     <Navbar className="gap-4 bg-white" width={{ base: 60 }}>
       <Navbar.Section className="w-60px">
         <Link href="/" passHref>
-          <UnstyledButton className="w-1/1 h-60px box-border border-b border-r border-solid border-gray-300">
+          <UnstyledButton className="h-60px box-border w-full border-b border-r border-solid border-gray-300">
             <Center>
               <Image
                 alt="logo"
@@ -79,7 +79,7 @@ function MainNavbar() {
         <Center>
           <UnstyledButton
             className={
-              'dark:(text-dark-50 hover:bg-dark-500) hover:(bg-gray-100) h-11 w-11 rounded-md text-gray-700'
+              'dark:(text-dark-50 hover:bg-dark-500) hover:(bg-gray-100) h-11 w-11 rounded-md text-gray-600'
             }
             onClick={() => toggleColorScheme()}
           >
@@ -97,7 +97,7 @@ function MainNavbar() {
         <Center>
           <UnstyledButton
             className={
-              'dark:(text-dark-50 hover:bg-dark-500) hover:(bg-gray-100) h-11 w-11 rounded-md text-gray-700'
+              'dark:(text-dark-50 hover:bg-dark-500) hover:(bg-gray-100) h-11 w-11 rounded-md text-gray-600'
             }
             onClick={handleLogOutClick}
           >

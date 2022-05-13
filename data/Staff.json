@@ -1,0 +1,59 @@
+[
+  {
+    "idStaff": "NV01",
+    "name": "Nguyễn Lê Hữu Sang",
+    "email": "huusang@gmail.com",
+    "salary": {
+      "$binary": {
+        "base64": "HhiLDbCjDeqnC3/GpoNw/TVGaWXXzgbBKoWZ8+RR3BLYxwSGcUVy7uXHcDFRskArSxW5qVupHUTvQfj+xJuXaA==",
+        "subType": "00"
+      }
+    },
+    "nameCompany": "HCMUS",
+    "password": {
+      "$binary": {
+        "base64": "cRDtpNCeBiql5KOQsKVyrA0sAiA=",
+        "subType": "00"
+      }
+    },
+    "keyPublic": "NV01"
+  },
+  {
+    "idStaff": "NV02",
+    "name": "Dương Tiến Vinh",
+    "email": "tienvinh@gmail.com",
+    "salary": {
+      "$binary": {
+        "base64": "hjefmmKd4pz4YHK1jGkS96BfIb1V6ON7piICE++CeMx1nS3Nu8WJGWp6Wc58TbrUDRSjGn/EOCSwvJGEMCNbvQ==",
+        "subType": "00"
+      }
+    },
+    "nameCompany": "HCMUS",
+    "password": {
+      "$binary": {
+        "base64": "cRDtpNCeBiql5KOQsKVyrA0sAiA=",
+        "subType": "00"
+      }
+    },
+    "keyPublic": "NV02"
+  },
+  {
+    "idStaff": "NV03",
+    "name": "Trần Phan Thanh Hải",
+    "email": "thanhhai@gmail.com",
+    "salary": {
+      "$binary": {
+        "base64": "gp7eTfljpfB5h/c7Hu7ZGw+c41J3COFx1GSRh3kq/dA1iOfhJIE6alGKMgE/AO2vI9golzFXffN5UQ5bolJHLA==",
+        "subType": "00"
+      }
+    },
+    "nameCompany": "HCMUS",
+    "password": {
+      "$binary": {
+        "base64": "cRDtpNCeBiql5KOQsKVyrA0sAiA=",
+        "subType": "00"
+      }
+    },
+    "keyPublic": "NV03"
+  }
+]

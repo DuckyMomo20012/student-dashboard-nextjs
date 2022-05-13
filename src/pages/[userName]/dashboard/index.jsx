@@ -1,20 +1,12 @@
-import {
-  Box,
-  Center,
-  Group,
-  Loader,
-  ScrollArea,
-  Stack,
-  Text,
-} from '@mantine/core';
-import { Cell, Header } from '@element/DataGrid/index.js';
+import { Box, Center, Group, Loader, Stack, Text } from '@mantine/core';
 import { DataGrid, SubNavbar } from '@module/index.js';
-import { useEffect, useMemo, useState } from 'react';
+import { updateColumn, updateData } from '@store/slice/tableSlice.js';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
 import { useMutation, useQuery } from 'react-query';
 
 import { AppShell } from '@layout/AppShell';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
 import { useSession } from 'next-auth/react';
 
 async function fetchCourses({ queryKey }) {
@@ -34,16 +26,18 @@ async function fetchAllStudentOneCourse(courseId) {
 
 const Dashboard = () => {
   const [activeCourseId, setActiveCourseId] = useState('');
-  const activeMainLink = useSelector((state) => state.navLink.value);
   const [students, setStudents] = useState(null);
   const [userName, setUserName] = useState(null);
-  const { data: session, status: sessionStatus } = useSession();
-  const { data: majorCourseList, refetch: refetchCourses } = useQuery(
+  const [courseLinks, setCourseLinks] = useState([]);
+  const activeMainLink = useSelector((state) => state.activeNavLink.value);
+  const dispatch = useDispatch();
+  const { data: session } = useSession();
+  const { data: majorCourseList } = useQuery(
     ['majorCourses', userName],
     fetchCourses,
     {
       retry: false,
-      enabled: false,
+      enabled: !!userName,
     },
   );
   useEffect(() => {
@@ -51,85 +45,75 @@ const Dashboard = () => {
       user: { name: userNameSession },
     } = session;
     setUserName(userNameSession);
-    refetchCourses();
-  }, [session, userName, refetchCourses]);
-
+  }, [session]);
   const mutation = useMutation((courseId) => {
     return fetchAllStudentOneCourse(courseId);
   });
 
-  async function handleActiveCourseClick(activeCourseId) {
-    setActiveCourseId(activeCourseId);
-    const students = await mutation.mutateAsync(activeCourseId);
-    setStudents(students);
-  }
+  const data = useSelector((state) => state.table.data);
+  const columns = useSelector((state) => state.table.columns);
 
-  const links = majorCourseList?.map((major) => {
-    const { id: majorId, nameMajor, courses } = major;
-    const subItemList = courses.map(({ id, nameCourse }) => {
-      return {
-        idSubItem: id,
-        labelSubItem: nameCourse,
-      };
-    });
-    return {
-      idItem: majorId,
-      labelItem: nameMajor,
-      subItemList,
-    };
-  });
-
-  const columns = useMemo(() => {
+  useEffect(() => {
     if (mutation.isSuccess) {
       // Use first data to get num of columns
-      const columnNums = Object.keys(students[0]?.student);
-      let columns = columnNums.map((colName, index) => {
-        if (colName === 'dob') {
-          return {
-            accessor: colName,
-            Cell,
-            columnType: 'date',
-            Header,
-          };
-        }
-        return {
+      const numColumn = Object.keys(students[0]?.student);
+      const columnProps = numColumn.map((colName) => {
+        let attr = {
           accessor: colName,
-          Cell,
           columnType: 'text',
-          Header,
+        };
+        if (colName === 'dob') {
+          attr = { ...attr, columnType: 'date' };
+        }
+        return attr;
+      });
+      columnProps.push({
+        accessor: 'menu',
+        columnType: 'menu',
+        disableResizing: true,
+        isDragDisabled: true,
+        minWidth: 84,
+        width: 0,
+      });
+
+      const dataStudent = students.map(({ student }) => ({ ...student }));
+
+      dispatch(updateData(dataStudent));
+      dispatch(updateColumn(columnProps));
+    }
+  }, [students, mutation.isSuccess, dispatch]);
+
+  useEffect(() => {
+    const links = majorCourseList?.map((major) => {
+      const { idMajor, nameMajor, courses } = major;
+      const subItemList = courses.map(({ idCourse, nameCourse }) => {
+        return {
+          idSubItem: idCourse,
+          labelSubItem: nameCourse,
         };
       });
-      columns = [
-        ...columns,
-        {
-          accessor: 'menu',
-          columnType: 'menu',
-          disableResizing: true,
-          Header,
-          isDragDisabled: true,
-          minWidth: 0,
-          width: 0,
-        },
-      ];
-      return columns;
-    }
-  }, [students, mutation.isSuccess]);
+      return {
+        idItem: idMajor,
+        labelItem: nameMajor,
+        subItemList,
+      };
+    });
 
-  const data = useMemo(() => {
-    if (!mutation.isSuccess) {
-      return;
-    }
-    // map data base on 'columns' not from data, because in 'columns' we may
-    // remove some columns
-    return students.map(({ student }) => ({ ...student }));
-  }, [students, mutation.isSuccess]);
+    setCourseLinks(links);
+  }, [majorCourseList]);
+
+  async function handleActiveCourseClick(activeLink) {
+    setActiveCourseId(activeLink);
+    const dataStudent = await mutation.mutateAsync(activeLink);
+    setStudents(dataStudent);
+  }
 
   return (
     <Group className="flex-nowrap items-stretch" direction="row" spacing={0}>
       <SubNavbar
         activeSubLink={activeCourseId}
         heading={activeMainLink}
-        links={links}
+        links={courseLinks}
         onActiveSubLinkClick={handleActiveCourseClick}
       />
       <Stack className="relative flex-grow" justify="start">
@@ -139,7 +123,7 @@ const Dashboard = () => {
           </Box>
         )}
         {mutation.isLoading && (
-          <Center className="w-1/1 h-1/1">
+          <Center className="h-full w-full">
             <Stack>
               <Text>Loading data...</Text>
               <Center>

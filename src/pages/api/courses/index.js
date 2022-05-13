@@ -9,11 +9,11 @@ async function getAllCourseOneStaff(req, res) {
       },
     },
     select: {
-      id: true,
+      idMajor: true,
       nameMajor: true,
       courses: {
         select: {
-          id: true,
+          idCourse: true,
           nameCourse: true,
         },
       },

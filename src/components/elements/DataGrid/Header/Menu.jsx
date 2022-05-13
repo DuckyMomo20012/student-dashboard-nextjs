@@ -8,7 +8,7 @@ const HeaderMenu = ({ shrink = false, control, column }) => {
   const [opened, handlers] = useDisclosure(false);
   return (
     <Menu
-      className={`h-1/1 ${shrink === false ? 'w-1/1' : ''}`}
+      className={`h-full ${shrink === false ? 'w-full' : ''}`}
       control={control}
       gutter={4}
       onClose={handlers.close}
@@ -18,9 +18,10 @@ const HeaderMenu = ({ shrink = false, control, column }) => {
       position="bottom"
       radius="md"
       spacing="md"
+      // trigger="hover"
       withArrow={false}
     >
-      <Menu.Item
+      {/* <Menu.Item
         className="hover:bg-gray-100"
         icon={<Icon icon="ic:outline-edit" />}
       >
@@ -32,7 +33,7 @@ const HeaderMenu = ({ shrink = false, control, column }) => {
       >
         Edit property
       </Menu.Item>
-      <Divider />
+      <Divider /> */}
       <Menu.Item
         className="hover:bg-gray-100"
         icon={<Icon icon="ic:outline-north" />}
@@ -51,7 +52,7 @@ const HeaderMenu = ({ shrink = false, control, column }) => {
       >
         Sort descending
       </Menu.Item>
-      <Menu.Item
+      {/* <Menu.Item
         className="hover:bg-gray-100"
         icon={<Icon icon="ic:outline-filter-list" />}
       >
@@ -69,7 +70,7 @@ const HeaderMenu = ({ shrink = false, control, column }) => {
         icon={<Icon icon="ic:outline-delete" />}
       >
         Delete property
-      </Menu.Item>
+      </Menu.Item> */}
     </Menu>
   );
 };
