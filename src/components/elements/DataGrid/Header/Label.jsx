@@ -16,7 +16,7 @@ const HeaderLabel = forwardRef(
         {...others}
       >
         <Group
-          className={`w-full text-${color}-700 flex-nowrap items-center`}
+          className={`w-full text-${color}-600 flex-nowrap items-center`}
           spacing={6}
         >
           <Icon className="flex-shrink-0" height={16} icon={icon} width={16} />

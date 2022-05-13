@@ -39,9 +39,9 @@ function MainNavbar() {
       withArrow
     >
       <UnstyledButton
-        className={`dark:(text-dark-50 hover:bg-dark-500) hover:(bg-gray-100) h-11 w-11 rounded-md text-gray-700 ${
+        className={`dark:(text-dark-50 hover:bg-dark-500) hover:(bg-gray-100) h-11 w-11 rounded-md text-gray-600 ${
           link.label === activeMainLink
-            ? 'dark:(bg-blue-900 text-blue-400) !hover:(bg-blue-50) !hover:(text-blue-700) bg-blue-50 !text-blue-700'
+            ? 'dark:(bg-blue-900 text-blue-400) !hover:(bg-blue-50) !hover:(text-blue-600) bg-blue-50 !text-blue-600'
             : ''
         }`}
         key={link.label}
@@ -79,7 +79,7 @@ function MainNavbar() {
         <Center>
           <UnstyledButton
             className={
-              'dark:(text-dark-50 hover:bg-dark-500) hover:(bg-gray-100) h-11 w-11 rounded-md text-gray-700'
+              'dark:(text-dark-50 hover:bg-dark-500) hover:(bg-gray-100) h-11 w-11 rounded-md text-gray-600'
             }
             onClick={() => toggleColorScheme()}
           >
@@ -97,7 +97,7 @@ function MainNavbar() {
         <Center>
           <UnstyledButton
             className={
-              'dark:(text-dark-50 hover:bg-dark-500) hover:(bg-gray-100) h-11 w-11 rounded-md text-gray-700'
+              'dark:(text-dark-50 hover:bg-dark-500) hover:(bg-gray-100) h-11 w-11 rounded-md text-gray-600'
             }
             onClick={handleLogOutClick}
           >
