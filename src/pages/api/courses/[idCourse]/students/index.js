@@ -8,7 +8,7 @@ async function getAllStudentOneCourse(req, res) {
     },
     select: {
       student: {
-        select: { id: true, name: true, dob: true, address: true },
+        select: { idStudent: true, name: true, dob: true, address: true },
       },
     },
   });

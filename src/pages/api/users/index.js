@@ -9,7 +9,7 @@ async function getOneUser(req, res) {
     },
     select: {
       email: true,
-      id: true,
+      idStaff: true,
       name: true,
       password: true,
     },

@@ -1,0 +1,386 @@
+[
+  {
+    "idStudent": "SV01",
+    "name": "Nguyễn Hữu Từ",
+    "dob": {
+      "$date": "2000-12-31T17:00:00Z"
+    },
+    "address": "6160 Thái Tân Ports",
+    "idMajor": "MMT",
+    "nameCompany": "HCMUS",
+    "password": {
+      "$binary": {
+        "base64": "4QrcOUm6Wau+VuBX8g+IPg==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV02",
+    "name": "Phùng Trường Sa",
+    "dob": {
+      "$date": "2000-12-31T17:00:00Z"
+    },
+    "address": "1019 Vinh Diệu Island",
+    "idMajor": "MMT",
+    "nameCompany": "HCMUS",
+    "password": {
+      "$binary": {
+        "base64": "4QrcOUm6Wau+VuBX8g+IPg==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV03",
+    "name": "Trương Nguyên Sử",
+    "dob": {
+      "$date": "2000-12-31T17:00:00Z"
+    },
+    "address": "587 Trang Linh Hill",
+    "idMajor": "MMT",
+    "nameCompany": "HCMUS",
+    "password": {
+      "$binary": {
+        "base64": "4QrcOUm6Wau+VuBX8g+IPg==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV04",
+    "name": "Phạm Hạnh Vi",
+    "dob": {
+      "$date": "2000-12-31T17:00:00Z"
+    },
+    "address": "81178 Lê Creek",
+    "idMajor": "MMT",
+    "nameCompany": "HCMUS",
+    "password": {
+      "$binary": {
+        "base64": "4QrcOUm6Wau+VuBX8g+IPg==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV05",
+    "name": "Hà Vũ Minh",
+    "dob": {
+      "$date": "2000-12-31T17:00:00Z"
+    },
+    "address": "5087 Minh Nhật Crest",
+    "idMajor": "MMT",
+    "nameCompany": "HCMUS",
+    "password": {
+      "$binary": {
+        "base64": "4QrcOUm6Wau+VuBX8g+IPg==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV06",
+    "name": "Phạm Huy Việt",
+    "dob": {
+      "$date": "2000-12-31T17:00:00Z"
+    },
+    "address": "4833 Minh Xuân Bridge",
+    "idMajor": "MMT",
+    "nameCompany": "HCMUS",
+    "password": {
+      "$binary": {
+        "base64": "4QrcOUm6Wau+VuBX8g+IPg==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV07",
+    "name": "Phạm Hữu Cảnh",
+    "dob": {
+      "$date": "2000-12-31T17:00:00Z"
+    },
+    "address": "9663 Ngọc Khánh Plain",
+    "idMajor": "MMT",
+    "nameCompany": "HCMUS",
+    "password": {
+      "$binary": {
+        "base64": "4QrcOUm6Wau+VuBX8g+IPg==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV08",
+    "name": "Đặng Cao Sỹ",
+    "dob": {
+      "$date": "2000-12-31T17:00:00Z"
+    },
+    "address": "975 Trịnh Walk",
+    "idMajor": "MMT",
+    "nameCompany": "HCMUS",
+    "password": {
+      "$binary": {
+        "base64": "4QrcOUm6Wau+VuBX8g+IPg==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV09",
+    "name": "Đỗ Thế Doanh",
+    "dob": {
+      "$date": "2000-12-31T17:00:00Z"
+    },
+    "address": "3468 Dương Mountain",
+    "idMajor": "TGMT",
+    "nameCompany": "HCMUS",
+    "password": {
+      "$binary": {
+        "base64": "4QrcOUm6Wau+VuBX8g+IPg==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV10",
+    "name": "Tăng Dạ Hương",
+    "dob": {
+      "$date": "2000-12-31T17:00:00Z"
+    },
+    "address": "2265 Tăng Centers",
+    "idMajor": "TGMT",
+    "nameCompany": "HCMUS",
+    "password": {
+      "$binary": {
+        "base64": "4QrcOUm6Wau+VuBX8g+IPg==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV11",
+    "name": "Vũ Ðình Ðôn",
+    "dob": {
+      "$date": "2000-12-31T17:00:00Z"
+    },
+    "address": "887 Trang Tâm Heights",
+    "idMajor": "TGMT",
+    "nameCompany": "HCMUS",
+    "password": {
+      "$binary": {
+        "base64": "4QrcOUm6Wau+VuBX8g+IPg==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV12",
+    "name": "Phan Thúy Nga",
+    "dob": {
+      "$date": "2000-12-31T17:00:00Z"
+    },
+    "address": "65624 Quảng Ðại Ramp",
+    "idMajor": "TGMT",
+    "nameCompany": "HCMUS",
+    "password": {
+      "$binary": {
+        "base64": "4QrcOUm6Wau+VuBX8g+IPg==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV13",
+    "name": "Đỗ Công Luật",
+    "dob": {
+      "$date": "2000-12-31T17:00:00Z"
+    },
+    "address": "4389 Tuyết Oanh Lodge",
+    "idMajor": "TGMT",
+    "nameCompany": "HCMUS",
+    "password": {
+      "$binary": {
+        "base64": "4QrcOUm6Wau+VuBX8g+IPg==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV14",
+    "name": "Hồ Hoàng Xuân",
+    "dob": {
+      "$date": "2000-12-31T17:00:00Z"
+    },
+    "address": "1865 Duy Cẩn Ferry",
+    "idMajor": "TGMT",
+    "nameCompany": "HCMUS",
+    "password": {
+      "$binary": {
+        "base64": "4QrcOUm6Wau+VuBX8g+IPg==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV15",
+    "name": "Trương Nhã Yến",
+    "dob": {
+      "$date": "2000-12-31T17:00:00Z"
+    },
+    "address": "28766 Lê Camp",
+    "idMajor": "TGMT",
+    "nameCompany": "HCMUS",
+    "password": {
+      "$binary": {
+        "base64": "4QrcOUm6Wau+VuBX8g+IPg==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV16",
+    "name": "Trương Đơn Thuần",
+    "dob": {
+      "$date": "2000-12-31T17:00:00Z"
+    },
+    "address": "5023 Lý Well",
+    "idMajor": "TGMT",
+    "nameCompany": "HCMUS",
+    "password": {
+      "$binary": {
+        "base64": "4QrcOUm6Wau+VuBX8g+IPg==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV17",
+    "name": "Đinh Ngọc Minh",
+    "dob": {
+      "$date": "2000-12-31T17:00:00Z"
+    },
+    "address": "79406 Hữu Chiến Bypass",
+    "idMajor": "HTTT",
+    "nameCompany": "HCMUS",
+    "password": {
+      "$binary": {
+        "base64": "4QrcOUm6Wau+VuBX8g+IPg==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV18",
+    "name": "Bùi Linh Duyên",
+    "dob": {
+      "$date": "2000-12-31T17:00:00Z"
+    },
+    "address": "0545 Bùi Estates",
+    "idMajor": "HTTT",
+    "nameCompany": "HCMUS",
+    "password": {
+      "$binary": {
+        "base64": "4QrcOUm6Wau+VuBX8g+IPg==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV19",
+    "name": "Hà Thanh Toàn",
+    "dob": {
+      "$date": "2000-12-31T17:00:00Z"
+    },
+    "address": "76831 Minh Xuân Mountains",
+    "idMajor": "HTTT",
+    "nameCompany": "HCMUS",
+    "password": {
+      "$binary": {
+        "base64": "4QrcOUm6Wau+VuBX8g+IPg==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV20",
+    "name": "Phạm Việt Thanh",
+    "dob": {
+      "$date": "2000-12-31T17:00:00Z"
+    },
+    "address": "8031 Xuân Lộc Drive",
+    "idMajor": "HTTT",
+    "nameCompany": "HCMUS",
+    "password": {
+      "$binary": {
+        "base64": "4QrcOUm6Wau+VuBX8g+IPg==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV21",
+    "name": "Lâm Thục Trang",
+    "dob": {
+      "$date": "2000-12-31T17:00:00Z"
+    },
+    "address": "09382 Kim Xuyến Plain",
+    "idMajor": "HTTT",
+    "nameCompany": "HCMUS",
+    "password": {
+      "$binary": {
+        "base64": "4QrcOUm6Wau+VuBX8g+IPg==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV22",
+    "name": "Vũ Thiên Khánh",
+    "dob": {
+      "$date": "2000-12-31T17:00:00Z"
+    },
+    "address": "080 Anh Dũng Centers",
+    "idMajor": "HTTT",
+    "nameCompany": "HCMUS",
+    "password": {
+      "$binary": {
+        "base64": "4QrcOUm6Wau+VuBX8g+IPg==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV23",
+    "name": "Lý Kiết Hồng",
+    "dob": {
+      "$date": "2000-12-31T17:00:00Z"
+    },
+    "address": "782 Lệ Giang Cliff",
+    "idMajor": "HTTT",
+    "nameCompany": "HCMUS",
+    "password": {
+      "$binary": {
+        "base64": "4QrcOUm6Wau+VuBX8g+IPg==",
+        "subType": "00"
+      }
+    }
+  },
+  {
+    "idStudent": "SV24",
+    "name": "Đỗ Gia Kiệt",
+    "dob": {
+      "$date": "2000-12-31T17:00:00Z"
+    },
+    "address": "71535 Thục Tâm Crescent",
+    "idMajor": "HTTT",
+    "nameCompany": "HCMUS",
+    "password": {
+      "$binary": {
+        "base64": "4QrcOUm6Wau+VuBX8g+IPg==",
+        "subType": "00"
+      }
+    }
+  }
+]

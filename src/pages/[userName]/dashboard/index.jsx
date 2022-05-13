@@ -32,12 +32,12 @@ const Dashboard = () => {
   const activeMainLink = useSelector((state) => state.activeNavLink.value);
   const dispatch = useDispatch();
   const { data: session } = useSession();
-  const { data: majorCourseList, refetch: refetchCourses } = useQuery(
+  const { data: majorCourseList } = useQuery(
     ['majorCourses', userName],
     fetchCourses,
     {
       retry: false,
-      enabled: false,
+      enabled: !!userName,
     },
   );
   useEffect(() => {
@@ -45,8 +45,7 @@ const Dashboard = () => {
       user: { name: userNameSession },
     } = session;
     setUserName(userNameSession);
-    refetchCourses();
-  }, [session, userName, refetchCourses]);
+  }, [session]);
   const mutation = useMutation((courseId) => {
     return fetchAllStudentOneCourse(courseId);
   });
@@ -86,15 +85,15 @@ const Dashboard = () => {
 
   useEffect(() => {
     const links = majorCourseList?.map((major) => {
-      const { id: majorId, nameMajor, courses } = major;
-      const subItemList = courses.map(({ id, nameCourse }) => {
+      const { idMajor, nameMajor, courses } = major;
+      const subItemList = courses.map(({ idCourse, nameCourse }) => {
         return {
-          idSubItem: id,
+          idSubItem: idCourse,
           labelSubItem: nameCourse,
         };
       });
       return {
-        idItem: majorId,
+        idItem: idMajor,
         labelItem: nameMajor,
         subItemList,
       };

@@ -3,66 +3,65 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlserver"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
 }
 
+model Course {
+  id          String       @id @default(auto()) @map("_id") @db.ObjectId
+  idCourse    String       @db.String
+  idMajor     String       @db.String
+  nameCourse  String       @db.String
+  pointCredit Int?         @db.Int
+  major       Major        @relation("CoursetoMajor", fields: [idMajor], references: [idMajor])
+  transcript  Transcript[]
+
+}
+
 model Major {
-  id        String    @id(map: "PK__LOP__7A3DE211E8C541E4") @map("MALOP") @db.VarChar(20)
-  nameMajor String    @map("TENLOP") @db.NVarChar(100)
-  idStaff   String?   @map("MANV") @db.VarChar(20)
-  staffs    Staff?    @relation(fields: [idStaff], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK__LOP__MANV__2D27B809")
-  courses   Course[]  @relation("HOCPHANToLOP")
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  idMajor   String    @db.String
+  idStaff   String?   @db.String
+  nameMajor String    @db.String
+  staffs    Staff?    @relation(fields: [idStaff], references: [idStaff])
+  courses   Course[]  @relation("CoursetoMajor")
   students  Student[]
 
-  @@map("LOP")
 }
 
 model Staff {
-  id          String  @id(map: "PK__NHANVIEN__603F51141EE892EF") @map("MANV") @db.VarChar(20)
-  name        String  @map("HOTEN") @db.NVarChar(100)
-  email       String? @map("EMAIL") @db.VarChar(20)
-  salary      Bytes?  @map("LUONG")
-  nameCompany String  @map("TENDN") @db.NVarChar(100)
-  password    Bytes   @map("MATKHAU") @db.VarBinary(20)
-  keyPublic   String? @map("PUBKEY") @db.VarChar(20)
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  email       String? @db.String
+  idStaff     String  @db.String
+  keyPublic   String? @db.String
+  name        String  @db.String
+  nameCompany String  @db.String
+  password    Bytes   @db.BinData
+  salary      Bytes?  @db.BinData
   majors      Major[]
 
-  @@map("NHANVIEN")
 }
 
 model Student {
-  id          String       @id(map: "PK__SINHVIEN__60228A28825B3334") @map("MASV") @db.VarChar(20)
-  name        String       @map("HOTEN") @db.NVarChar(100)
-  dob         DateTime?    @map("NGAYSINH") @db.DateTime
-  address     String?      @map("DIACHI") @db.NVarChar(200)
-  idMajor     String?      @map("MALOP") @db.VarChar(20)
-  nameCompany String       @map("TENDN") @db.NVarChar(100)
-  password    Bytes        @map("MATKHAU") @db.VarBinary(16)
-  major       Major?       @relation(fields: [idMajor], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK__SINHVIEN__MALOP__2C3393D0")
-  transcirpt  Transcript[] @relation("BANGDIEMToSINHVIEN")
+  id          String       @id @default(auto()) @map("_id") @db.ObjectId
+  address     String?      @db.String
+  dob         DateTime?    @db.Date
+  idStudent   String       @db.String
+  idMajor     String?      @db.String
+  name        String       @db.String
+  nameCompany String       @db.String
+  password    Bytes        @db.BinData
+  major       Major?       @relation(fields: [idMajor], references: [idMajor])
+  transcirpt  Transcript[] @relation("TranscripttoStudent")
 
-  @@map("SINHVIEN")
 }
 
 model Transcript {
-  idStudent String  @map("MASV") @db.VarChar(20)
-  idCourse  String  @map("MAHP") @db.VarChar(20)
-  mark      Bytes?  @map("DIEMTHI")
-  course    Course  @relation(fields: [idCourse], references: [id], onUpdate: NoAction, map: "FK__BANGDIEM__MAHP__300424B4")
-  student   Student @relation("BANGDIEMToSINHVIEN", fields: [idStudent], references: [id], onUpdate: NoAction, map: "FK__BANGDIEM__MASV__2F10007B")
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  idCourse  String  @db.String
+  idStudent String  @db.String
+  mark      Bytes?  @db.BinData
+  course    Course  @relation(fields: [idCourse], references: [idCourse])
+  student   Student @relation("TranscripttoStudent", fields: [idStudent], references: [idStudent])
 
-  @@id([idStudent, idCourse], map: "PK__BANGDIEM__D62178258C7E2A31")
-  @@map("BANGDIEM")
-}
-
-model Course {
-  id          String       @id(map: "PK__HOCPHAN__603F20DADB7FA58D") @map("MAHP") @db.VarChar(20)
-  nameCourse  String       @map("TENHP") @db.NVarChar(100)
-  pointCredit Int?         @map("SOTC")
-  idMajor     String       @map("MALOP") @db.VarChar(20)
-  major       Major        @relation("HOCPHANToLOP", fields: [idMajor], references: [id], onUpdate: NoAction, map: "FK__HOCPHAN__MALOP__2E1BDC42")
-  transcript  Transcript[]
-
-  @@map("HOCPHAN")
 }

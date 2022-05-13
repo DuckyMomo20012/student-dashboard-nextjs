@@ -1,0 +1,38 @@
+[
+  {
+    "idCourse": "BMCSDL",
+    "nameCourse": "Bảo mật cơ sở dữ liệu",
+    "pointCredit": 2,
+    "idMajor": "MMT"
+  },
+  {
+    "idCourse": "CSDL",
+    "nameCourse": "Cơ sở dữ liệu",
+    "pointCredit": 2,
+    "idMajor": "HTTT"
+  },
+  {
+    "idCourse": "HDH",
+    "nameCourse": "Hệ điều hành",
+    "pointCredit": 4,
+    "idMajor": "HTTT"
+  },
+  {
+    "idCourse": "MHUD",
+    "nameCourse": "Mã hóa ứng dụng",
+    "pointCredit": 3,
+    "idMajor": "TGMT"
+  },
+  {
+    "idCourse": "MMT",
+    "nameCourse": "Mạng máy tính",
+    "pointCredit": 4,
+    "idMajor": "MMT"
+  },
+  {
+    "idCourse": "NMHM",
+    "nameCourse": "Nhập môn học máy",
+    "pointCredit": 4,
+    "idMajor": "TGMT"
+  }
+]
