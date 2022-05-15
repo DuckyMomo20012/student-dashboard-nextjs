@@ -4,7 +4,8 @@ import { RowHandler } from './Handler.jsx';
 const RowDraggable = ({ draggableId, index, row }) => {
   // NOTE: We don't merge style from getRowProps with draggableProps because we
   // want full width row!!!
-  // NOTE: content-open-quote to fake data and set default height for row
+  // NOTE: key for Draggable is REQUIRED!
+  // NOTE: ALWAYS use draggableId for key prop
   return (
     <Draggable draggableId={draggableId} index={index} key={draggableId}>
       {(provided) => {

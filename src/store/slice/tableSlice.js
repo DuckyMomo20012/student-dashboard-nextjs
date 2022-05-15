@@ -43,6 +43,14 @@ export const tableSlice = createSlice({
       // eslint-disable-next-line prefer-template
       state.data[rowIdx][colIdx] = '' + value;
     },
+    updateCellDate: (state, action) => {
+      const { rowIdx, colIdx, value } = action.payload;
+
+      const dateValue = new Date(value);
+
+      // eslint-disable-next-line prefer-template
+      state.data[rowIdx][colIdx] = '' + dateValue.toISOString();
+    },
   },
 });
 
@@ -53,6 +61,7 @@ export const {
   addRowBelow,
   addLastRow,
   updateCellText,
+  updateCellDate,
 } = tableSlice.actions;
 
 export default tableSlice.reducer;

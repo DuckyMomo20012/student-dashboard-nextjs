@@ -1,53 +1,36 @@
-import { Box, Text, TextInput } from '@mantine/core';
-import { useClickOutside, useMergedRef } from '@mantine/hooks';
-import { useMemo, useRef, useState } from 'react';
-
-import { formatDate } from '@util/formatDate.js';
-import { updateCellText } from '@store/slice/tableSlice.js';
+import { DatePicker } from '@mantine/dates';
+import { updateCellDate } from '@store/slice/tableSlice.js';
 import { useDispatch } from 'react-redux';
+import { useMemo } from 'react';
 
 const CellDate = ({ value, column, row, isDisabledEdit = false }) => {
+  // NOTE: key for DatePicker is important
   const { id: rowIdx } = row;
   const { id: colIdx } = column;
+
   const initValue = useMemo(() => {
     if (value) {
-      return formatDate(new Date(value));
+      return new Date(value);
     }
-    return value;
+    return '';
   }, [value]);
 
   const dispatch = useDispatch();
-  const cellValue = useRef();
-  const [isEditing, setIsEditing] = useState(false);
-  const refClickOutside = useClickOutside(() => {
-    setIsEditing(false);
-    dispatch(
-      updateCellText({
-        rowIdx,
-        colIdx,
-        value: cellValue.current.value,
-      }),
-    );
-  });
-
-  const mergedRef = useMergedRef(cellValue, refClickOutside);
-
-  const handleChange = (e) => {
-    cellValue.current.value = e.target.value;
-  };
+  function handleDateChange(e) {
+    const dateValue = e;
+    dispatch(updateCellDate({ rowIdx, colIdx, value: dateValue.toString() }));
+  }
 
   return (
-    <Box className="relative" onClick={() => setIsEditing(true)}>
-      {!isDisabledEdit && isEditing && (
-        <TextInput
-          className="min-w-55 absolute inset-x-0 top-1/2 z-10 -translate-y-1/2 transform shadow-md"
-          defaultValue={initValue}
-          onChange={handleChange}
-          ref={mergedRef}
-        />
-      )}
-      <Text className="overflow-x-hidden whitespace-nowrap">{initValue}</Text>
-    </Box>
+    <DatePicker
+      clearable={false}
+      disabled={isDisabledEdit}
+      inputFormat="DD/MM/YYYY"
+      key={initValue}
+      onChange={handleDateChange}
+      value={initValue}
+      variant="unstyled"
+    />
   );
 };
 
