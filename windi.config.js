@@ -1,7 +1,8 @@
+import colors from 'windicss/colors';
 import range from 'lodash/range';
 
 const dynamicColor = (prop) => {
-  const colors = [
+  const listColors = [
     'pink',
     'rose',
     'red',
@@ -27,10 +28,11 @@ const dynamicColor = (prop) => {
     'light',
     'darker',
     'dark',
+    'primary',
   ];
-  const result = colors.map((color) => `${prop}-${color}-50`);
+  const result = listColors.map((color) => `${prop}-${color}-50`);
   result.push(
-    ...colors.flatMap((color) => {
+    ...listColors.flatMap((color) => {
       return range(100, 1000, 100).map((num) => {
         return `${prop}-${color}-${num}`;
       });
@@ -72,7 +74,11 @@ export default {
   ],
   theme: {
     extend: {
-      colors: { white: '#FAFAFA', black: '#333' },
+      colors: {
+        white: '#FAFAFA',
+        black: '#333',
+        primary: colors.rose,
+      },
       fontFamily: {
         sans: ['Inter', 'ui-sans-serif', 'system-ui'],
         serif: ['Roboto Slab', 'ui-serif', 'Georgia'],

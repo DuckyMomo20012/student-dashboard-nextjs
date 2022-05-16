@@ -7,6 +7,7 @@ import {
   Title,
   useMantineTheme,
 } from '@mantine/core';
+
 import Link from 'next/link';
 
 const HeroTitle = () => {
@@ -22,7 +23,7 @@ const HeroTitle = () => {
           A{' '}
           <Text
             component="span"
-            gradient={{ from: 'blue', to: 'cyan' }}
+            gradient={{ from: 'rose', to: 'fuchsia' }}
             inherit
             variant="gradient"
           >
@@ -39,7 +40,7 @@ const HeroTitle = () => {
           <Link href="/auth/login">
             <Button
               className="h-54px px-38px <md:(h-54px px-18px flex-1)"
-              gradient={{ from: 'blue', to: 'cyan' }}
+              gradient={{ from: 'rose', to: 'fuchsia' }}
               size="xl"
               variant="gradient"
             >
