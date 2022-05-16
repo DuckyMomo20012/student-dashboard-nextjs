@@ -9,8 +9,8 @@ datasource db {
 
 model Course {
   id          String       @id @default(auto()) @map("_id") @db.ObjectId
-  idCourse    String       @db.String
-  idMajor     String       @db.String
+  idCourse    String       @unique @db.String
+  idMajor     String       @unique @db.String
   nameCourse  String       @db.String
   pointCredit Int?         @db.Int
   major       Major        @relation("CoursetoMajor", fields: [idMajor], references: [idMajor])
@@ -20,8 +20,8 @@ model Course {
 
 model Major {
   id        String    @id @default(auto()) @map("_id") @db.ObjectId
-  idMajor   String    @db.String
-  idStaff   String?   @db.String
+  idMajor   String    @unique @db.String
+  idStaff   String?   @unique @db.String
   nameMajor String    @db.String
   staffs    Staff?    @relation(fields: [idStaff], references: [idStaff])
   courses   Course[]  @relation("CoursetoMajor")
@@ -32,10 +32,10 @@ model Major {
 model Staff {
   id          String  @id @default(auto()) @map("_id") @db.ObjectId
   email       String? @db.String
-  idStaff     String  @db.String
+  idStaff     String  @unique @db.String
   keyPublic   String? @db.String
   name        String  @db.String
-  nameCompany String  @db.String
+  nameCompany String? @db.String
   password    Bytes   @db.BinData
   salary      Bytes?  @db.BinData
   majors      Major[]
@@ -46,20 +46,20 @@ model Student {
   id          String       @id @default(auto()) @map("_id") @db.ObjectId
   address     String?      @db.String
   dob         DateTime?    @db.Date
-  idStudent   String       @db.String
-  idMajor     String?      @db.String
+  idStudent   String       @unique @db.String
+  idMajor     String?      @unique @db.String
   name        String       @db.String
-  nameCompany String       @db.String
-  password    Bytes        @db.BinData
+  nameCompany String?      @db.String
+  password    Bytes?       @db.BinData
   major       Major?       @relation(fields: [idMajor], references: [idMajor])
-  transcirpt  Transcript[] @relation("TranscripttoStudent")
+  transcript  Transcript[] @relation("TranscripttoStudent")
 
 }
 
 model Transcript {
   id        String  @id @default(auto()) @map("_id") @db.ObjectId
-  idCourse  String  @db.String
-  idStudent String  @db.String
+  idCourse  String  @unique @db.String
+  idStudent String  @unique @db.String
   mark      Bytes?  @db.BinData
   course    Course  @relation(fields: [idCourse], references: [idCourse])
   student   Student @relation("TranscripttoStudent", fields: [idStudent], references: [idStudent])

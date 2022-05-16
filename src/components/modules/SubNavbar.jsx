@@ -29,7 +29,7 @@ const SubNavbar = ({
               <Text
                 className={`border-box dark:(text-dark-50 bg-dark-500 text-white) text-14px leading-11 hover:(bg-gray-100 text-black) block h-11 truncate rounded-r-md px-4 py-0 font-medium text-gray-600 ${
                   activeSubLink === idSubItem &&
-                  'dark:(border-l-blue-600 bg-blue-600) !hover:(border-l-blue-500) !hover:(bg-blue-500) !hover:(text-white) border-l-blue-500 bg-blue-500 text-white'
+                  'dark:(border-l-primary-600 bg-primary-600) !hover:(border-l-primary-500) !hover:(bg-primary-500) !hover:(text-white) border-l-primary-500 bg-primary-500 text-white'
                 }`}
                 onClick={() => {
                   onActiveSubLinkClick(idSubItem);
