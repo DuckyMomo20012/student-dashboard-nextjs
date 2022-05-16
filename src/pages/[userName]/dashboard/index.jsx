@@ -1,4 +1,4 @@
-import { Box, Center, Group, Loader, Stack, Text } from '@mantine/core';
+import { Box, Button, Center, Group, Loader, Stack, Text } from '@mantine/core';
 import { DataGrid, SubNavbar } from '@module/index.js';
 import { updateColumn, updateData } from '@store/slice/tableSlice.js';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,6 +7,7 @@ import { useMutation, useQuery } from 'react-query';
 
 import { AppShell } from '@layout/AppShell';
 import axios from 'axios';
+import { update } from 'lodash';
 import { useSession } from 'next-auth/react';
 
 async function fetchCourses({ queryKey }) {
@@ -22,6 +23,13 @@ async function fetchCourses({ queryKey }) {
 async function fetchAllStudentOneCourse(courseId) {
   const students = await axios.get(`/api/courses/${courseId}/students`);
   return students.data;
+}
+
+async function updateAllStudentOneCourse(courseId, dataStudent) {
+  const updateStudents = await axios.put(`/api/courses/${courseId}/students`, {
+    dataStudent,
+  });
+  return updateStudents.data;
 }
 
 const Dashboard = () => {
@@ -46,15 +54,19 @@ const Dashboard = () => {
     } = session;
     setUserName(userNameSession);
   }, [session]);
-  const mutation = useMutation((courseId) => {
+  const mutationStudent = useMutation((courseId) => {
     return fetchAllStudentOneCourse(courseId);
   });
 
-  const data = useSelector((state) => state.table.data);
-  const columns = useSelector((state) => state.table.columns);
+  const mutationUpdate = useMutation(({ courseId, dataStudent }) => {
+    return updateAllStudentOneCourse(courseId, dataStudent);
+  });
+
+  const dataTable = useSelector((state) => state.table.data);
+  const columnTable = useSelector((state) => state.table.columns);
 
   useEffect(() => {
-    if (mutation.isSuccess) {
+    if (mutationStudent.isSuccess) {
       // Use first data to get num of columns
       const numColumn = Object.keys(students[0]?.student);
       const columnProps = numColumn.map((colName) => {
@@ -81,7 +93,7 @@ const Dashboard = () => {
       dispatch(updateData(dataStudent));
       dispatch(updateColumn(columnProps));
     }
-  }, [students, mutation.isSuccess, dispatch]);
+  }, [students, mutationStudent.isSuccess, dispatch]);
 
   useEffect(() => {
     const links = majorCourseList?.map((major) => {
@@ -104,8 +116,15 @@ const Dashboard = () => {
 
   async function handleActiveCourseClick(activeLink) {
     setActiveCourseId(activeLink);
-    const dataStudent = await mutation.mutateAsync(activeLink);
+    const dataStudent = await mutationStudent.mutateAsync(activeLink);
     setStudents(dataStudent);
+  }
+
+  async function handleUpdateDataClick() {
+    await mutationUpdate.mutateAsync({
+      courseId: activeCourseId,
+      dataStudent: dataTable,
+    });
   }
 
   return (
@@ -117,12 +136,21 @@ const Dashboard = () => {
         onActiveSubLinkClick={handleActiveCourseClick}
       />
       <Stack className="relative flex-grow" justify="start">
-        {mutation.isSuccess && (
-          <Box className="absolute inset-0">
-            <DataGrid columns={columns} data={data} />
-          </Box>
+        {mutationStudent.isSuccess && (
+          <Stack className="absolute inset-0">
+            <Group position="center">
+              <Button
+                className="items-center"
+                loading={mutationUpdate.isLoading}
+                onClick={handleUpdateDataClick}
+              >
+                Update data
+              </Button>
+            </Group>
+            <DataGrid columns={columnTable} data={dataTable} />
+          </Stack>
         )}
-        {mutation.isLoading && (
+        {mutationStudent.isLoading && (
           <Center className="h-full w-full">
             <Stack>
               <Text>Loading data...</Text>
