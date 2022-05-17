@@ -8,6 +8,7 @@ import {
   TextInput,
   Title,
 } from '@mantine/core';
+
 import Link from 'next/link';
 
 const Register = () => {
@@ -18,7 +19,7 @@ const Register = () => {
       </Title>
       <Text align="center" color="dimmed" mt={5} size="sm">
         Already have an account?{' '}
-        <Link href="/account/login">
+        <Link href="/auth/login">
           <Anchor size="sm">Login</Anchor>
         </Link>
       </Text>

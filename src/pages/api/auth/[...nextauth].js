@@ -36,7 +36,6 @@ export default NextAuth({
         if (user && user.password === hashPassword) {
           return user;
         }
-
         return null;
       },
     }),
@@ -44,7 +43,17 @@ export default NextAuth({
   pages: {
     signIn: '/auth/login',
   },
-  secret: process.env.SECRET,
+  logger: {
+    error(code, metadata) {
+      console.error(code, metadata);
+    },
+    warn(code) {
+      console.warn(code);
+    },
+    debug(code, metadata) {
+      console.debug(code, metadata);
+    },
+  },
   events: {
     async signIn(message) {
       const {
