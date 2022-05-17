@@ -36,13 +36,23 @@ export default NextAuth({
         if (user && user.password === hashPassword) {
           return user;
         }
-
         return null;
       },
     }),
   ],
   pages: {
     signIn: '/auth/login',
+  },
+  logger: {
+    error(code, metadata) {
+      console.error(code, metadata);
+    },
+    warn(code) {
+      console.warn(code);
+    },
+    debug(code, metadata) {
+      console.debug(code, metadata);
+    },
   },
   events: {
     async signIn(message) {

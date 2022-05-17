@@ -24,27 +24,40 @@ import { useRouter } from 'next/router';
 const Login = () => {
   const router = useRouter();
   const { register, handleSubmit } = useForm();
-  const [opened, setOpened] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
   const [overlayVisible, setOverlayVisible] = useState(false);
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [error, setError] = useState('');
   const [user, setUser] = useState(null);
-  const { data: session, status: sessionStatus } = useSession();
+  const { data: session } = useSession();
 
   useEffect(() => {
     if (session) {
-      const { user } = session;
-      setUser(user);
-      if (sessionStatus === 'authenticated') {
-        setOpened(true);
-        setOverlayVisible(false);
-      }
+      setUser(session.user);
     }
-  }, [session, sessionStatus]);
+  }, [session]);
 
-  const onSubmit = (data) => {
-    const { email, password } = data;
+  useEffect(() => {
+    if (formSubmitted) {
+      setModalVisible(true);
+      setOverlayVisible(false);
+      setFormSubmitted(false);
+    }
+  }, [formSubmitted]);
+
+  const onSubmit = async (form) => {
+    const { email, password } = form;
     setOverlayVisible(true);
     // Sign in using next-auth function api
-    signIn('credentials', { email, password, redirect: false });
+    const { error: signInError } = await signIn('credentials', {
+      email,
+      password,
+      redirect: false,
+    });
+    if (signInError) {
+      setError(signInError);
+    }
+    setFormSubmitted(true);
   };
 
   return (
@@ -54,7 +67,7 @@ const Login = () => {
       </Title>
       <Text align="center" color="dimmed" mt={5} size="sm">
         Do not have an account yet?{' '}
-        <Link href="/account/register">
+        <Link href="/auth/register">
           <Anchor size="sm">Create account</Anchor>
         </Link>
       </Text>
@@ -93,28 +106,29 @@ const Login = () => {
 
       <Modal
         onClose={() => {
-          setOpened(false);
+          setModalVisible(false);
           if (user) {
             const userName = slugify(user.name.toLowerCase());
             router.push(`/${userName}/dashboard`);
           }
         }}
-        opened={opened}
+        opened={modalVisible}
         withCloseButton={false}
       >
-        {user ? (
+        {user && (
           <Group>
             <ThemeIcon color="green" radius="xl" size="xl" variant="light">
               <Icon icon="ic:twotone-check-circle" width={24} />
             </ThemeIcon>
             <Text>You are logged in</Text>
           </Group>
-        ) : (
+        )}
+        {error && (
           <Group>
             <ThemeIcon color="red" radius="xl" size="xl" variant="light">
               <Icon icon="ic:baseline-error-outline" width="24" />
             </ThemeIcon>
-            <Text>You are not logged in</Text>
+            <Text>Wrong credentials</Text>
           </Group>
         )}
       </Modal>
