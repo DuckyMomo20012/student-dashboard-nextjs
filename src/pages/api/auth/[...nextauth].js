@@ -1,15 +1,21 @@
 import CredentialsProvider from 'next-auth/providers/credentials';
 import NextAuth from 'next-auth';
-import axios from 'axios';
+import prisma from '@lib/prisma.js';
 import { sha1 } from 'hash-wasm';
 
-async function fetchOneUser(userMail) {
-  const user = await axios.get(`${process.env.HOST}/api/users`, {
-    params: {
-      usermail: userMail,
+async function getOneUser(userMail) {
+  const user = await prisma.staff.findFirst({
+    where: {
+      email: userMail,
+    },
+    select: {
+      email: true,
+      idStaff: true,
+      name: true,
+      password: true,
     },
   });
-  return user.data;
+  return { ...user, password: user.password.toString('hex') };
 }
 
 export default NextAuth({
@@ -31,7 +37,7 @@ export default NextAuth({
         // Inputs from login form
         const { email, password } = credentials;
         const hashPassword = await sha1(password);
-        const user = await fetchOneUser(email);
+        const user = await getOneUser(email);
         if (user && user.password === hashPassword) {
           return user;
         }
