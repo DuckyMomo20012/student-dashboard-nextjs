@@ -8,7 +8,6 @@ import {
 } from '@mantine/core';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { DOMAIN } from '@constant/index.js';
 import { Icon } from '@iconify/react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -21,7 +20,7 @@ const mainLinksMockdata = [
 ];
 
 function handleLogOutClick() {
-  signOut({ callbackUrl: `${DOMAIN}/` });
+  signOut({ callbackUrl: '/' });
 }
 
 function MainNavbar() {

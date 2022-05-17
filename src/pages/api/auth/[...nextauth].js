@@ -1,11 +1,10 @@
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { DOMAIN } from '@constant/index.js';
 import NextAuth from 'next-auth';
 import axios from 'axios';
 import { sha1 } from 'hash-wasm';
 
 async function fetchOneUser(userMail) {
-  const user = await axios.get(`${DOMAIN}/api/users`, {
+  const user = await axios.get(`${process.env.HOST}/api/users`, {
     params: {
       usermail: userMail,
     },
@@ -42,17 +41,6 @@ export default NextAuth({
   ],
   pages: {
     signIn: '/auth/login',
-  },
-  logger: {
-    error(code, metadata) {
-      console.error(code, metadata);
-    },
-    warn(code) {
-      console.warn(code);
-    },
-    debug(code, metadata) {
-      console.debug(code, metadata);
-    },
   },
   events: {
     async signIn(message) {
