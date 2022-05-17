@@ -115,15 +115,14 @@ const Login = () => {
         opened={modalVisible}
         withCloseButton={false}
       >
-        {user && (
+        {user ? (
           <Group>
             <ThemeIcon color="green" radius="xl" size="xl" variant="light">
               <Icon icon="ic:twotone-check-circle" width={24} />
             </ThemeIcon>
             <Text>You are logged in</Text>
           </Group>
-        )}
-        {error && (
+        ) : (
           <Group>
             <ThemeIcon color="red" radius="xl" size="xl" variant="light">
               <Icon icon="ic:baseline-error-outline" width="24" />
