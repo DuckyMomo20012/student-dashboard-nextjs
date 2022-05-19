@@ -50,6 +50,6 @@
     "prettier": "2.6.2",
     "prettier-plugin-tailwindcss": "0.1.10",
     "prisma": "3.14.0",
-    "windicss": "3.5.3"
+    "windicss": "3.5.4"
   }
 }
