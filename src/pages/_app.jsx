@@ -1,12 +1,14 @@
+import 'windi.css';
+
 import {
   AuthGuard,
   CustomMantineProvider,
   CustomQueryClientProvider,
   CustomReduxProvider,
 } from '@provider/index.js';
-import { SessionProvider } from 'next-auth/react';
+
 import NextNProgress from 'nextjs-progressbar';
-import 'windi.css';
+import { SessionProvider } from 'next-auth/react';
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const getLayout = Component.getLayout || ((page) => page);
