@@ -541,10 +541,10 @@
   resolved "https://registry.yarnpkg.com/@mantine/dates/-/dates-4.2.7.tgz#6f4e21e61186dfbd11a12a5654540780020ae3db"
   integrity sha512-+60DdqTLAXVZVR1z/YZRhL2RjwVE6iaoevNOk8OGVPbXLO7oSBK2LA20JBljZizDEZaI0sg6aTUhdhTMX+IHBA==
 
-"@mantine/hooks@4.2.6":
-  version "4.2.6"
-  resolved "https://registry.yarnpkg.com/@mantine/hooks/-/hooks-4.2.6.tgz#8787316b2d2a0106c9aed0f2e284c096b0e3d985"
-  integrity sha512-SEdnh/ugmYL819ssPK0pRNZO+/gq709BwxfzhA2x7QsdQBlcrXU0vrrckhnScTG/iqlVxNDi36Yhl31JIBmd/Q==
+"@mantine/hooks@4.2.7":
+  version "4.2.7"
+  resolved "https://registry.yarnpkg.com/@mantine/hooks/-/hooks-4.2.7.tgz#8b287e03efb59bef78f453e9d8e55bb1f71ff99b"
+  integrity sha512-lBzoVjiqCCbQyr9YIRReFCo2jSXAZGSOgf1QDVa4rq3BxkwVDBsriHOpvG9h4mq2sWh4sjzPvfgy/OK/e2QpYQ==
 
 "@mantine/next@4.2.7":
   version "4.2.7"
